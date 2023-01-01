@@ -1,0 +1,39 @@
+/*Main*/
+h3{
+    color: rgb(39, 176, 110);
+    padding-bottom: 7px;
+    border-bottom: solid;
+    margin-bottom: 10px;
+}
+
+input, select{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 3px 0;
+}
+
+fieldset{
+    border-color: rgb(39, 176, 110);
+    padding: 10px;
+    margin: 20px 0;
+}
+
+#notice{
+    text-align: center;
+}
+
+hr{
+    border : 0px;
+    border-top: 2px dashed gray;
+    width: 41%;
+    float: left;
+}
+
+.submissionBtn{
+    margin: 0 auto;
+}
+
+.addBtn{
+    display: inline;
+    float: right;
+    margin-right: 5px;
+}
