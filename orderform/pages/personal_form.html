@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>개인 주문폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/order_form.css">
+</head>
+<body>
+    <!--header-->
+    <header>
+        <div class="wrapper clearfix">
+            <h2>팜킷샐러드 정기배송 주문폼</h2>
+        </div>
+    </header>
+
+    <!--main-->
+    <main>
+        <div class="wrapper clearfix">
+            <div class="wrapper_box">
+                <h3>개인 주문</h3>
+                <p>
+                    주문폼 설명 삽입하세요. 주문폼 설명 삽입하세요. 주문폼 설명 삽입하세요.
+                    주문폼 설명 삽입하세요.주문폼 설명 삽입하세요.주문폼 설명 삽입하세요.
+                    주문폼 설명 삽입하세요.주문폼 설명 삽입하세요.주문폼 설명 삽입하세요.
+                </p>
+            </div>
+            <!--주문 유형 선택-->
+            <form action="보내는 주소.html.html" method="post">
+                <fieldset>
+                    <h3>주문 유형 선택</h3>
+                    <label><input type="radio" name="order_type" value="personal_order" onclick='btnDisabled()'> 개인 주문&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label><input type="radio" name="order_type" value="team_order" onclick='btnActive()' disabled> 팀 주문</label>
+                    <label><input type="text" name="team_name" placeholder="팀명을 입력하세요." id="target_btn" disabled></label>
+                </fieldset>
+            </form>
+            <!--개인 정보 등록-->
+            <form action="보내는 주소.html" method="post">
+                <fieldset>
+                    <h3>개인 정보 등록</h3>
+                    - 이름 : &nbsp;<input type="text" name="name"><br>
+                    - 생년월일 : &nbsp;<input type="date" name="birth"><br>
+                    - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
+                    - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
+                </fieldset>
+            </form>
+            <!--배송 정보 등록-->
+            <form action="보내는 주소.html" method="post">
+                <fieldset>
+                    <h3>배송 정보 등록</h3>
+                    - 배송지<br>
+                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="deliveryCode"><br>
+                    <input type="text" id="sample6_address" placeholder="주소"><br>
+                    <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                    <input type="text" id="sample6_extraAddress" placeholder="참고항목"><br>
+                    <hr><br>
+                    - 배송 시간<br>
+                    <label><input type="radio" name="delivery" onclick="plusTime1()">  주 1회&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label><input type="radio" name="delivery" onclick="plusTime2()">  주 2회&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label><input type="radio" name="delivery" onclick="plusTime3()">  주 3회</label>
+                    <div id="once" style="display: none">
+                        1. <select name="delivery_day">
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thur">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="delivery_time">
+                            <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
+                            <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
+                        </select>
+                    </div>
+                    <div id="twice" style="display: none">
+                        1. <select name="delivery_day">
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thur">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="delivery_time">
+                            <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
+                            <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
+                        </select>&nbsp;&nbsp;
+                        2. <select name="delivery_day">
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thur">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="delivery_time">
+                            <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
+                            <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
+                        </select>
+                    </div>
+                    <div id="third" style="display: none">
+                        1. <select name="delivery_day">
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thur">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="delivery_time">
+                            <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
+                            <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
+                        </select>&nbsp;&nbsp;
+                        2. <select name="delivery_day">
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thur">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="delivery_time">
+                            <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
+                            <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
+                        </select>&nbsp;&nbsp;
+                        3. <select name="delivery_day">
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thur">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="delivery_time">
+                            <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
+                            <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
+                        </select>
+                    </div>
+                    <div id="plusTime"></div>
+                </fieldset>
+            </form>
+            <div class="wrapper_box">
+                <p id="notice">
+                    ※메뉴는 전문가 상담 후 정해집니다. 등등 안내 문구 삽입 ※ ※메뉴는 전문가 상담 후 정해집니다. 등등 안내 문구 삽입 ※<br>
+                    ※메뉴는 전문가 상담 후 정해집니다. 등등 안내 문구 삽입 ※ ※메뉴는 전문가 상담 후 정해집니다. 등등 안내 문구 삽입 ※ <br>
+                    ※메뉴는 전문가 상담 후 정해집니다. 등등 안내 문구 삽입 ※
+                </p>
+            </div>
+            <div class="wrapper_box">
+                <button type="button" onclick="alert('제출이 완료되었습니다!')" class="submissionBtn">제출</button>
+            </div>
+        </div>
+    </main>
+
+    <!--footer-->
+    <footer>
+        <div class="wrapper">
+            <p>Copyright &copy HADA project</p>
+        </div>
+    </footer>
+
+<!--javaScript-->
+<script src="../js/order_form.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+</body>
+</html>
