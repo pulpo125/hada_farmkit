@@ -33,11 +33,11 @@ body { font-family: 'Noto Sans KR', sans-serif; }
 #mainPgWrapper{ height: 100%; padding-left: 200px; }
 
 /* Header */
-header { background: rgb(39, 176, 110); min-height: 10%; padding: 3px 20px; }
-header div{ margin: 10px 0; }
+header { min-height: 10%; padding: 10px 20px; }
+header div{ margin: 5px 0; }
 
 /* Main */
-main { min-height: 90%; padding: 10px 20px; }
+main { min-height: 90%; padding: 0 20px; }
 
 /* 화면 크기에 따른 변경사항*/
 @media (max-width: 800px) {
