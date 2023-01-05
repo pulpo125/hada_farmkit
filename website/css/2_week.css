@@ -1,0 +1,5 @@
+/*테이블*/
+table {border-collapse: collapse; text-align: center;}
+table thead th {height: 45px; border: 1.5px solid #AFABAB; background-color: #27B06E; color: #FFFFFF}
+table tr td {height: 40px; border: 1.5px solid #AFABAB;}
+
