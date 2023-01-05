@@ -34,7 +34,6 @@ body { font-family: 'Noto Sans KR', sans-serif; }
 
 /* Header */
 header { background: rgb(39, 176, 110); min-height: 10%; padding: 3px 20px; }
-/*header div{ padding-bottom: 10px; }*/
 header div{ margin: 10px 0; }
 
 /* Main */
