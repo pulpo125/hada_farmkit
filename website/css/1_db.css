@@ -1,0 +1,21 @@
+/*상단 header 고정 ????*/
+/*#mainPgWrapper header{position: fixed;}*/
+
+/*검색바*/
+#searchBox{text-align: right; margin-bottom: 15px;}
+#searchSelect{display: inline-block; width: 80px; height: 40px; padding: 2px 4px; border: solid 2px #27B06E; border-radius: 3px; color: #27B06E; font-size: 16px;}
+#searchSelect:focus{outline: inherit;}
+#searchBlank{display: inline-block; width: 240px; height: 40px; margin-left: 5px; border: solid 2px #27B06E; border-radius: 3px;}
+#searchKey{display: inline-block; width: 200px; height: 30px; padding: 3px 5px; border: none; font-size: 16px;}
+#searchKey:focus{outline: none;}
+/*#searchKey{display: inline-block; width: 200px; height: 30px; padding: 3px 10px; margin-left: 5px; border: solid 2px #27B06E; border-radius: 3px;}*/
+#searchBtn{display: inline-block; padding: 2px 5px 0 0; border: none; color: #27B06E; background-color: #FFFFFF; font-size: 20px; cursor: pointer;}
+
+/*테이블*/
+table {border-collapse: collapse; text-align: center;}
+table thead th {height: 45px; border: 1.5px solid #AFABAB; background-color: #27B06E; color: #FFFFFF}
+table tr td {height: 40px; border: 1.5px solid #AFABAB;}
+table tr td .edit{color: #27B06E; font-weight: bold;}
+table tr td .edit:hover{text-decoration: underline 1.5px;}
+tbody tr:nth-child(2n) {background-color: #F8FCF6;}
+tbody tr:nth-child(2n+1) {background-color: #E2F0D9;}
