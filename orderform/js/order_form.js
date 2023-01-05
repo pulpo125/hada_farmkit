@@ -1,27 +1,50 @@
 /*주문 유형 선택*/
-/*팀 선택 시 팀 이름 입력칸 활성화*/
-function btnActive()  {
-    const target = document.getElementById('target_btn');
-    target.disabled = false;
-}
-function btnDisabled()  {
-    const target = document.getElementById('target_btn');
+function customerSelect()  {
+    /* 개인 선택 시 팀이름 입력 칸 비활성화*/
+    var target = document.getElementById('teamName');
     target.disabled = true;
+
+    /* 개인 선택 시 등록폼 1개만 보이기*/
+    document.getElementById("registerForm2").style.display = "none";
+    document.getElementById("registerForm3").style.display = "none";
+
+    /* 개인 선택 시 추가/삭제 버튼 비활성화*/
+    var addBtn = document.getElementById('addBtn');
+    addBtn.disabled = true;
+    var removeBtn = document.getElementById('removeBtn');
+    removeBtn.disabled = true;
+}
+function teamSelect()  {
+    /* 팀 선택 시 팀이름 입력 칸 활성화*/
+    var target = document.getElementById('teamName');
+    target.disabled = false;
+
+    /* 팀 선택 시 등록폼 3개 보이기*/
+    document.getElementById("registerForm2").style.display = "block";
+    document.getElementById("registerForm3").style.display = "block";
+
+    /* 개인 선택 시 추가/삭제 버튼 활성화*/
+    var addBtn = document.getElementById('addBtn');
+    addBtn.disabled = false;
+    var removeBtn = document.getElementById('removeBtn');
+    removeBtn.disabled = false;
 }
 
-/*개인 정보 등*/
-/*추가하기 버튼 클릭시 개인 정보 등록 칸 추가*/
-function setInnerHTML() {
-    const element = document.getElementById('plus_form');
-    element.innerHTML += '- 이름 : &nbsp;<input type="text" name="name"><br>\n' +
-        '                - 생년월일 : &nbsp;<input type="date" name="birth"><br>\n' +
-        '                - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>\n' +
-        '                - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">\n' +
-        '                <br><hr><br>';
+/*개인 정보 등록*/
+function addForm() {
+    /*추가하기 버튼 클릭시 개인 정보 등록 칸 추가*/
+    const form = document.getElementById('addFormChild');
+    const plus = document.getElementById('plusSection');
+    const formCopy = form.cloneNode(true);
+    const plus2 = plus.appendChild(formCopy);
+    plus2.id = 'addFormCopy'
+    plus2.style.display = "block";
 }
-function refresh()  {
-    const element = document.getElementById('plus_form');
-    element.innerHTML = ' ';
+
+function removeForm()  {
+    /* 삭제하기 버튼 클릭시 추가된 개인 정보 등록 칸 삭제*/
+    const copyForm = document.getElementById('addFormCopy');
+    copyForm.parentNode.removeChild(copyForm);
 }
 
 /*주소검색*/
