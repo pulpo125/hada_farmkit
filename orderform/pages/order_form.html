@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>팀 주문폼</title>
+    <title>개인 주문폼</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
 <main>
     <div class="wrapper clearfix">
         <div class="wrapper_box">
-            <h3>팀 주문</h3>
+            <h3>Notice</h3>
             <p>
                 주문폼 설명 삽입하세요. 주문폼 설명 삽입하세요. 주문폼 설명 삽입하세요.
                 주문폼 설명 삽입하세요.주문폼 설명 삽입하세요.주문폼 설명 삽입하세요.
@@ -31,9 +31,9 @@
         <form action="보내는 주소.html.html" method="post">
             <fieldset>
                 <h3>주문 유형 선택</h3>
-                <label><input type="radio" name="order_type" value="personal_order" onclick='btnDisabled()'disabled> 개인 주문&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <label><input type="radio" name="order_type" value="team_order" onclick='btnActive()'> 팀 주문</label>
-                <label><input type="text" name="team_name" placeholder="팀명을 입력하세요." id="target_btn" disabled></label>
+                <label><input type="radio" name="order_type" value="customer_order" onclick='customerSelect()' checked> 개인 주문&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label><input type="radio" name="order_type" value="team_order" onclick='teamSelect()' > 팀 주문</label>
+                <label><input type="text" name="team_name" placeholder="팀명을 입력하세요." id="teamName" disabled ></label>
             </fieldset>
         </form>
         <!--개인 정보 등록-->
@@ -41,25 +41,42 @@
             <fieldset>
                 <h3>
                     개인 정보 등록
-                    <input class="addBtn"type='button' value='삭제하기' onclick='refresh()'>
-                    <input class="addBtn" type="button" value="추가하기" onclick="setInnerHTML()">
+                    <input id="removeBtn" class="register_btn" type='button' value='삭제하기' onclick='removeForm()' disabled>
+                    <input id="addBtn" class="register_btn" type="button" value="추가하기" onclick="addForm()" disabled>
                 </h3>
-                - 이름 : &nbsp;<input type="text" name="name"><br>
-                - 생년월일 : &nbsp;<input type="date" name="birth"><br>
-                - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
-                - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
-                <br><hr><br>
-                - 이름 : &nbsp;<input type="text" name="name"><br>
-                - 생년월일 : &nbsp;<input type="date" name="birth"><br>
-                - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
-                - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
-                <br><hr><br>
-                - 이름 : &nbsp;<input type="text" name="name"><br>
-                - 생년월일 : &nbsp;<input type="date" name="birth"><br>
-                - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
-                - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
-                <br><hr><br>
-                <div id="plus_form"></div>
+                <div id="registerForm">
+                    <div id="registerForm1">
+                        - 이름 : &nbsp;<input type="text" name="name"><br>
+                        - 생년월일 : &nbsp;<input type="date" name="birth"><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
+                        <br><hr><br>
+                    </div>
+                    <div id="registerForm2" style="display: none">
+                        - 이름 : &nbsp;<input type="text" name="name"><br>
+                        - 생년월일 : &nbsp;<input type="date" name="birth"><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
+                        <br><hr><br>
+                    </div>
+                    <div id="registerForm3" style="display: none">
+                        - 이름 : &nbsp;<input type="text" name="name"><br>
+                        - 생년월일 : &nbsp;<input type="date" name="birth"><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
+                        <br><hr><br>
+                    </div>
+                    <div id="addForm" style="display: none">
+                        <div id="addFormChild">
+                            - 이름 : &nbsp;<input type="text" name="name"><br>
+                            - 생년월일 : &nbsp;<input type="date" name="birth"><br>
+                            - 성별 : &nbsp;<label><input type="radio" name="gender" value="male"> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="gender" value="female"> 여</label> <br>
+                            - 연락처 : &nbsp;<input type="tel" name="tel" placeholder="예) 01012345678">
+                            <br><hr><br>
+                        </div>
+                    </div>
+                    <div id="plusSection"></div>
+                </div>
             </fieldset>
         </form>
         <!--배송 정보 등록-->

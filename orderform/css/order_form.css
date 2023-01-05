@@ -1,10 +1,17 @@
-/*base*/
+/* common */
+* {padding: 0; margin: 0; box-sizing: border-box;}
+html,body {width: 100%; height: 100%; padding: 0; margin: 0; font-size: 15px;}
+table {border-collapse: collapse;}
+ul,li {list-style-type: none;}
+a {text-decoration: none; color: inherit;}
+h1, h2, h3, p { margin: 0; }
+.clearfix:after { clear: both; content: " "; display: table; }
+.wrapper { max-width: 1024px; width: 90%; margin: 0 auto; }
+.wrapper_box{ margin: 20px 0; }
+
 /*font*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
-
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-}
+body { font-family: 'Noto Sans KR', sans-serif; }
 
 /* Header */
 header {
@@ -13,24 +20,45 @@ header {
     padding: 20px 0;
 }
 
-/* Main */
-main {
-    padding: 20px 0;
-}
-
-/* Footer */
-footer {
-    color: white;
-    background:  rgb(39, 176, 110);
-    padding: 20px 0;
-    font-weight: bold;
-}
-
 @media only screen and (min-width: 768px) {
     header h2 {
         float: left;
         font-size: 2rem;
     }
+}
+
+
+/* Main */
+main {
+    padding: 20px 0;
+}
+
+h3{
+    color: rgb(39, 176, 110);
+    padding-bottom: 7px;
+    border-bottom: solid;
+    margin-bottom: 10px;
+}
+
+input, select{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 3px 0;
+}
+
+fieldset{
+    border-color: rgb(39, 176, 110);
+    padding: 10px;
+    margin: 20px 0;
+}
+
+#notice{ text-align: center; }
+
+hr{
+    border : 0px;
+    border-top: 2px dashed gray;
+    width: 41%;
+    float: left;
+    margin-top: 10px;
 }
 
 /*Btn*/
@@ -50,69 +78,19 @@ button:hover {
     background: #F4D03F;
 }
 
-/* Common */
-.clearfix:after {
-    clear: both;
-    content: " ";
-    display: table;
-}
+.submissionBtn{ margin: 0 auto; }
 
-.wrapper {
-    max-width: 1024px;
-    width: 90%;
-    margin: 0 auto;
-}
-
-.wrapper_box{
-    margin: 20px 0;
-}
-
-h1, h2, h3, p {
-    margin: 0;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-/*---------------------------------------*/
-
-/*Main*/
-h3{
-    color: rgb(39, 176, 110);
-    padding-bottom: 7px;
-    border-bottom: solid;
-    margin-bottom: 10px;
-}
-
-input, select{
-    font-family: 'Noto Sans KR', sans-serif;
-    margin: 3px 0;
-}
-
-fieldset{
-    border-color: rgb(39, 176, 110);
-    padding: 10px;
-    margin: 20px 0;
-}
-
-#notice{
-    text-align: center;
-}
-
-hr{
-    border : 0px;
-    border-top: 2px dashed gray;
-    width: 41%;
-    float: left;
-}
-
-.submissionBtn{
-    margin: 0 auto;
-}
-
-.addBtn{
+.register_btn{
     display: inline;
     float: right;
     margin-right: 5px;
+    padding: 2px;
+}
+
+/* Footer */
+footer {
+    color: white;
+    background:  rgb(39, 176, 110);
+    padding: 20px 0;
+    font-weight: bold;
 }
