@@ -1,0 +1,8 @@
+/*테이블*/
+table {border-collapse: collapse;}
+table thead th {height: 45px; border: 1.8px solid #27B06E; text-align: center; font-size: 18px;}
+table tr td {line-height: 28px; padding: 15px 20px;}
+table tr td.tbSum {height: 80px; border: 1.8px #27B06E; border-style: solid solid dashed solid; font-weight: bold;}
+table tr td.tbTime {height: 50px; border: 1.8px #27B06E; border-style: none solid;}
+table tr td.tbTime.last {border-style: none solid solid solid;}
+table tr .today {background-color: #E2F0D9;}
