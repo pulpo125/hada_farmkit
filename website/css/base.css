@@ -26,15 +26,15 @@ body { font-family: 'Noto Sans KR', sans-serif; }
 #leftNavWrapper .lftSelect{font-size: 16px;}
 #leftNavWrapper .lftSelect .lftSelectSection{margin: 15px 0;}
 #leftNavWrapper .lftSelect .lftSelectSection li{margin: 6px 0; padding-left: 5px;}
-#leftNavWrapper .lftSelect .lftSelectSection li.now{color: #27B06E; font-weight: bold;}
-.lftSelectSection a:hover { color: rgb(39, 176, 110); font-weight: bolder; }
+#leftNavWrapper .lftSelect .lftSelectSection li.now{/*color: #27B06E;*/ background-color: #27B06E; color: white; font-weight: bold;}
+.lftSelectSection a:hover { color: #F4D03F; font-weight: bold; }
 
 /* main page*/
 #mainPgWrapper{ height: 100%; padding-left: 200px; }
 
 /* Header */
-header { background: rgb(39, 176, 110); min-height: 10%; padding: 0 20px; }
-header div{ padding-top: 10px; }
+header { min-height: 10%; padding: 10px 20px; }
+header div{ margin: 5px 0; }
 
 /* Main */
 main { min-height: 90%; padding: 0 20px; }
