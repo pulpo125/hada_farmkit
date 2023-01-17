@@ -15,6 +15,19 @@ $query = "SELECT *
 
 //3. 쿼리 실행
 $result = $connect->query($query) or die($connect->errorInfo());
+
+//1호점, 2호점
+$managing_store = $_GET["managing_store"];
+$query_list = "SELECT *
+            FROM delivery d
+            LEFT JOIN customer c ON d.delivery_id=c.delivery_id
+            LEFT JOIN team t ON d.delivery_id=t.delivery_id
+            LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
+            LEFT JOIN managing_district md ON d.district=md.district_name
+            WHERE managing_store='$managing_store'
+            ORDER BY c.customer_id";
+$result_list = $connect->query($query_list) or die($connect->errorInfo());
+
 ?>
 
 <!doctype html>
@@ -44,20 +57,20 @@ $result = $connect->query($query) or die($connect->errorInfo());
                 <col width="30%">
             </colgroup>
             <tr>
-                <th class="here"><a href="">전체</a></th>
-                <th><a href="">1호점</a></th>
-                <th><a href="">2호점</a></th>
+                <th><a href="">전체</a></th>
+                <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="1_db.php?managing_store=1호점">1호점</a></th>
+                <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="1_db.php?managing_store=2호점">2호점</a></th>
             </tr>
         </table>
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li class="now"><a href="1_db.php">- DB</a></li>
+                    <li class="now"><a href="1_db.php?managing_store=1호점">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="2_week.php">- WEEK</a></li>
+                    <li><a href="2_week.php?managing_store=1호점">- WEEK</a></li>
                     <li><a href="">- TODAY</a></li>
                 </ul>
             </li>
@@ -131,7 +144,7 @@ $result = $connect->query($query) or die($connect->errorInfo());
                     <tbody>
                     <?php
                     $index=0;
-                    while($row = $result -> fetch()){
+                    while($row = $result_list -> fetch()){
                         ?>
                         <tr>
                             <td><?php echo ++$index; ?></td>
@@ -144,6 +157,7 @@ $result = $connect->query($query) or die($connect->errorInfo());
                             <td><?php echo $row['team_name']; ?></td>
                             <td><?php echo $row['delivery_day']; ?></td>
                             <td><?php echo $row['delivery_time']; ?></td>
+                            <td><?php echo $row['managing_store']; ?></td>
                             <td><a href="1_1_update.php?seq=<?php echo $row["delivery_id"]; ?>" class="edit">수정</a></td>
                             <td><a href="1_1_update.php?seq=<?php echo $row["delivery_id"]; ?>" class="edit">삭제</a></td>
                         </tr>
