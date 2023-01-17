@@ -1,3 +1,18 @@
+<?php
+include "DBcon.php";
+
+/**
+ * @var PDOStatement $connect
+ */
+
+//2. 쿼리 생성
+$query_deliveryCnt = "SELECT DISTINCT delivery_id FROM delivery_schedule";
+$query_order = "SELECT * FROM delivery_schedule /*WHERE delivery_day='Mon'*/";
+
+//3. 쿼리 실행
+$result = $connect->query($query_deliveryCnt) or die($connect->errorInfo());
+?>
+
 <!doctype html>
 <html lang="kor">
 <head>
@@ -33,12 +48,12 @@
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li><a href="">- DB</a></li>
+                    <li><a href="1_db.php">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li class="now"><a href="">- WEEK</a></li>
+                    <li class="now"><a href="2_week.php">- WEEK</a></li>
                     <li><a href="">- TODAY</a></li>
                 </ul>
             </li>
@@ -88,6 +103,10 @@
                     </thead>
 
                     <tbody>
+<!--                    --><?php
+//                    $index=0;
+//                    while(){
+//                    ?>
                     <tr>
                         <td class="tbSum"><!--월-->
                             총 주문:
@@ -126,6 +145,9 @@
                         </td>
                     </tr>
                     <tr>
+                        <?php
+                            while($row = $result -> fetch()){}
+                        ?>
                         <td class="tbTime"><!--월-->
                             <b>아침</b>
                             <br>
@@ -278,6 +300,10 @@
                             [19:00]
                         </td>
                     </tr>
+<!--                    --><?php
+//                        ++$index;
+//                    }
+//                    ?>
                     </tbody>
 
                 </table>

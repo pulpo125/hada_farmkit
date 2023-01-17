@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <title>[하다] 사이트맵</title>
+    <style>
+        * {padding: 0; margin: 0; box-sizing: border-box;}
+        html,body {width: 100%; height: 100%; padding: 0; margin: 0; font-size: 15px; text-align: center;}
+        ul,li {list-style-type: none;}
+        p {margin: 0;}
+        a{text-decoration: none; color: inherit;}
+        a:hover{color: #FFC000;}
+        #sitemap{padding: 50px 0 20px 0; font-size: 25px; font-weight: bold;}
+        #hada{width: 64.5%; padding: 15px; margin: 30px auto; background-color: #9DC3E6;}
+        #hada #title{font-size: 25px;}
+        #hada #sub{font-size: 20px;}
+        .section{display: inline-block; vertical-align: top; width: 30%; margin: 20px 2%; border: 4px solid #BDD7EE;}
+        .section .sectionTitle{padding: 10px; font-size: 23px; font-weight: bold; background-color: #BDD7EE;}
+        .section .projName{width: 80%; padding: 10px; margin: 15px auto; font-size: 20px; background-color: #DEEBF7;}
+        .section .projDetail{display: inline-block; padding: 10px; margin: -15px -2px 15px -2px; font-size: 18px; background-color: #F2F2F2;}
+        .section .projDetail.two{width: 40%;}
+        .section .projDetail.two.end{border: 3px #D0CECE; border-style: none none none solid;}
+    </style>
+</head>
+<body>
+
+
+<div id="sitemap">SITE MAP</div>
+
+<div id="hada">
+    <div id="title"><b>HADA</b> 프로젝트</div>
+    <div id="sub">(<b>HA</b>young & <b>DA</b>eun)</div>
+</div>
+
+<div class="section">
+    <p class="sectionTitle">공공데이터 분석</p>
+    <a href="https://hadaproject1.shinyapps.io/seoul_apt_price/"><li class="projName">서울시 아파트 실거래</li></a>
+    <a href="https://hadaproject1.shinyapps.io/earthquake1/"><li class="projName">한반도 지진 발생 분석</li></a>
+    <a href="https://jdaeun.shinyapps.io/coffee_shop_accessibility/"><li class="projName">커피 전문점 접근성 분석</li></a>
+</div>
+
+<div class="section">
+    <p class="sectionTitle">WEBSITE</p>
+    <ul class="projName">FARMKIT</ul>
+    <a href=""><li class="projDetail two">신청폼</li></a>
+    <a href=""><li class="projDetail two end">관리사이트</li></a>
+
+<!--    <a href=""><li class="projName">다음프로젝트</li></a>-->
+
+<!--    <ul class="projName">다음프로젝트</ul>-->
+<!--    <a href=""><li class="projDetail">다음</li></a>-->
+</div>
+
+</body>
+</html>

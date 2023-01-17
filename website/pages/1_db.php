@@ -1,14 +1,20 @@
 <?php
-//include "DBcon.php";
+include "DBcon.php";
 
 /**
  * @var PDOStatement $connect
  */
 
 //2. 쿼리 생성
-//$query = "SELECT * FROM 테이블1, 테이블2 ORDER BY WHERE 테이블1.column0 = 테이블2.column0 테이블1.seq";
+$query = "SELECT *
+            FROM delivery d
+            LEFT JOIN customer c ON d.delivery_id=c.delivery_id
+            LEFT JOIN team t ON d.delivery_id=t.delivery_id
+            LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
+            ORDER BY c.customer_id";
+
 //3. 쿼리 실행
-//$result = $connect->query($query) or die($connect->errorInfo());
+$result = $connect->query($query) or die($connect->errorInfo());
 ?>
 
 <!doctype html>
@@ -46,12 +52,12 @@
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li class="now"><a href="">- DB</a></li>
+                    <li class="now"><a href="1_db.php">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="">- WEEK</a></li>
+                    <li><a href="2_week.php">- WEEK</a></li>
                     <li><a href="">- TODAY</a></li>
                 </ul>
             </li>
@@ -124,67 +130,25 @@
 
                     <tbody>
                     <?php
-//                    $index=0;
-//                    while($row = $result -> fetch()){
+                    $index=0;
+                    while($row = $result -> fetch()){
                         ?>
                         <tr>
-<!--                            <td>--><?php //echo ++$index; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_id']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_name']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_contact']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_menu']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['specific_address']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['team_id']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['team_name']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['delivery_day']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['delivery_time']; ?><!--</td>-->
-<!--                            <td><a href="03_1_memberUpdate.php?seq=--><?php //echo $row["seq"]; ?><!--" class="edit">수정</a></td>-->
-<!--                            <td><a href="03_1_memberUpdate.php?seq=--><?php //echo $row["seq"]; ?><!--" class="edit">삭제</a></td>-->
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>김가가</td>
-                            <td>010-1111-1111</td>
-                            <td>에그 샐러드</td>
-                            <td>고운동 137</td>
-                            <td>1</td>
-                            <td>팀A</td>
-                            <td>월</td>
-                            <td>12:00</td>
-                            <td><a href="" class="edit">수정</a></td>
-                            <td><a href="" class="edit">삭제</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>이나나</td>
-                            <td>010-2222-2222</td>
-                            <td>불고기 샐러드</td>
-                            <td>어진동 556</td>
-                            <td></td>
-                            <td></td>
-                            <td>화</td>
-                            <td>8:00</td>
-                            <td><a href="" class="edit">수정</a></td>
-                            <td><a href="" class="edit">삭제</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>이나나</td>
-                            <td>010-2222-2222</td>
-                            <td>콩 샐러드</td>
-                            <td>어진동 556</td>
-                            <td></td>
-                            <td></td>
-                            <td>목</td>
-                            <td>8:00</td>
-                            <td><a href="" class="edit">수정</a></td>
-                            <td><a href="" class="edit">삭제</a></td>
+                            <td><?php echo ++$index; ?></td>
+                            <td><?php echo $row['customer_id']; ?></td>
+                            <td><?php echo $row['customer_name']; ?></td>
+                            <td><?php echo $row['customer_contact']; ?></td>
+                            <td><?php echo $row['customer_menu']; ?></td>
+                            <td><?php echo $row['district'] . ' ' . $row['specific_address']; ?></td>
+                            <td><?php echo $row['team_id']; ?></td>
+                            <td><?php echo $row['team_name']; ?></td>
+                            <td><?php echo $row['delivery_day']; ?></td>
+                            <td><?php echo $row['delivery_time']; ?></td>
+                            <td><a href="1_1_update.php?seq=<?php echo $row["delivery_id"]; ?>" class="edit">수정</a></td>
+                            <td><a href="1_1_update.php?seq=<?php echo $row["delivery_id"]; ?>" class="edit">삭제</a></td>
                         </tr>
                         <?php
-//                    }
+                    }
                     ?>
                     </tbody>
 

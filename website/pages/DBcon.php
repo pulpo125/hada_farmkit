@@ -4,7 +4,7 @@
 <?php
 //0. 설정
 $servername="localhost";
-$dbname="farmkit"; /*DB이름*/
+$dbname="hada_farmkit"; /*DB이름*/
 $user="root";
 $password="";
 $port = '3306';
