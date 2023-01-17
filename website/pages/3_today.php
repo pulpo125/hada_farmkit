@@ -5,9 +5,18 @@ include "DBcon.php";
  * @var PDOStatement $connect
  */
 
+$managing_store = $_GET["managing_store"];
+
+/*$query_list = "SELECT * FROM 02_01_wa1 WHERE category='$category' ORDER BY seq";*/
 /* 시간 */
 $weekday = date('D');
-$query  = "SELECT delivery_id, delivery_time, COUNT(delivery_time) AS count_time FROM delivery_schedule WHERE delivery_day = '$weekday' GROUP BY delivery_time ORDER BY delivery_time";
+$query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_time) AS count_time
+FROM delivery_schedule ds
+    left join delivery d on ds.delivery_id = d.delivery_id
+    left join managing_district md on d.district = md.district_name
+    WHERE delivery_day = 'Thur' and managing_store = '$managing_store'
+GROUP BY delivery_time
+ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
 $list = '';
 while($row = $result->fetch())
@@ -17,14 +26,33 @@ while($row = $result->fetch())
 }
 
 /* deliveryInfo */
-$query = "select delivery_time, d.delivery_id as delivery_id, district, specific_address
-from delivery d left join delivery_schedule ds on d.delivery_id = ds.delivery_id
-WHERE delivery_day = '$weekday' ORDER BY delivery_time";
+$query = "SELECT delivery_time, d.delivery_id as delivery_id, district, specific_address, team_id, team_name
+FROM delivery d
+    LEFT JOIN delivery_schedule ds ON d.delivery_id = ds.delivery_id
+    Left JOIN team t ON d.delivery_id = t.delivery_id
+    left join managing_district md on d.district = md.district_name
+where delivery_day = 'Thur' and managing_store = '$managing_store'
+ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
 $info = array();
 while($row = $result->fetch())
 {
     $info[] = $row;
+}
+
+/* customerInfo */
+$query = "SELECT delivery_time, c.delivery_id as delivery_id, customer_id, customer_menu
+FROM customer c
+LEFT JOIN delivery d on c.delivery_id = d.delivery_id
+LEFT JOIN delivery_schedule ds on d.delivery_id = ds.delivery_id
+left join managing_district md on d.district = md.district_name
+WHERE ds.delivery_day = 'Thur' and managing_store = '$managing_store'
+ORDER BY delivery_time";
+$result = $connect->query($query) or die($connect->errorInfo());
+$customerInfo = array();
+while($row = $result->fetch())
+{
+    $customerInfo[] = $row;
 }
 ?>
 
@@ -41,6 +69,7 @@ while($row = $result->fetch())
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script>
         const myInfo = <?php echo json_encode($info); ?>;
+        const customerInfo = <?php echo json_encode($customerInfo); ?>;
     </script>
 </head>
 <body>
@@ -59,9 +88,9 @@ while($row = $result->fetch())
                 <col width="30%">
             </colgroup>
             <tr>
-                <th class="here"><a href="">전체</a></th>
-                <th><a href="">1호점</a></th>
-                <th><a href="">2호점</a></th>
+                <th><a href="">전체</a></th>
+                <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="3_today.php?managing_store=1호점">1호점</a></th>
+                <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="3_today.php?managing_store=2호점">2호점</a></th
             </tr>
         </table>
         <div class="lftSelect">
@@ -126,18 +155,20 @@ while($row = $result->fetch())
                         </ul>
                         <hr>
                         <h3>주문내역</h3>
-                        <ul id="orderDetails">
-                            <li>
-                                <p>- Team_ID: </p>
-                                <p>- Team: </p>
-                            </li>
-                            <li id="customerInfo">
-                                <p>- Customer_ID: </p>
-                                <p>- Menu: </p>
-                            </li>
-                        </ul>
+                        <div id="orderDetails">
+                            <div id="teamInfo">
+                                <!--<p>- Team_ID: </p>
+                                <p>- Team: </p>-->
+                                <!--<hr>-->
+                            </div>
+                            <ul id="customerInfo">
+                                <!--<li>
+                                    <p>- Customer_ID: </p>
+                                   <p>- Menu: </p>-->
+                                </li>-->
+                            </ul>
+                        </div>
                         <div id="tabFooter">
-                            <span>- Count: </span>
                             <button type="button" onclick="alert('발송이 완료되었습니다.')" class="submissionBtn">완료</button>
                         </div>
                     </div>

@@ -117,7 +117,7 @@ ul.tabs li.current{
 
 .tab_content hr{
     border : 0px;
-    border-top: 2px dashed #27B06E;
+    border-top: 2px solid #27B06E;
     width: 100%;
     margin: 10px 0;
 }
@@ -128,29 +128,35 @@ ul.tabs li.current{
 }
 
 #orderDetails{
-    border: 2px dashed #27B06E;
+    border: 2px solid #27B06E;
     min-height: 450px;
     border-radius: 8px;
 }
 
-#orderDetails li{
+#teamInfo{
     font-weight: bold;
-    padding: 10px 0px 10px 10px;
+    padding: 10px 0px 0px 10px;
 }
 
-#customerInfo{
+#teamInfo hr{
+    border: 0px;
+    border-top: 2px dashed #27B06E;
+    width: 98%;
+    margin: 10px 0;
+}
+
+
+#customerInfo li{
     background: rgb(39, 176, 110, 0.1);
-    padding: 10px 0;
+    margin-top: 10px;
     border-radius: 8px;
+    font-weight: bold;
+    padding: 10px 0px 10px 10px;
 }
 
 #tabFooter{
     float: right;
     padding: 10px 0;
-}
-
-#tabFooter span{
-    font-weight: bold;
 }
 
 #tabFooter button{
