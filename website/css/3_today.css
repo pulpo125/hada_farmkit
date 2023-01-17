@@ -1,7 +1,6 @@
-
 #contentWrapper {
     width: 100%;
-    min-height: 100%;
+    min-height: 800px;
 }
 
 .contentBox{
@@ -9,36 +8,46 @@
 }
 
 /* timeBox */
-.timeBox{
-    margin-top: 40px;
+.time_box{
+    margin-top: 45px;
+    width: 300px;
+    margin-left: 100px;
 }
 
-.timeBox ul{
-    float: left;
-    color: white;
-    background-color: #27B06E;
+.time_box div{
+    color: gray;
     padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: rgb(39, 176, 110, 0.1); /*#AFABAB #27B06E*/
+    cursor:pointer;
 }
 
-.timeBox li{
-    float: left;
-    color: white;
-    padding: 10px;
-}
-
-.timeBox li h3{
-    font-size: 25px;
+.time_box h3{
+    font-size: 30px;
     margin-right: 70px;
+    display: inline-block;
+    padding: 10px;
 }
 
-.timeBox li p{
-    font-size: 20px;
+.time_box p{
+    font-size: 25px;
+    display: inline-block;
+    padding: 13px 10px;
+    float: right;
+}
+
+.time_box hr{
+    border : 0px;
+    border-top: 1px dashed #AFABAB;
+    width: 100%;
+    margin: 20px 0;
 }
 
 #arrow{
-    width: 50px;
-    min-height: 50px;
-    margin: 50px 30px 0 30px;
+    width: 60px;
+    min-height: 60px;
+    margin: 57px 60px 0 60px;
 }
 
 
@@ -49,11 +58,14 @@ ul.tabs{
     list-style: none;
 }
 ul.tabs li{
-    background: rgb(39, 176, 110, 0.3);
+    background: rgb(39, 176, 110, 0.1);
     color: #222;
     display: inline-block;
     padding: 10px 15px;
     cursor: pointer;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-left: 5px;
 }
 
 ul.tabs li.current{
@@ -63,29 +75,44 @@ ul.tabs li.current{
 }
 
 /*tab Content*/
-#tabBox{
-    width: 500px;
-    margin: 0 auto;
-}
+#tabBox{ width: 600px; margin: 0 auto; display: none;}
+#tabHideBox{ width: 600px; margin: 0 auto; /*display: none;*/}
 
 .tab_content{
-    display: none;
     padding: 15px;
     border: 4px solid #27B06E;
     min-height: 700px;
+    border-radius: 8px;
+    display: inherit;
+}
+
+#tabHideContent{
+    background-color: #F2F2F2;
+    border: 4px solid #7F7F7F;
+    min-height: 700px;
+    border-radius: 8px;
+    margin-top: 41px;
+    text-align: center;
+    font-size: 20px;
+    padding: 300px 0;
+}
+.tab_content button{
+    display: inline;
+    float: right;
+    cursor:pointer;
+    color: #27B06E;
+    background-color: white;
+    border: none;
+    font-size: 20px;
 }
 
 .tab_content ul{
     padding: 0px 5px 5px 5px;
 }
 
-.tab_content.current{
-    display: inherit;
-}
-
 #deliveryInfo li{
     font-weight: bold;
-    padding: 0 5px;
+    padding-left: 10px;
 }
 
 .tab_content hr{
@@ -103,16 +130,18 @@ ul.tabs li.current{
 #orderDetails{
     border: 2px dashed #27B06E;
     min-height: 450px;
+    border-radius: 8px;
 }
 
 #orderDetails li{
     font-weight: bold;
-    padding: 10px 0px 10px 5px;
+    padding: 10px 0px 10px 10px;
 }
 
 #customerInfo{
-    background: rgb(39, 176, 110, 0.3);
+    background: rgb(39, 176, 110, 0.1);
     padding: 10px 0;
+    border-radius: 8px;
 }
 
 #tabFooter{
@@ -120,13 +149,16 @@ ul.tabs li.current{
     padding: 10px 0;
 }
 
-#tabFooter button{
-        display: inline;
+#tabFooter span{
+    font-weight: bold;
 }
 
+#tabFooter button{
+    display: inline;
+    border-radius: 8px;
+}
 
-/*Btn*/
-button{
+#tabFooter button{
     display: block;
     background:  rgb(39, 176, 110);
     color: white;
@@ -138,8 +170,6 @@ button{
     line-height: 1.3;
 }
 
-button:hover {
+#tabFooter button:hover {
     background: #F4D03F;
 }
-
-.submissionBtn{ /*margin: 0 auto;*/ }

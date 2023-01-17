@@ -1,3 +1,33 @@
+<?php
+include "DBcon.php";
+
+/**
+ * @var PDOStatement $connect
+ */
+
+/* 시간 */
+$weekday = date('D');
+$query  = "SELECT delivery_id, delivery_time, COUNT(delivery_time) AS count_time FROM delivery_schedule WHERE delivery_day = '$weekday' GROUP BY delivery_time ORDER BY delivery_time";
+$result = $connect->query($query) or die($connect->errorInfo());
+$list = '';
+while($row = $result->fetch())
+{
+    $time = $row['delivery_time'];
+    $list = $list."<div onclick=selectTime('{$time}')><h3>{$time}</h3><p>{$row['count_time']}/{$row['count_time']}</p></div>";
+}
+
+/* deliveryInfo */
+$query = "select delivery_time, d.delivery_id as delivery_id, district, specific_address
+from delivery d left join delivery_schedule ds on d.delivery_id = ds.delivery_id
+WHERE delivery_day = '$weekday' ORDER BY delivery_time";
+$result = $connect->query($query) or die($connect->errorInfo());
+$info = array();
+while($row = $result->fetch())
+{
+    $info[] = $row;
+}
+?>
+
 <!doctype html>
 <html lang="kor">
 <head>
@@ -5,10 +35,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>index</title>
+    <title>Today</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/3_today.css">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script>
+        const myInfo = <?php echo json_encode($info); ?>;
+    </script>
 </head>
 <body>
 
@@ -34,13 +67,13 @@
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li><a href="">- DB</a></li>
+                    <li><a href="1_db.php">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="">- WEEK</a></li>
-                    <li class="now"><a href="">- TODAY</a></li>
+                    <li><a href="2_week.php">- WEEK</a></li>
+                    <li class="now"><a href="3_today.html">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -65,14 +98,7 @@
             <div id="contentWrapper">
                 <div class="contentBox">
                     <div class="time_box">
-                        <div onclick="selectTime()"><h3>08:00</h3><p>0/5</p></div>
-                        <div onclick="selectTime()"><h3>09:00</h3><p>4/5</p></div>
-                        <hr>
-                        <div><h3>11:00</h3><p>4/5</p></div>
-                        <div><h3>12:00</h3><p>4/5</p></div>
-                        <hr>
-                        <div><h3>18:00</h3><p>4/5</p></div>
-                        <div><h3>19:00</h3><p>4/5</p></div>
+                        <?=$list?>
                     </div>
                 </div>
                 <div class="contentBox">
@@ -86,36 +112,35 @@
                     </div>
                 </div>
                 <div class="contentBox" id="tabBox">
-                        <ul class="tabs">
-                            <li class="tab-link current" data-tab="tab-1">ID 03</li>
-                            <li class="tab-link" data-tab="tab-2">ID 30</li>
+                    <ul id="tabList" class="tabs">
+                        <!--<li class="tab-link current" data-tab="tab-1">ID 03</li>
+                        <li class="tab-link" data-tab="tab-2">ID 30</li>-->
+                    </ul>
+                    <div id="tabContent" class="tab_content">
+                        <button id="hideBtn" onclick="hideBtn()">X</button>
+                        <h3 id="tabTime"><!--09:00--></h3>
+                        <ul id="deliveryInfo">
+                            <!--<li>- Delivery_ID: </li>
+                            <li>- 배송지: </li>
+                            <li>- Phone: </li>-->
                         </ul>
-                        <div id="tab-1" class="tab_content current">
-                            <button id="hideBtn" onclick="hideBtn()">X</button>
-                            <h3>09:00</h3>
-                            <ul id="deliveryInfo">
-                                <li>- Delivery_ID: </li>
-                                <li>- 배송지: </li>
-                                <li>- Phone: </li>
-                            </ul>
-                            <hr>
-                            <h3>주문내역</h3>
-                            <ul id="orderDetails">
-                                <li>
-                                    <p>- Team_ID: </p>
-                                    <p>- Team: </p>
-                                </li>
-                                <li id="customerInfo">
-                                    <p>- Customer_ID: </p>
-                                    <p>- Menu: </p>
-                                </li>
-                            </ul>
-                            <div id="tabFooter">
-                                <span>- Count: </span>
-                                <button type="button" onclick="alert('발송이 완료되었습니다.')" class="submissionBtn">완료</button>
-                            </div>
+                        <hr>
+                        <h3>주문내역</h3>
+                        <ul id="orderDetails">
+                            <li>
+                                <p>- Team_ID: </p>
+                                <p>- Team: </p>
+                            </li>
+                            <li id="customerInfo">
+                                <p>- Customer_ID: </p>
+                                <p>- Menu: </p>
+                            </li>
+                        </ul>
+                        <div id="tabFooter">
+                            <span>- Count: </span>
+                            <button type="button" onclick="alert('발송이 완료되었습니다.')" class="submissionBtn">완료</button>
                         </div>
-                        <div id="tab-2" class="tab_content">tab content2</div>
+                    </div>
                 </div>
             </div>
         </main>
