@@ -7,9 +7,8 @@ include "DBcon.php";
 
 $managing_store = $_GET["managing_store"];
 
-/*$query_list = "SELECT * FROM 02_01_wa1 WHERE category='$category' ORDER BY seq";*/
 /* 시간 */
-$weekday = date('D');
+/*$weekday = date('D');
 $query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_time) AS count_time
 FROM delivery_schedule ds
     left join delivery d on ds.delivery_id = d.delivery_id
@@ -22,7 +21,22 @@ $list = '';
 while($row = $result->fetch())
 {
     $time = $row['delivery_time'];
-    $list = $list."<div onclick=selectTime('{$time}')><h3>{$time}</h3><p>{$row['count_time']}/{$row['count_time']}</p></div>";
+    $list = $list."<div onclick=selectTime('{$time}')><h3>{$time}</h3><p>{$row['count_time']}</p><p>/{$row['count_time']}</p></div>";
+}*/
+
+$weekday = date('D');
+$query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_time) AS count_time
+FROM delivery_schedule ds
+    left join delivery d on ds.delivery_id = d.delivery_id
+    left join managing_district md on d.district = md.district_name
+    WHERE delivery_day = 'Thur' and managing_store = '$managing_store'
+GROUP BY delivery_time
+ORDER BY delivery_time";
+$result = $connect->query($query) or die($connect->errorInfo());
+$list = array();
+while($row = $result->fetch())
+{
+    $list[] = $row;
 }
 
 /* deliveryInfo */
@@ -34,10 +48,10 @@ FROM delivery d
 where delivery_day = 'Thur' and managing_store = '$managing_store'
 ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
-$info = array();
+$deliveryInfo = array();
 while($row = $result->fetch())
 {
-    $info[] = $row;
+    $deliveryInfo[] = $row;
 }
 
 /* customerInfo */
@@ -68,8 +82,10 @@ while($row = $result->fetch())
     <link rel="stylesheet" href="../css/3_today.css">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script>
-        const myInfo = <?php echo json_encode($info); ?>;
+        const timeInfo = <?php echo json_encode($list); ?>;
+        const deliveryInfo = <?php echo json_encode($deliveryInfo); ?>;
         const customerInfo = <?php echo json_encode($customerInfo); ?>;
+        let currentTag;
     </script>
 </head>
 <body>
@@ -126,8 +142,8 @@ while($row = $result->fetch())
         <main>
             <div id="contentWrapper">
                 <div class="contentBox">
-                    <div class="time_box">
-                        <?=$list?>
+                    <div id="timeBox" class="time_box">
+
                     </div>
                 </div>
                 <div class="contentBox">

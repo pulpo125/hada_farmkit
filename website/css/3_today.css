@@ -25,7 +25,7 @@
 
 .time_box h3{
     font-size: 30px;
-    margin-right: 70px;
+    margin-right: 120px;
     display: inline-block;
     padding: 10px;
 }
@@ -33,8 +33,7 @@
 .time_box p{
     font-size: 25px;
     display: inline-block;
-    padding: 13px 10px;
-    float: right;
+    margin-left: 1px;
 }
 
 .time_box hr{

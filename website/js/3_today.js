@@ -1,4 +1,28 @@
-function selectTime(time) {
+for (const info of timeInfo) {
+    const time = info.delivery_time;
+    const parent = document.getElementById("timeBox");
+    const divTag = document.createElement("div");
+    divTag.setAttribute("onclick", "selectTime(this, '"+time+"')");
+    const hTag = document.createElement("h3");
+    const textNode = document.createTextNode(time);
+    const pTag1 = document.createElement("p");
+    const textNode1 = document.createTextNode(info.count_time);
+    const pTag2 = document.createElement("p");
+    const textNode2 = document.createTextNode("/"+info.count_time);
+    hTag.appendChild(textNode);
+    pTag1.appendChild(textNode1);
+    pTag2.appendChild(textNode2);
+    divTag.appendChild(hTag);
+    divTag.appendChild(pTag1);
+    divTag.appendChild(pTag2);
+    parent.appendChild(divTag);
+}
+
+
+const btn = document.querySelector("#tabFooter > button");
+
+function selectTime(tag, time) {
+    currentTag = tag.getElementsByTagName("p")[0];
     /* tabHideBox는 숨기고 tabBox 보여주기 */
     document.getElementById("tabHideBox").style.display = "none";
     document.getElementById("tabBox").style.display = "block";
@@ -9,7 +33,7 @@ function selectTime(time) {
 
     let tabCount = 0;
     /* 시간 클릭 시 tab 생성*/
-    for (const info of myInfo) {
+    for (const info of deliveryInfo) {
         if (info.delivery_time === time) {
             const liTag = document.createElement("li");
             const textNode = document.createTextNode("ID "+info.delivery_id);
@@ -24,6 +48,14 @@ function selectTime(time) {
             }
             tabCount++;
         }
+    }
+
+    if (currentTag.innerText > 0) {
+        btn.disabled = false;
+        btn.style.background = '#27B06E';
+    } else {
+        btn.disabled = true;
+        btn.style.background = '#7F7F7F';
     }
 }
 
@@ -85,7 +117,6 @@ function getCustomerList(id) {
             liTag.appendChild(pTag1);
             liTag.appendChild(pTag2);
             parent.appendChild(liTag);
-            console.log(c)
         }
     }
 }
@@ -100,4 +131,24 @@ $(document).on("click", "#tabList>li", function (){
 function hideBtn() {
     document.getElementById("tabBox").style.display = "none";
     document.getElementById("tabHideBox").style.display = "block";
+}
+
+
+
+
+/* 완료 버튼 클릭 시 카운트 차감 */
+btn.addEventListener("click", () => {
+    /*const cnt = document.querySelector("#contentWrapper > div:nth-child(1) > div > div:nth-child(1) > p:nth-child(2)");*/
+    const cntText = currentTag.innerText;
+    countOrder(currentTag, cntText)
+})
+
+
+function countOrder(cnt, cntText) {
+    if (cntText === '1') {
+        //카운트가 0이 되면 타임박스 회색, 완료 버튼 회색 및 비활성화
+        btn.disabled = true;
+        btn.style.background = '#7F7F7F';
+    }
+    cnt.innerText = cntText - 1;
 }
