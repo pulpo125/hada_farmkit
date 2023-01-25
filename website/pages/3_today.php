@@ -86,6 +86,7 @@ while($row = $result->fetch())
         const deliveryInfo = <?php echo json_encode($deliveryInfo); ?>;
         const customerInfo = <?php echo json_encode($customerInfo); ?>;
         let currentTag;
+        let currentTime;
     </script>
 </head>
 <body>

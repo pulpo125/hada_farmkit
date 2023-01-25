@@ -23,6 +23,16 @@
     cursor:pointer;
 }
 
+.time_box div:hover {
+    background-color: #27B06E;
+    color: white;
+}
+
+#timeBox div.current{
+    background-color: #27B06E;
+    color: white;
+}
+
 .time_box h3{
     font-size: 30px;
     margin-right: 120px;

@@ -1,3 +1,5 @@
+/* 타임 박스 생성 */
+/*<div onClick="selectTime(this, '08:00')"><h3>08:00</h3><p>4</p><p>/4</p></div>*/
 for (const info of timeInfo) {
     const time = info.delivery_time;
     const parent = document.getElementById("timeBox");
@@ -19,10 +21,17 @@ for (const info of timeInfo) {
 }
 
 
+/* 시간 클릭*/
 const btn = document.querySelector("#tabFooter > button");
 
 function selectTime(tag, time) {
+    /* 선택한 시간의 pTag 저장*/
     currentTag = tag.getElementsByTagName("p")[0];
+
+    /* 선택한 시간 css 변경 */
+    /*document.querySelector("#timeBox > div").style = "";
+    currentTime = tag.style.cssText = "background-color: #27B06E; color: white;";*/
+
     /* tabHideBox는 숨기고 tabBox 보여주기 */
     document.getElementById("tabHideBox").style.display = "none";
     document.getElementById("tabBox").style.display = "block";
@@ -59,6 +68,8 @@ function selectTime(tag, time) {
     }
 }
 
+
+/* 탭 클릭 */
 function selectTab(info) {
     /* 초기화 */
     const parent1 = document.getElementById("tabTime");
@@ -101,6 +112,7 @@ function selectTab(info) {
     getCustomerList(info.delivery_id);
 }
 
+
 /* customer */
 function getCustomerList(id) {
     const parent = document.getElementById("customerInfo");
@@ -121,19 +133,25 @@ function getCustomerList(id) {
     }
 }
 
+
 /* tab current class 추가*/
+$(document).on("click", "#timeBox>div", function (){
+    $(this).toggleClass('current');
+    $(this).siblings().removeClass('current');
+})
+
+/* current time css*/
 $(document).on("click", "#tabList>li", function (){
     $(this).toggleClass('current');
     $(this).siblings().removeClass('current');
 })
+
 
 /* x 버튼 클릭 시 숨기기 */
 function hideBtn() {
     document.getElementById("tabBox").style.display = "none";
     document.getElementById("tabHideBox").style.display = "block";
 }
-
-
 
 
 /* 완료 버튼 클릭 시 카운트 차감 */
@@ -143,7 +161,6 @@ btn.addEventListener("click", () => {
     countOrder(currentTag, cntText)
 })
 
-
 function countOrder(cnt, cntText) {
     if (cntText === '1') {
         //카운트가 0이 되면 타임박스 회색, 완료 버튼 회색 및 비활성화
@@ -152,3 +169,5 @@ function countOrder(cnt, cntText) {
     }
     cnt.innerText = cntText - 1;
 }
+
+/* 탭 정보 받아오기 */
