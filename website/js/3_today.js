@@ -28,10 +28,6 @@ function selectTime(tag, time) {
     /* 선택한 시간의 pTag 저장*/
     currentTag = tag.getElementsByTagName("p")[0];
 
-    /* 선택한 시간 css 변경 */
-    /*document.querySelector("#timeBox > div").style = "";
-    currentTime = tag.style.cssText = "background-color: #27B06E; color: white;";*/
-
     /* tabHideBox는 숨기고 tabBox 보여주기 */
     document.getElementById("tabHideBox").style.display = "none";
     document.getElementById("tabBox").style.display = "block";
@@ -69,7 +65,7 @@ function selectTime(tag, time) {
 }
 
 
-/* 탭 클릭 */
+/* 탭 클릭 시 정보 */
 function selectTab(info) {
     /* 초기화 */
     const parent1 = document.getElementById("tabTime");
@@ -136,14 +132,24 @@ function getCustomerList(id) {
 
 /* tab current class 추가*/
 $(document).on("click", "#timeBox>div", function (){
-    $(this).toggleClass('current');
-    $(this).siblings().removeClass('current');
+    if ($(this).hasClass('current')) {
+        // 아무것도 안함
+    }
+    else {
+        $(this).toggleClass('current');
+        $(this).siblings().removeClass('current');
+    }
 })
 
 /* current time css*/
 $(document).on("click", "#tabList>li", function (){
-    $(this).toggleClass('current');
-    $(this).siblings().removeClass('current');
+    if ($(this).hasClass('current')) {
+        // 아무것도 안함
+    }
+    else {
+        $(this).toggleClass('current');
+        $(this).siblings().removeClass('current');
+    }
 })
 
 
@@ -155,17 +161,18 @@ function hideBtn() {
 
 
 /* 완료 버튼 클릭 시 카운트 차감 */
-btn.addEventListener("click", () => {
+btn.addEventListener("click", (e) => {
     /*const cnt = document.querySelector("#contentWrapper > div:nth-child(1) > div > div:nth-child(1) > p:nth-child(2)");*/
     const cntText = currentTag.innerText;
-    countOrder(currentTag, cntText)
+    countOrder(currentTag, cntText, e)
 })
 
-function countOrder(cnt, cntText) {
+function countOrder(cnt, cntText, e) {
     if (cntText === '1') {
         //카운트가 0이 되면 타임박스 회색, 완료 버튼 회색 및 비활성화
         btn.disabled = true;
-        btn.style.background = '#7F7F7F';
+        /*btn.style.background = '#7F7F7F';*/
+        e.target.style.backgroundColor = "#7F7F7F";
     }
     cnt.innerText = cntText - 1;
 }
