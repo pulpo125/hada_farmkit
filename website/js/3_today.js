@@ -1,12 +1,33 @@
+//전역 변수
+let currentTag;
+let currentTime;
+let currentLiTag;
+let buttonStates = {};
+
+/* 완료 버튼 클릭 시 카운트 차감 */
+const btn = document.querySelector("#tabFooter > button");
+btn.addEventListener("click", (e) => {
+    const cntText = currentTag.innerText;
+    if (cntText === '1') {
+        //카운트가 0이 되면 타임박스 회색 및 비활성화
+        currentTime.style.background = '#b6b6b6';
+        currentTime.style.color = 'white';
+    }
+    currentTag.innerText = cntText - 1;
+
+    const time = currentTime.getElementsByTagName("h3")[0].innerText;
+    buttonStates[time][currentLiTag] = false;
+    e.target.style.backgroundColor = "#b6b6b6";
+    e.target.disabled = true;
+})
+
 /* 타임 박스 생성 */
-/*<div onClick="selectTime(this, '08:00')"><h3>08:00</h3><p>4</p><p>/4</p></div>*/
 for (const info of timeInfo) {
-    const time = info.delivery_time;
     const parent = document.getElementById("timeBox");
     const divTag = document.createElement("div");
-    divTag.setAttribute("onclick", "selectTime(this, '"+time+"')");
+    divTag.setAttribute("onclick", "selectTime(this, '"+info.delivery_time+"')");
     const hTag = document.createElement("h3");
-    const textNode = document.createTextNode(time);
+    const textNode = document.createTextNode(info.delivery_time);
     const pTag1 = document.createElement("p");
     const textNode1 = document.createTextNode(info.count_time);
     const pTag2 = document.createElement("p");
@@ -18,15 +39,15 @@ for (const info of timeInfo) {
     divTag.appendChild(pTag1);
     divTag.appendChild(pTag2);
     parent.appendChild(divTag);
+
+    buttonStates[info.delivery_time] = {};
 }
 
-
 /* 시간 클릭*/
-const btn = document.querySelector("#tabFooter > button");
-
 function selectTime(tag, time) {
     /* 선택한 시간의 pTag 저장*/
     currentTag = tag.getElementsByTagName("p")[0];
+    currentTime = tag
 
     /* tabHideBox는 숨기고 tabBox 보여주기 */
     document.getElementById("tabHideBox").style.display = "none";
@@ -36,37 +57,48 @@ function selectTime(tag, time) {
     const tab = document.getElementById('tabList');
     tab.replaceChildren();
 
+    const idList = {};
+    let firstTab;
     let tabCount = 0;
     /* 시간 클릭 시 tab 생성*/
     for (const info of deliveryInfo) {
         if (info.delivery_time === time) {
             const liTag = document.createElement("li");
-            const textNode = document.createTextNode("ID "+info.delivery_id);
+            const id = "ID " + info.delivery_id;
+            const textNode = document.createTextNode(id);
             liTag.appendChild(textNode);
             liTag.setAttribute("class", "tab-link");
             liTag.setAttribute("data-tab", "tab-"+info.delivery_id);
-            liTag.addEventListener("click", () => {selectTab(info)});
+            liTag.addEventListener("click", (e) => {
+                selectTab(e.target.outerText, info);
+            });
             tab.appendChild(liTag);
+
             if (tabCount === 0) {
                 tab.firstElementChild.className = "tab-link current";
-                selectTab(info)
+                firstTab = { id, info };
             }
             tabCount++;
+            idList[id] = true;
         }
     }
+    if (Object.keys(buttonStates[time]).length === 0) {
+        buttonStates[time] = idList;
+    }
+    const { id, info } = firstTab;
+    selectTab(id, info);
 
-    if (currentTag.innerText > 0) {
-        btn.disabled = false;
-        btn.style.background = '#27B06E';
-    } else {
-        btn.disabled = true;
-        btn.style.background = '#7F7F7F';
+    if (currentTag.innerText === 0) {
+        //div 변경
+        tag.style.background = '#b6b6b6';
+        tag.style.color = 'white';
     }
 }
 
 
 /* 탭 클릭 시 정보 */
-function selectTab(info) {
+function selectTab(tag, info) {
+    currentLiTag = tag;
     /* 초기화 */
     const parent1 = document.getElementById("tabTime");
     parent1.replaceChildren();
@@ -106,6 +138,15 @@ function selectTab(info) {
         parent3.appendChild(hrTag);
     }
     getCustomerList(info.delivery_id);
+
+    const time = currentTime.getElementsByTagName("h3")[0].innerText;
+    if (buttonStates[time][tag]) {
+        btn.style.backgroundColor = "#27B06E";
+        btn.disabled = false;
+    } else {
+        btn.style.backgroundColor = "#b6b6b6";
+        btn.disabled = true;
+    }
 }
 
 
@@ -130,26 +171,21 @@ function getCustomerList(id) {
 }
 
 
-/* tab current class 추가*/
-$(document).on("click", "#timeBox>div", function (){
-    if ($(this).hasClass('current')) {
-        // 아무것도 안함
-    }
-    else {
+function switchCurrent() {
+    if ($(this).hasClass('current') === false) {
         $(this).toggleClass('current');
         $(this).siblings().removeClass('current');
     }
+}
+
+/* current time */
+$(document).on("click", "#timeBox>div", function (){
+    switchCurrent.call(this);
 })
 
-/* current time css*/
+/* current tab*/
 $(document).on("click", "#tabList>li", function (){
-    if ($(this).hasClass('current')) {
-        // 아무것도 안함
-    }
-    else {
-        $(this).toggleClass('current');
-        $(this).siblings().removeClass('current');
-    }
+    switchCurrent.call(this);
 })
 
 
@@ -160,21 +196,3 @@ function hideBtn() {
 }
 
 
-/* 완료 버튼 클릭 시 카운트 차감 */
-btn.addEventListener("click", (e) => {
-    /*const cnt = document.querySelector("#contentWrapper > div:nth-child(1) > div > div:nth-child(1) > p:nth-child(2)");*/
-    const cntText = currentTag.innerText;
-    countOrder(currentTag, cntText, e)
-})
-
-function countOrder(cnt, cntText, e) {
-    if (cntText === '1') {
-        //카운트가 0이 되면 타임박스 회색, 완료 버튼 회색 및 비활성화
-        btn.disabled = true;
-        /*btn.style.background = '#7F7F7F';*/
-        e.target.style.backgroundColor = "#7F7F7F";
-    }
-    cnt.innerText = cntText - 1;
-}
-
-/* 탭 정보 받아오기 */

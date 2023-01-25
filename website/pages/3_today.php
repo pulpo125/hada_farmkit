@@ -7,23 +7,7 @@ include "DBcon.php";
 
 $managing_store = $_GET["managing_store"];
 
-/* 시간 */
-/*$weekday = date('D');
-$query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_time) AS count_time
-FROM delivery_schedule ds
-    left join delivery d on ds.delivery_id = d.delivery_id
-    left join managing_district md on d.district = md.district_name
-    WHERE delivery_day = 'Thur' and managing_store = '$managing_store'
-GROUP BY delivery_time
-ORDER BY delivery_time";
-$result = $connect->query($query) or die($connect->errorInfo());
-$list = '';
-while($row = $result->fetch())
-{
-    $time = $row['delivery_time'];
-    $list = $list."<div onclick=selectTime('{$time}')><h3>{$time}</h3><p>{$row['count_time']}</p><p>/{$row['count_time']}</p></div>";
-}*/
-
+/* timeInfo */
 $weekday = date('D');
 $query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_time) AS count_time
 FROM delivery_schedule ds
@@ -85,7 +69,6 @@ while($row = $result->fetch())
         const timeInfo = <?php echo json_encode($list); ?>;
         const deliveryInfo = <?php echo json_encode($deliveryInfo); ?>;
         const customerInfo = <?php echo json_encode($customerInfo); ?>;
-        let currentTag;
     </script>
 </head>
 <body>
@@ -142,47 +125,29 @@ while($row = $result->fetch())
         <main>
             <div id="contentWrapper">
                 <div class="contentBox">
-                    <div id="timeBox" class="time_box">
-
-                    </div>
+                    <div id="timeBox" class="time_box"></div>
                 </div>
                 <div class="contentBox">
                     <img src="../img/right_arrow.png" alt="right_arrow" id="arrow">
                 </div>
                 <div class="contentBox" id="tabHideBox">
                     <div id="tabHideContent">
-                        좌측 시간대 버튼 미활성시 (=초기화면) <br>
-                        버튼을 클릭하면 세부 사항을 볼 수 있다는 <br>
-                        안내문구 삽입
+                        시간을 클릭하면 배송ID 별 배송지 정보와<br>주문내역을 확인할 수 있습니다.<br><br>
+                        주문 내역에 맞게 샐러드를 만들고 배송을 보낸 뒤<br>'완료' 버튼을 눌러주세요.<br><br>
+                        시간 옆 카운트가 차감되어<br>현재 남은 주문 개수를 확인할 수 있습니다.
                     </div>
                 </div>
                 <div class="contentBox" id="tabBox">
-                    <ul id="tabList" class="tabs">
-                        <!--<li class="tab-link current" data-tab="tab-1">ID 03</li>
-                        <li class="tab-link" data-tab="tab-2">ID 30</li>-->
-                    </ul>
+                    <ul id="tabList" class="tabs"></ul>
                     <div id="tabContent" class="tab_content">
                         <button id="hideBtn" onclick="hideBtn()">X</button>
-                        <h3 id="tabTime"><!--09:00--></h3>
-                        <ul id="deliveryInfo">
-                            <!--<li>- Delivery_ID: </li>
-                            <li>- 배송지: </li>
-                            <li>- Phone: </li>-->
-                        </ul>
+                        <h3 id="tabTime"></h3>
+                        <ul id="deliveryInfo"></ul>
                         <hr>
                         <h3>주문내역</h3>
                         <div id="orderDetails">
-                            <div id="teamInfo">
-                                <!--<p>- Team_ID: </p>
-                                <p>- Team: </p>-->
-                                <!--<hr>-->
-                            </div>
-                            <ul id="customerInfo">
-                                <!--<li>
-                                    <p>- Customer_ID: </p>
-                                   <p>- Menu: </p>-->
-                                </li>-->
-                            </ul>
+                            <div id="teamInfo"></div>
+                            <ul id="customerInfo"></ul>
                         </div>
                         <div id="tabFooter">
                             <button type="button" onclick="alert('발송이 완료되었습니다.')" class="submissionBtn">완료</button>
