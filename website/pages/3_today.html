@@ -64,15 +64,26 @@
         <main>
             <div id="contentWrapper">
                 <div class="contentBox">
-                    <div class="timeBox">
-                        <ul>
-                            <li><h3>08:00</h3></li>
-                            <li><p>4/5</p></li>
-                        </ul>
+                    <div class="time_box">
+                        <div onclick="selectTime()"><h3>08:00</h3><p>0/5</p></div>
+                        <div onclick="selectTime()"><h3>09:00</h3><p>4/5</p></div>
+                        <hr>
+                        <div><h3>11:00</h3><p>4/5</p></div>
+                        <div><h3>12:00</h3><p>4/5</p></div>
+                        <hr>
+                        <div><h3>18:00</h3><p>4/5</p></div>
+                        <div><h3>19:00</h3><p>4/5</p></div>
                     </div>
                 </div>
                 <div class="contentBox">
                     <img src="../img/right_arrow.png" alt="right_arrow" id="arrow">
+                </div>
+                <div class="contentBox" id="tabHideBox">
+                    <div id="tabHideContent">
+                        좌측 시간대 버튼 미활성시 (=초기화면) <br>
+                        버튼을 클릭하면 세부 사항을 볼 수 있다는 <br>
+                        안내문구 삽입
+                    </div>
                 </div>
                 <div class="contentBox" id="tabBox">
                         <ul class="tabs">
@@ -80,6 +91,7 @@
                             <li class="tab-link" data-tab="tab-2">ID 30</li>
                         </ul>
                         <div id="tab-1" class="tab_content current">
+                            <button id="hideBtn" onclick="hideBtn()">X</button>
                             <h3>09:00</h3>
                             <ul id="deliveryInfo">
                                 <li>- Delivery_ID: </li>
