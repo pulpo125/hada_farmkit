@@ -79,7 +79,7 @@ while($row = $result->fetch())
     <div id="leftNavWrapper">
         <div id="clockDate"></div>
         <div id="clockTime"></div>
-        <div class="storeBox">0호점</div>
+        <div class="storeBox"><?php echo $managing_store; ?></div>
         <table>
             <colgroup>
                 <col width="30%">
