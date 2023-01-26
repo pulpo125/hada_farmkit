@@ -1,0 +1,34 @@
+/*1_1_detail, 1_2_update 모두 해당*/
+#frame{width: 400px; height: 100%; margin: 30px auto; display: block; font-size: 15px;}
+#frame div{padding: 12px 0;}
+.title{font-size: 18px; margin-top: 10px;}
+.type{display: inline-block; width: 30%;}
+.last{margin-bottom: 15px;}
+#btnDetail{height: 90px; margin: 20px 0;}
+#btnDetail li{display: inline-block; padding: 8px 25px; margin: 0 8px; text-align: center; background-color: #9DC3E6;}
+#btnDetail .btnLeft{float: left;}
+#btnDetail .btnRight{float: right;}
+#btnDetail .btnMiddle{display: inline-block; margin: 0 auto;}
+
+/*1_2_update*/
+/*#frame input{width: 35%; height: 18px; border: solid 2px #999; padding: 8px 16px;}*/
+#frame input{width: 35%; height: 18px; border: solid 2px #999; padding: 15px 13px;}
+#frame input.phone{width: 17.2%; text-align: center;}
+#frame input.gender{width: 30px; height: 13px;}
+#frame select.schedule{width: 70px; border: solid 2px #999; height: 30px; padding-left: 3px; margin-left: 4px;}
+#frame .addressSearch{display: inline-block; float: right; width: 100%;}
+#frame .addressSearch input{padding: 12px 10px; margin: 3px 0;}
+
+/*div.smallTitle{display: inline-block; width: 20%;}*/
+/*.right{width: 60%; height: 18px; padding: 8px 16px; margin: 5px;}*/
+/*input{width: 60%; height: 18px; border: solid 2px #999; padding: 8px 16px; margin: 5px;}*/
+/*select.phone{width: 18.7%; height: 40px; border: solid 2px #999; padding: 0 16px; margin: 5px;}*/
+/*input.phone{width: 11.6%;}*/
+/*input.email{width: 22.8%;}*/
+/*input.hobby{padding:0px; margin: 0px; width: 30px; height: 13px;}*/
+/*textarea{width: 60%; height: 80px; border: solid 2px #999; padding: 8px 16px; margin: 5px;*/
+/*    vertical-align: top; font-family: inherit; resize: none;}*/
+/*#btn{display: block; margin: 10px 50%;}*/
+/*button{width: 30px; height: 40px;*/
+/*    background-color: #FFC002; border: none; font-size: 16px; font-weight: bold;}*/
+/*button:hover{background-color: #EAA90B;}*/

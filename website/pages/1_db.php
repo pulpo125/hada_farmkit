@@ -5,20 +5,10 @@ include "DBcon.php";
  * @var PDOStatement $connect
  */
 
-//2. 쿼리 생성
-$query = "SELECT *
-            FROM delivery d
-            LEFT JOIN customer c ON d.delivery_id=c.delivery_id
-            LEFT JOIN team t ON d.delivery_id=t.delivery_id
-            LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
-            ORDER BY c.customer_id";
-
-//3. 쿼리 실행
-$result = $connect->query($query) or die($connect->errorInfo());
-
-//1호점, 2호점
+//2. 쿼리 생성 (1호점, 2호점)
 $managing_store = $_GET["managing_store"];
-$query_list = "SELECT *
+//$query_list = "SELECT *
+$query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, customer_menu, district, specific_address, team_id, team_name
             FROM delivery d
             LEFT JOIN customer c ON d.delivery_id=c.delivery_id
             LEFT JOIN team t ON d.delivery_id=t.delivery_id
@@ -26,6 +16,8 @@ $query_list = "SELECT *
             LEFT JOIN managing_district md ON d.district=md.district_name
             WHERE managing_store='$managing_store'
             ORDER BY c.customer_id";
+
+//3. 쿼리 실행
 $result_list = $connect->query($query_list) or die($connect->errorInfo());
 
 ?>
@@ -86,6 +78,9 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
             <div>
                 <h1>DataBase</h1>
             </div>
+            <div>
+                <h3>고객 데이터베이스</h3>
+            </div>
         </header>
 
         <!--contents-->
@@ -119,10 +114,11 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                         <col width="260px">
                         <col width="80px">
                         <col width="120px">
-                        <col width="80px">
-                        <col width="80px">
-                        <col width="60px">
-                        <col width="60px">
+                        <col width="260px">
+<!--                        <col width="80px">-->
+<!--                        <col width="80px">-->
+<!--                        <col width="60px">-->
+<!--                        <col width="60px">-->
                     </colgroup>
 
                     <thead>
@@ -135,9 +131,10 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                         <th>배송지</th>
                         <th>팀 ID</th>
                         <th>팀명</th>
-                        <th>배송요일</th>
-                        <th>배송시간</th>
-                        <th colspan="2">관리</th>
+<!--                        <th>배송요일</th>-->
+<!--                        <th>배송시간</th>-->
+                        <th>상세정보 / 관리</th>
+<!--                        <th colspan="2">관리</th>-->
                     </tr>
                     </thead>
 
@@ -155,11 +152,11 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                             <td><?php echo $row['district'] . ' ' . $row['specific_address']; ?></td>
                             <td><?php echo $row['team_id']; ?></td>
                             <td><?php echo $row['team_name']; ?></td>
-                            <td><?php echo $row['delivery_day']; ?></td>
-                            <td><?php echo $row['delivery_time']; ?></td>
-                            <td><?php echo $row['managing_store']; ?></td>
-                            <td><a href="1_1_update.php?seq=<?php echo $row["delivery_id"]; ?>" class="edit">수정</a></td>
-                            <td><a href="1_1_update.php?seq=<?php echo $row["delivery_id"]; ?>" class="edit">삭제</a></td>
+<!--                            <td>--><?php //echo $row['delivery_day']; ?><!--</td>-->
+<!--                            <td>--><?php //echo $row['delivery_time']; ?><!--</td>-->
+                            <td><a href="1_1_detail.php?cID=<?php echo $row["customer_id"]; ?>" class="edit">바로가기</a></td>
+<!--                            <td><a href="1_1_update.php?seq=--><?php //echo $row["delivery_id"]; ?><!--" class="edit">수정</a></td>-->
+<!--                            <td><a href="1_1_update.php?seq=--><?php //echo $row["delivery_id"]; ?><!--" class="edit">삭제</a></td>-->
                         </tr>
                         <?php
                     }
