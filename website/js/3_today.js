@@ -1,4 +1,4 @@
-/*전역 변수*/
+/* 전역 변수 */
 let timeCount;
 let currentTime;
 let currentID;
