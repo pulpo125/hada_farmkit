@@ -102,19 +102,19 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
-/*배송 시간*/
-function plusTime1() {
-    document.getElementById("twice").style.display = "none";
-    document.getElementById("third").style.display = "none";
-    document.getElementById("once").style.display = "block";
-}
-function plusTime2() {
-    document.getElementById("once").style.display = "none";
-    document.getElementById("third").style.display = "none";
-    document.getElementById("twice").style.display = "block";
-}
-function plusTime3() {
-    document.getElementById("once").style.display = "none";
-    document.getElementById("twice").style.display = "none";
-    document.getElementById("third").style.display = "block";
+/*배송 정보*/
+const targetFirst = document.querySelectorAll('.click');
+targetFirst.forEach((target) => target.addEventListener("click", function(){
+        jsSearch(target.id);
+    })
+);
+
+function jsSearch(id) {
+    const formList = ["once", "twice", "third"];
+    const n = formList.indexOf(id) + 1;
+    for (let i = 0; i < 3; i++) {
+        const form = document.getElementsByClassName(formList[i]);
+        form[0].disabled = i >= n;
+        form[1].disabled = i >= n;
+    }
 }

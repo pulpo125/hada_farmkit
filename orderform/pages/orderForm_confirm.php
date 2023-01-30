@@ -8,101 +8,87 @@ include "../../website/pages/DBcon.php";
  */
 
 //값 받아오기
-/*고객정보*/
-$order_type = $_POST["order_type"];
+print_r($_POST);
+$order_type = $_POST["order_type"]; //true=personal, false=team
+
+/*customer*/
 $customer_name = $_POST["customer_name"];
 $customer_contact = $_POST["phone0"] . '-' . $_POST["phone1"] . '-' . $_POST["phone2"];
-$customer_age = $_POST["customer_age"]; //나이 계산
 $customer_gender = $_POST["customer_gender"];
-$customer_menu = $_POST["customer_menu"]; //+의 식단
-/*팀정보*/
-$team_name = $_POST["team_name"];
-/*배송정보*/
+$customer_menu = $_POST["customer_name"].'의 식단';
+$birth = $_POST["customer_age"];
+$birthday = date("Y", strtotime($birth));
+$now=date('Y');
+$customer_age = $now - $birthday + 1; // 나이 계산
+
+/*delivery*/
 $district = $_POST["district"];
 $specific_address = $_POST["specific_address"];
-$delivery_day = $_POST["ds_day"];
-$delivery_time = $_POST["ds_time"];
 
+/*delivery_schedule*/
+if ( isset($_POST["ds_day"]) ){ /*하나라도 선택했다면(=array라면)*/
+    $delivery_day = implode("|", $_POST["ds_day"]);
+} else{ /*선택하지 않았다면*/
+    $delivery_day=""; }
 
-if ( $order_type ) {
-    //personal
-    //쿼리 (값 추가)
-    $query = "INSERT INTO customer (
-                                customer_name 
-                                ,customer_contact 
-                                ,customer_age 
-                                ,customer_gender 
-                                ,customer_menu 
-                                )
-            VALUES ( 
-                    '$customer_name'
-                    , '$customer_contact'
-                    , '$customer_age'
-                    , '$customer_gender'
-                    , '$customer_menu'
-                    )";
+if ( isset($_POST["ds_time"]) ){ /*하나라도 선택했다면(=array라면)*/
+    $delivery_time = implode("|", $_POST["ds_time"]);
+} else{ /*선택하지 않았다면*/
+    $delivery_time=""; }
 
-    $query .= "INSERT INTO delivery (
-                        district
-                        ,specific_address
-                        )
-    VALUES (
-            '$district'
-            , '$specific_address'
-            )";
+/*delivery Insert*/
+$query = "INSERT INTO delivery (district, specific_address)
+            VALUES ('$district', '$specific_address')";
+$result = $connect->query( $query ) or die($connect->errorInfo());
 
-    $query .= "INSERT INTO delivery_schedule (
-                                delivery_day
-                                ,delivery_time
-                                )
-            VALUES (
-                    '$delivery_day'
-                    , '$delivery_time'
-                    )";
+/*delivery_id 받아오기*/
+$query = 'select * from delivery order by delivery_id desc limit 1';
+$result = $connect->query( $query ) or die($connect->errorInfo());
+$row = $result -> fetch();
+$delivery_id = $row[0];
+print_r('delivery_id: '.$delivery_id);
 
+/*customer_id 받아오기*/
+$query = "select * from customer order by customer_id desc limit 1;";
+$result = $connect->query( $query ) or die($connect->errorInfo());
+$row = $result -> fetch();
+$customer_id = $row[0] + 1 ;
+print_r('customer_id: '.$customer_id);
+
+//쿼리 (값 추가)
+if ($order_type === 'true') {
+    //개인
+    $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
+            VALUES ($delivery_id, '$customer_name', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
+    $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
+            VALUES ($delivery_id, '$delivery_day', '$delivery_time');";
+    $result = $connect->query( $query ) or die($connect->errorInfo());
 } else {
-    //team
-    $query = "INSERT INTO team (
-                                team_name 
-                                )
-            VALUES ( 
-                    '$team_name'
-                    )";
+    //팀
+    $team_name = $_POST["team_name"];
+    $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
+            VALUES ($delivery_id, '$customer_name', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
+    $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
+            VALUES ($delivery_id, '$delivery_day', '$delivery_time');";
+    $query .= "INSERT INTO team (delivery_id, team_name)
+            VALUES ($delivery_id, '$team_name');";
+    $result = $connect->query( $query ) or die($connect->errorInfo());
 
-    $query .= "INSERT INTO customer (
-                                customer_name 
-                                ,customer_contact 
-                                ,customer_age 
-                                ,customer_gender 
-                                ,customer_menu 
-                                )
-            VALUES ( 
-                    '$customer_name'
-                    )";
+    //team_composition customer_id team_id
+    $query = "select team_id from team order by team_id desc limit 1;";
+    $result = $connect->query( $query ) or die($connect->errorInfo());
+    $row = $result -> fetch();
+    print_r('team_id: '.$row);
+    $team_id = $row[0];
 
-    $query .= "INSERT INTO delivery (
-                            district
-                            ,specific_address
-                            )
-        VALUES (
-                '$district'
-                , '$specific_address'
-                )";
-
-    $query .= "INSERT INTO delivery_schedule (
-                                delivery_day
-                                ,delivery_time
-                                )
-            VALUES (
-                    '$delivery_day'
-                    , '$delivery_time'
-                    )";
+    $query = "select customer_id from customer order by customer_id desc limit 3;";
+    $result = $connect->query( $query ) or die($connect->errorInfo());
+    $row = $result -> fetch();
+    print_r('customer_id: '.$row);
 }
 
-$result = $connect->query($query) or die($connect->errorInfo());
-
 if( !$result ){
-    echo "제출 오류입니다. 다시 시도해주세요";
+    echo "회원가입 오류입니다. 다시 시도해주세요";
     exit;
 }
 ?>

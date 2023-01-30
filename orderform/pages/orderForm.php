@@ -42,7 +42,7 @@ include "../../website/pages/DBcon.php";
             </p>
         </div>
 
-        <form name="DB_orderForm" action="orderForm_confirm.php" method="post" onsubmit="return test()">
+        <form name="dbAdd_orderForm" action="orderForm_confirm.php" method="post">
             <!--주문 유형 선택 -->
             <div>
                 <h3>주문 유형 선택</h3>
@@ -63,37 +63,37 @@ include "../../website/pages/DBcon.php";
                         - 이름 : &nbsp;<input type="text" name="customer_name" required ><br>
                         - 생년월일 : &nbsp;<input type="date" name="customer_age" required ><br>
                         - 성별 : &nbsp;<label><input type="radio" name="customer_gender" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender" required value="1"> 여</label> <br>
-                        - 연락처 : &nbsp;<input type="tel" name="phone0" class="phone" maxlength="3" required value="">
-                        - <input type="tel" name="phone1" class="phone" maxlength="4" required value="">
-                        - <input type="tel" name="phone2" class="phone" maxlength="4" required value="">
+                        - 연락처 : &nbsp;<input type="tel" name="phone0" class="phone" maxlength="3" required>
+                        - <input type="tel" name="phone1" class="phone" maxlength="4" required>
+                        - <input type="tel" name="phone2" class="phone" maxlength="4" required>
                         <br><hr><br>
                     </div>
                     <div id="registerForm2" style="display: none">
-                        - 이름 : &nbsp;<input type="text" name="customer_name" required ><br>
-                        - 생년월일 : &nbsp;<input type="date" name="customer_age" required ><br>
-                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender" required value="1"> 여</label> <br>
-                        - 연락처 : &nbsp;<input type="tel" name="phone0" class="phone" maxlength="3" required value="">
-                        - <input type="tel" name="phone1" class="phone" maxlength="4" required value="">
-                        - <input type="tel" name="phone2" class="phone" maxlength="4" required value="">
+                        - 이름 : &nbsp;<input type="text" name="customer_name[]" required ><br>
+                        - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required ><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender[]" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender[]" required value="1"> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="">
+                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="">
+                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="">
                         <br><hr><br>
                     </div>
                     <div id="registerForm3" style="display: none">
-                        - 이름 : &nbsp;<input type="text" name="customer_name" required ><br>
-                        - 생년월일 : &nbsp;<input type="date" name="customer_age" required ><br>
-                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender" required value="1"> 여</label> <br>
-                        - 연락처 : &nbsp;<input type="tel" name="phone0" class="phone" maxlength="3" required value="">
-                        - <input type="tel" name="phone1" class="phone" maxlength="4" required value="">
-                        - <input type="tel" name="phone2" class="phone" maxlength="4" required value="">
+                        - 이름 : &nbsp;<input type="text" name="customer_name[]" required ><br>
+                        - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required ><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender[]" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender[]" required value="1"> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="">
+                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="">
+                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="">
                         <br><hr><br>
                     </div>
                     <div id="addForm" style="display: none">
                         <div id="addFormChild">
-                            - 이름 : &nbsp;<input type="text" name="customer_name" required ><br>
-                            - 생년월일 : &nbsp;<input type="date" name="customer_age" required ><br>
-                            - 성별 : &nbsp;<label><input type="radio" name="customer_gender" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender" required value="1"> 여</label> <br>
-                            - 연락처 : &nbsp;<input type="tel" name="phone0" class="phone" maxlength="3" required value="">
-                            - <input type="tel" name="phone1" class="phone" maxlength="4" required value="">
-                            - <input type="tel" name="phone2" class="phone" maxlength="4" required value="">
+                            - 이름 : &nbsp;<input type="text" name="customer_name[]" required ><br>
+                            - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required ><br>
+                            - 성별 : &nbsp;<label><input type="radio" name="customer_gender[]" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender[]" required value="1"> 여</label> <br>
+                            - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="">
+                            - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="">
+                            - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="">
                             <br><hr><br>
                         </div>
                     </div>
@@ -112,64 +112,43 @@ include "../../website/pages/DBcon.php";
                 <input type="text" id="sample6_extraAddress" placeholder="참고항목" required><br>
                 <hr><br>
                 - 배송 시간<br>
-                <label><input type="radio" onclick="plusTime1()">  주 1회&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <label><input type="radio" onclick="plusTime2()">  주 2회&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <label><input type="radio" onclick="plusTime3()">  주 3회</label>
-                <div id="once" style="display: none">
-                    1. <select name="ds_day">
-                        <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
-                        <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
-                    </select>
-                    <select name="ds_time">
-                        <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
-                        <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
-                    </select>
+                <div id="deliveryTimes">
+                    <label><input type="radio" name="severalTimes" id="once" class="click">  주 1회&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label><input type="radio" name="severalTimes" id="twice" class="click">  주 2회&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label><input type="radio" name="severalTimes" id="third" class="click">  주 3회</label>
                 </div>
-                <div id="twice" style="display: none">
-                    1. <select name="ds_day">
-                        <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
-                        <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
-                    </select>
-                    <select name="ds_time">
-                        <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
-                        <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
-                    </select>&nbsp;&nbsp;
-                    2. <select name="ds_day">
-                        <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
-                        <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
-                    </select>
-                    <select name="ds_time">
-                        <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
-                        <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
-                    </select>
-                </div>
-                <div id="third" style="display: none">
-                    1. <select name="ds_day">
-                        <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
-                        <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
-                    </select>
-                    <select name="ds_time">
-                        <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
-                        <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
-                    </select>&nbsp;&nbsp;
-                    2. <select name="ds_day">
-                        <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
-                        <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
-                    </select>
-                    <select name="ds_time">
-                        <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
-                        <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
-                    </select>&nbsp;&nbsp;
-                    3. <select name="ds_day">
-                        <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
-                        <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
-                    </select>
-                    <select name="ds_time">
-                        <option value="8">08시</option><option value="9">09시</option><option value="11">11시</option>
-                        <option value="12">12시</option><option value="18">18시</option><option value="19">19시</option>
-                    </select>
-                </div>
-                <div id="plusTime"></div>
+                <ul id="deliverySchedule">
+                    <li>
+                        1. <select name="ds_day[]" class="once" disabled>
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="ds_time[]" class="once" disabled>
+                            <option value="08:00">08시</option><option value="09:00">09시</option><option value="11:00">11시</option>
+                            <option value="12:00">12시</option><option value="18:00">18시</option><option value="19:00">19시</option>
+                        </select>&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        2. <select name="ds_day[]" class="twice" disabled>
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="ds_time[]" class="twice" disabled>
+                            <option value="08:00">08시</option><option value="09:00">09시</option><option value="11:00">11시</option>
+                            <option value="12:00">12시</option><option value="18:00">18시</option><option value="19:00">19시</option>
+                        </select>&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        3. <select name="ds_day[]" class="third" disabled>
+                            <option value="Mon">월요일</option><option value="Tue">화요일</option><option value="Wed">수요일</option>
+                            <option value="Thu">목요일</option><option value="Fri">금요일</option><option value="Sat">토요일</option><option value="Sun">일요일</option>
+                        </select>
+                        <select name="ds_time[]" class="third" disabled>
+                            <option value="08:00">08시</option><option value="09:00">09시</option><option value="11:00">11시</option>
+                            <option value="12:00">12시</option><option value="18:00">18시</option><option value="19:00">19시</option>
+                        </select>&nbsp;&nbsp;
+                    </li>
+                </ul>
             </fieldset>
 
 
@@ -181,8 +160,7 @@ include "../../website/pages/DBcon.php";
 
             <!-- 제출 버튼 -->
             <div class="wrapper_box">
-                <button class="submissionBtn">제출</button>
-                <!--<input type="submit"  class="submissionBtn" value="제출" onclick="alert('제출이 완료되었습니다!')"-->
+                <button type="submit">제출</button>
             </div>
         </form>
     </div>
