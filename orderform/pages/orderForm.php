@@ -68,7 +68,7 @@ include "../../website/pages/DBcon.php";
                         - <input type="tel" name="phone2" class="phone" maxlength="4" required>
                         <br><hr><br>
                     </div>
-                    <div id="registerForm2" style="display: none">
+                    <!--<div id="registerForm2" style="display: none">
                         - 이름 : &nbsp;<input type="text" name="customer_name[]" required ><br>
                         - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required ><br>
                         - 성별 : &nbsp;<label><input type="radio" name="customer_gender[]" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender[]" required value="1"> 여</label> <br>
@@ -97,7 +97,7 @@ include "../../website/pages/DBcon.php";
                             <br><hr><br>
                         </div>
                     </div>
-                    <div id="plusSection"></div>
+                    <div id="plusSection"></div>-->
                 </div>
             </fieldset>
 

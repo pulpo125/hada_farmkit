@@ -11,7 +11,7 @@ include "../../website/pages/DBcon.php";
 print_r($_POST);
 $order_type = $_POST["order_type"]; //true=personal, false=team
 
-/*customer*/
+//customer
 $customer_name = $_POST["customer_name"];
 $customer_contact = $_POST["phone0"] . '-' . $_POST["phone1"] . '-' . $_POST["phone2"];
 $customer_gender = $_POST["customer_gender"];
@@ -21,20 +21,15 @@ $birthday = date("Y", strtotime($birth));
 $now=date('Y');
 $customer_age = $now - $birthday + 1; // 나이 계산
 
-/*delivery*/
+//delivery
 $district = $_POST["district"];
 $specific_address = $_POST["specific_address"];
 
-/*delivery_schedule*/
-if ( isset($_POST["ds_day"]) ){ /*하나라도 선택했다면(=array라면)*/
-    $delivery_day = implode("|", $_POST["ds_day"]);
-} else{ /*선택하지 않았다면*/
-    $delivery_day=""; }
-
-if ( isset($_POST["ds_time"]) ){ /*하나라도 선택했다면(=array라면)*/
-    $delivery_time = implode("|", $_POST["ds_time"]);
-} else{ /*선택하지 않았다면*/
-    $delivery_time=""; }
+//delivery_schedule
+$delivery = [];
+for ($i = 0; $i < count($_POST["ds_day"]); $i++) {
+    $delivery[$_POST["ds_day"][$i]] = $_POST["ds_time"][$i];
+}
 
 /*delivery Insert*/
 $query = "INSERT INTO delivery (district, specific_address)
@@ -42,34 +37,39 @@ $query = "INSERT INTO delivery (district, specific_address)
 $result = $connect->query( $query ) or die($connect->errorInfo());
 
 /*delivery_id 받아오기*/
-$query = 'select * from delivery order by delivery_id desc limit 1';
+$query = 'select delivery_id from delivery order by delivery_id desc limit 1';
 $result = $connect->query( $query ) or die($connect->errorInfo());
 $row = $result -> fetch();
 $delivery_id = $row[0];
-print_r('delivery_id: '.$delivery_id);
+print_r('delivery_id: '.$delivery_id.'  ');
 
 /*customer_id 받아오기*/
-$query = "select * from customer order by customer_id desc limit 1;";
+$query = "select customer_id from customer order by customer_id desc limit 1;";
 $result = $connect->query( $query ) or die($connect->errorInfo());
 $row = $result -> fetch();
 $customer_id = $row[0] + 1 ;
-print_r('customer_id: '.$customer_id);
+print_r('customer_id: '.$customer_id.'  ');
 
-//쿼리 (값 추가)
+//Insert Query
 if ($order_type === 'true') {
     //개인
     $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
             VALUES ($delivery_id, '$customer_name', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
-    $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
-            VALUES ($delivery_id, '$delivery_day', '$delivery_time');";
+    foreach ($delivery as $key => $value){
+        $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
+            VALUES ($delivery_id, '$key', '$value');  ";
+    };
+    print_r($query);
     $result = $connect->query( $query ) or die($connect->errorInfo());
 } else {
     //팀
     $team_name = $_POST["team_name"];
     $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
             VALUES ($delivery_id, '$customer_name', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
-    $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
-            VALUES ($delivery_id, '$delivery_day', '$delivery_time');";
+    foreach ($delivery as $key => $value){
+        $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
+            VALUES ($delivery_id, '$key', '$value');  ";
+    };
     $query .= "INSERT INTO team (delivery_id, team_name)
             VALUES ($delivery_id, '$team_name');";
     $result = $connect->query( $query ) or die($connect->errorInfo());
@@ -78,13 +78,13 @@ if ($order_type === 'true') {
     $query = "select team_id from team order by team_id desc limit 1;";
     $result = $connect->query( $query ) or die($connect->errorInfo());
     $row = $result -> fetch();
-    print_r('team_id: '.$row);
+    print_r('team_id: '.$row.'  ');
     $team_id = $row[0];
 
     $query = "select customer_id from customer order by customer_id desc limit 3;";
     $result = $connect->query( $query ) or die($connect->errorInfo());
     $row = $result -> fetch();
-    print_r('customer_id: '.$row);
+    print_r('customer_id: '.$row.'  ');
 }
 
 if( !$result ){
