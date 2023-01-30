@@ -4,7 +4,6 @@ let currentTime;
 let currentID;
 let buttonStates = {};
 
-
 /* 완료 버튼 클릭 함수 */
 const btn = document.querySelector("#tabFooter > button");
 btn.addEventListener("click", (e) => {

@@ -13,7 +13,7 @@ $query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_t
 FROM delivery_schedule ds
     left join delivery d on ds.delivery_id = d.delivery_id
     left join managing_district md on d.district = md.district_name
-    WHERE delivery_day = 'Thur' and managing_store = '$managing_store'
+    WHERE delivery_day = '$weekday' and managing_store = '$managing_store'
 GROUP BY delivery_time
 ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
@@ -29,7 +29,7 @@ FROM delivery d
     LEFT JOIN delivery_schedule ds ON d.delivery_id = ds.delivery_id
     Left JOIN team t ON d.delivery_id = t.delivery_id
     left join managing_district md on d.district = md.district_name
-where delivery_day = 'Thur' and managing_store = '$managing_store'
+where delivery_day = '$weekday' and managing_store = '$managing_store'
 ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
 $deliveryInfo = array();
@@ -44,7 +44,7 @@ FROM customer c
 LEFT JOIN delivery d on c.delivery_id = d.delivery_id
 LEFT JOIN delivery_schedule ds on d.delivery_id = ds.delivery_id
 left join managing_district md on d.district = md.district_name
-WHERE ds.delivery_day = 'Thur' and managing_store = '$managing_store'
+WHERE ds.delivery_day = '$weekday' and managing_store = '$managing_store'
 ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
 $customerInfo = array();
@@ -72,7 +72,6 @@ while($row = $result->fetch())
     </script>
 </head>
 <body>
-
 <!--페이지 시작-->
 <div id="pageWrapper">
     <!--좌측 네비게이션 시작-->
