@@ -48,7 +48,7 @@ include "../../website/pages/DBcon.php";
                 <h3>주문 유형 선택</h3>
                 <label><input type="radio" name="order_type" value=true onclick='customerSelect()' checked> 개인 주문&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <label><input type="radio" name="order_type" value=false onclick='teamSelect()' > 팀 주문</label>
-                <label><input type="text" name="team_name" placeholder="팀명을 입력하세요." id="teamName" disabled ></label>
+                <label><input type="text" name="team_name" placeholder="팀명을 입력하세요." id="teamName" disabled required></label>
             </div>
 
             <!--개인 정보 등록-->
@@ -60,44 +60,44 @@ include "../../website/pages/DBcon.php";
                 </h3>
                 <div id="registerForm">
                     <div id="registerForm1">
-                        - 이름 : &nbsp;<input type="text" name="customer_name" required ><br>
-                        - 생년월일 : &nbsp;<input type="date" name="customer_age" required ><br>
-                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender" required value="1"> 여</label> <br>
-                        - 연락처 : &nbsp;<input type="tel" name="phone0" class="phone" maxlength="3" required>
-                        - <input type="tel" name="phone1" class="phone" maxlength="4" required>
-                        - <input type="tel" name="phone2" class="phone" maxlength="4" required>
-                        <br><hr><br>
-                    </div>
-                    <!--<div id="registerForm2" style="display: none">
                         - 이름 : &nbsp;<input type="text" name="customer_name[]" required ><br>
                         - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required ><br>
-                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender[]" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender[]" required value="1"> 여</label> <br>
+                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender1" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender1" required value="1"> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required>
+                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required>
+                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required>
+                        <br><hr><br>
+                    </div>
+                    <div id="registerForm2" style="display: none">
+                        - 이름 : &nbsp;<input type="text" name="customer_name[]" required disabled><br>
+                        - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required disabled ><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender2" required value="0" checked disabled> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender2" required value="1" disabled> 여</label> <br>
                         - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="">
-                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="">
-                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="">
+                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="" disabled>
+                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
                         <br><hr><br>
                     </div>
                     <div id="registerForm3" style="display: none">
-                        - 이름 : &nbsp;<input type="text" name="customer_name[]" required ><br>
-                        - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required ><br>
-                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender[]" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender[]" required value="1"> 여</label> <br>
-                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="">
-                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="">
-                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="">
+                        - 이름 : &nbsp;<input type="text" name="customer_name[]" required  disabled><br>
+                        - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required  disabled><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender3" required value="0" checked disabled> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender3" required value="1" disabled> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="" disabled>
+                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="" disabled>
+                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
                         <br><hr><br>
                     </div>
                     <div id="addForm" style="display: none">
                         <div id="addFormChild">
-                            - 이름 : &nbsp;<input type="text" name="customer_name[]" required ><br>
-                            - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required ><br>
-                            - 성별 : &nbsp;<label><input type="radio" name="customer_gender[]" required value="0" checked> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender[]" required value="1"> 여</label> <br>
-                            - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="">
-                            - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="">
-                            - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="">
+                            - 이름 : &nbsp;<input type="text" name="customer_name[]" required  disabled><br>
+                            - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required  disabled><br>
+                            - 성별 : &nbsp;<label><input type="radio" name="customer_gender4" required value="0" checked disabled> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender4" required value="1" disabled> 여</label> <br>
+                            - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="" disabled>
+                            - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="" disabled>
+                            - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
                             <br><hr><br>
                         </div>
                     </div>
-                    <div id="plusSection"></div>-->
+                    <div id="plusSection"></div>
                 </div>
             </fieldset>
 

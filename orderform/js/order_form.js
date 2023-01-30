@@ -1,32 +1,62 @@
+function disabledTarget(target) {
+    for (let i = 0; i < 7; i++) {
+        let form2 = target.getElementsByTagName('input')[i];
+        form2.disabled = true;
+    }
+}
+
+function activeTarget(target) {
+    for (let i = 0; i < 7; i++) {
+        let form2 = target.getElementsByTagName('input')[i];
+        form2.disabled = false;
+    }
+}
+
 /*주문 유형 선택*/
 function customerSelect()  {
     /* 개인 선택 시 팀이름 입력 칸 비활성화*/
-    var target = document.getElementById('teamName');
-    target.disabled = true;
+    let teamName = document.getElementById('teamName');
+    teamName.disabled = true;
 
     /* 개인 선택 시 등록폼 1개만 보이기*/
     document.getElementById("registerForm2").style.display = "none";
     document.getElementById("registerForm3").style.display = "none";
 
+    /* 등록폼 비활성화 */
+    //2,3,addForm 비활성화
+    let target1 = document.getElementById("registerForm2");
+    disabledTarget(target1);
+    let target2 = document.getElementById("registerForm3");
+    disabledTarget(target2);
+    let target3 = document.getElementById("addForm");
+    disabledTarget(target3);
+
     /* 개인 선택 시 추가/삭제 버튼 비활성화*/
-    var addBtn = document.getElementById('addBtn');
+    let addBtn = document.getElementById('addBtn');
     addBtn.disabled = true;
-    var removeBtn = document.getElementById('removeBtn');
+    let removeBtn = document.getElementById('removeBtn');
     removeBtn.disabled = true;
 }
 function teamSelect()  {
     /* 팀 선택 시 팀이름 입력 칸 활성화*/
-    var target = document.getElementById('teamName');
+    let target = document.getElementById('teamName');
     target.disabled = false;
 
     /* 팀 선택 시 등록폼 3개 보이기*/
     document.getElementById("registerForm2").style.display = "block";
     document.getElementById("registerForm3").style.display = "block";
 
+    /* 등록폼 활성화 */
+    //2,3,addForm 활성화
+    let target1 = document.getElementById("registerForm2");
+    activeTarget(target1);
+    let target2 = document.getElementById("registerForm3");
+    activeTarget(target2);
+
     /* 개인 선택 시 추가/삭제 버튼 활성화*/
-    var addBtn = document.getElementById('addBtn');
+    let addBtn = document.getElementById('addBtn');
     addBtn.disabled = false;
-    var removeBtn = document.getElementById('removeBtn');
+    let removeBtn = document.getElementById('removeBtn');
     removeBtn.disabled = false;
 }
 
@@ -39,6 +69,9 @@ function addForm() {
     const plus2 = plus.appendChild(formCopy);
     plus2.id = 'addFormCopy'
     plus2.style.display = "block";
+
+    let target3 = document.getElementById("addFormCopy");
+    activeTarget(target3);
 }
 
 function removeForm()  {
