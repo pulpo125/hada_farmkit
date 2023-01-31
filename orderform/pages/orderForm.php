@@ -37,7 +37,7 @@ include "../../website/pages/DBcon.php";
             <p class="notice">개인 주문/팀 주문</p>
             <p>
                 제한 지역(새롬동, 종촌동)에서만 개인 주문이 가능하며, 그 외 세종시 지역에서는 팀 주문만 가능합니다.
-                <br>팀은 최소 3인으로 구성되며, 개별 맞춤 식단을 제공하지만 하나의 배송지에 배송된다는 점 유의해주시길 바랍니다.
+                <br>팀은 3~5인으로 구성되며, 개별 맞춤 식단을 제공하지만 하나의 배송지에 배송된다는 점 유의해주시길 바랍니다.
                 <br>※제한 지역 내 팀 주문은 10% 할인입니다.
             </p>
         </div>
@@ -104,7 +104,7 @@ include "../../website/pages/DBcon.php";
                         - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
                         <br><hr><br>
                     </div>
-                    <input type="text" name="cnt" value="5" style="display: none">
+                    <input id="cntInput" type="text" name="cnt" value="1" style="display: none">
                 </div>
             </fieldset>
 

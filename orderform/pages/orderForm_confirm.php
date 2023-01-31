@@ -9,6 +9,7 @@ include "../../website/pages/DBcon.php";
 
 //값 받아오기
 $cnt = $_POST["cnt"];
+$now=date('Y');
 $order_type = $_POST["order_type"]; //true=personal, false=team
 $customer_name = $_POST["customer_name"];
 $district = $_POST["district"];
@@ -18,7 +19,8 @@ for ($i = 0; $i < count($_POST["ds_day"]); $i++) {
     $delivery[$_POST["ds_day"][$i]] = $_POST["ds_time"][$i];
 }
 
-$now=date('Y');
+
+/*개인/팀 선택에 따른 값 받아오기*/
 if ($order_type === 'true') {
     //개인
     $customer_contact = $_POST["phone0"][0] . '-' . $_POST["phone1"][0] . '-' . $_POST["phone2"][0];
@@ -35,24 +37,6 @@ if ($order_type === 'true') {
         $customer_contact[ $i ] = $_POST["phone0"][$i] . '-' . $_POST["phone1"][$i] . '-' . $_POST["phone2"][$i];
     }
 
-    $customer_gender = [];
-    if ($cnt < 4)  {
-        $customer_gender[0] = $_POST['customer_gender1'];
-        $customer_gender[1] = $_POST['customer_gender2'];
-        $customer_gender[2] = $_POST['customer_gender3'];
-    } elseif ($cnt === 4) {
-        $customer_gender[0] = $_POST['customer_gender1'];
-        $customer_gender[1] = $_POST['customer_gender2'];
-        $customer_gender[2] = $_POST['customer_gender3'];
-        $customer_gender[3] = $_POST['customer_gender4'];
-    } else {
-        $customer_gender[0] = $_POST['customer_gender1'];
-        $customer_gender[1] = $_POST['customer_gender2'];
-        $customer_gender[2] = $_POST['customer_gender3'];
-        $customer_gender[3] = $_POST['customer_gender4'];
-        $customer_gender[4] = $_POST['customer_gender5'];
-    }
-
     $customer_menu = [];
     for ($i = 0; $i < $cnt; $i++) {
         $customer_menu[$i] = $_POST["customer_name"][$i].'의 식단';
@@ -64,28 +48,51 @@ if ($order_type === 'true') {
     }
 }
 
+$customer_gender = [];
+if ($cnt === '1') {
+    //개인
+    $customer_gender[0] = $_POST['customer_gender1'];
+} else if ($cnt === '3')  {
+    //팀 3인
+    $customer_gender[0] = $_POST['customer_gender1'];
+    $customer_gender[1] = $_POST['customer_gender2'];
+    $customer_gender[2] = $_POST['customer_gender3'];
+} elseif ($cnt === '4') {
+    //팀 4인
+    $customer_gender[0] = $_POST['customer_gender1'];
+    $customer_gender[1] = $_POST['customer_gender2'];
+    $customer_gender[2] = $_POST['customer_gender3'];
+    $customer_gender[3] = $_POST['customer_gender4'];
+} else {
+    //팀 5인
+    $customer_gender[0] = $_POST['customer_gender1'];
+    $customer_gender[1] = $_POST['customer_gender2'];
+    $customer_gender[2] = $_POST['customer_gender3'];
+    $customer_gender[3] = $_POST['customer_gender4'];
+    $customer_gender[4] = $_POST['customer_gender5'];
+}
 /*delivery Insert*/
 $query = "INSERT INTO delivery (district, specific_address)
             VALUES ('$district', '$specific_address')";
 $result = $connect->query( $query ) or die($connect->errorInfo());
+
 
 /*delivery_id 받아오기*/
 $query = 'select delivery_id from delivery order by delivery_id desc limit 1';
 $result = $connect->query( $query ) or die($connect->errorInfo());
 $row = $result -> fetch();
 $delivery_id = $row[0];
-print_r('delivery_id: '.$delivery_id.'  ');
 
-//Insert Query
+
+/*Insert Query*/
 if ($order_type === 'true') {
     //개인
     $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
-            VALUES ($delivery_id, '$customer_name[0]', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
+            VALUES ($delivery_id, '$customer_name[0]', '$customer_contact', '$customer_age', '$customer_gender[0]', '$customer_menu');";
     foreach ($delivery as $key => $value){
         $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
             VALUES ($delivery_id, '$key', '$value');  ";
     }
-    print_r($query);
     $result = $connect->query( $query ) or die($connect->errorInfo());
 } else {
     //팀
@@ -100,7 +107,7 @@ if ($order_type === 'true') {
     }
     $result = $connect->query( $query ) or die($connect->errorInfo());
 
-    //team_composition customer_id team_id 추출
+    //team_composition 테이블 customer_id team_id 추출
     $query = "select team_id from team order by team_id desc limit 1;";
     $result = $connect->query( $query ) or die($connect->errorInfo());
     $row = $result -> fetch();
@@ -123,8 +130,9 @@ if ($order_type === 'true') {
     $result = $connect->query( $query ) or die($connect->errorInfo());
 }
 
+/*제출 오류*/
 if( !$result ){
-    echo "회원가입 오류입니다. 다시 시도해주세요";
+    echo "제출 오류입니다. 다시 시도해주세요";
     exit;
 }
 ?>
