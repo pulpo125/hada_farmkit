@@ -1,14 +1,24 @@
 <?php
-//include "DBcon.php";
+include "DBcon.php";
 
 /**
  * @var PDOStatement $connect
  */
 
-//2. 쿼리 생성
-//$query = "SELECT * FROM 테이블1, 테이블2 ORDER BY WHERE 테이블1.column0 = 테이블2.column0 테이블1.seq";
+//2. 쿼리 생성 (1호점, 2호점)
+$managing_store = $_GET["managing_store"];
+$query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, customer_menu, district, specific_address, team_id, team_name
+            FROM delivery d
+            LEFT JOIN customer c ON d.delivery_id=c.delivery_id
+            LEFT JOIN team t ON d.delivery_id=t.delivery_id
+            LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
+            LEFT JOIN managing_district md ON d.district=md.district_name
+            WHERE managing_store='$managing_store'
+            ORDER BY c.customer_id";
+
 //3. 쿼리 실행
-//$result = $connect->query($query) or die($connect->errorInfo());
+$result_list = $connect->query($query_list) or die($connect->errorInfo());
+
 ?>
 
 <!doctype html>
@@ -30,7 +40,7 @@
     <div id="leftNavWrapper">
         <div id="clockDate"></div>
         <div id="clockTime"></div>
-        <div class="storeBox">0호점</div>
+        <div class="storeBox"><?php echo $managing_store; ?></div>
         <table>
             <colgroup>
                 <col width="30%">
@@ -38,21 +48,21 @@
                 <col width="30%">
             </colgroup>
             <tr>
-                <th class="here"><a href="">전체</a></th>
-                <th><a href="">1호점</a></th>
-                <th><a href="">2호점</a></th>
+                <th><a href="">전체</a></th>
+                <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="1_db.php?managing_store=1호점">1호점</a></th>
+                <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="1_db.php?managing_store=2호점">2호점</a></th>
             </tr>
         </table>
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li class="now"><a href="">- DB</a></li>
+                    <li class="now"><a href="1_db.php?managing_store=1호점">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="">- WEEK</a></li>
-                    <li><a href="">- TODAY</a></li>
+                    <li><a href="2_week.php?managing_store=1호점">- WEEK</a></li>
+                    <li><a href="3_today.php?managing_store=1호점">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -66,6 +76,9 @@
         <header>
             <div>
                 <h1>DataBase</h1>
+            </div>
+            <div>
+                <h3>고객 데이터베이스</h3>
             </div>
         </header>
 
@@ -100,10 +113,7 @@
                         <col width="260px">
                         <col width="80px">
                         <col width="120px">
-                        <col width="80px">
-                        <col width="80px">
-                        <col width="60px">
-                        <col width="60px">
+                        <col width="260px">
                     </colgroup>
 
                     <thead>
@@ -116,75 +126,28 @@
                         <th>배송지</th>
                         <th>팀 ID</th>
                         <th>팀명</th>
-                        <th>배송요일</th>
-                        <th>배송시간</th>
-                        <th colspan="2">관리</th>
+                        <th>상세정보 / 관리</th>
                     </tr>
                     </thead>
 
                     <tbody>
                     <?php
-//                    $index=0;
-//                    while($row = $result -> fetch()){
+                    $index=0;
+                    while($row = $result_list -> fetch()){
                         ?>
                         <tr>
-<!--                            <td>--><?php //echo ++$index; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_id']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_name']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_contact']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['customer_menu']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['specific_address']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['team_id']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['team_name']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['delivery_day']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['delivery_time']; ?><!--</td>-->
-<!--                            <td><a href="03_1_memberUpdate.php?seq=--><?php //echo $row["seq"]; ?><!--" class="edit">수정</a></td>-->
-<!--                            <td><a href="03_1_memberUpdate.php?seq=--><?php //echo $row["seq"]; ?><!--" class="edit">삭제</a></td>-->
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>김가가</td>
-                            <td>010-1111-1111</td>
-                            <td>에그 샐러드</td>
-                            <td>고운동 137</td>
-                            <td>1</td>
-                            <td>팀A</td>
-                            <td>월</td>
-                            <td>12:00</td>
-                            <td><a href="" class="edit">수정</a></td>
-                            <td><a href="" class="edit">삭제</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>이나나</td>
-                            <td>010-2222-2222</td>
-                            <td>불고기 샐러드</td>
-                            <td>어진동 556</td>
-                            <td></td>
-                            <td></td>
-                            <td>화</td>
-                            <td>8:00</td>
-                            <td><a href="" class="edit">수정</a></td>
-                            <td><a href="" class="edit">삭제</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>이나나</td>
-                            <td>010-2222-2222</td>
-                            <td>콩 샐러드</td>
-                            <td>어진동 556</td>
-                            <td></td>
-                            <td></td>
-                            <td>목</td>
-                            <td>8:00</td>
-                            <td><a href="" class="edit">수정</a></td>
-                            <td><a href="" class="edit">삭제</a></td>
+                            <td><?php echo ++$index; ?></td>
+                            <td><?php echo $row['customer_id']; ?></td>
+                            <td><?php echo $row['customer_name']; ?></td>
+                            <td><?php echo $row['customer_contact']; ?></td>
+                            <td><?php echo $row['customer_menu']; ?></td>
+                            <td><?php echo $row['specific_address']; ?></td>
+                            <td><?php echo $row['team_id']; ?></td>
+                            <td><?php echo $row['team_name']; ?></td>
+                            <td><a href="1_1_detail.php?cID=<?php echo $row["customer_id"]; ?>" class="edit">바로가기</a></td>
                         </tr>
                         <?php
-//                    }
+                    }
                     ?>
                     </tbody>
 

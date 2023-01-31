@@ -1,0 +1,22 @@
+/*1_1_detail, 1_2_update 모두 해당*/
+#frame{width: 400px; height: 100%; margin: 30px auto; display: block; font-size: 15px;}
+#frame div{padding: 12px 0;}
+.title{font-size: 18px; margin-top: 10px;}
+.type{display: inline-block; width: 30%;}
+.last{margin-bottom: 15px;}
+#btnDetail{height: 90px; margin: 20px 0;}
+#btnDetail li{display: inline-block; padding: 8px 25px; margin: 0 8px; text-align: center; background-color: #9DC3E6;}
+#btnDetail .btnLeft{float: left;}
+#btnDetail .btnRight{float: right;}
+#btnDetail .btnMiddle{display: inline-block; margin: 0 auto;}
+
+/*1_2_update*/
+/*#frame input{width: 35%; height: 18px; border: solid 2px #999; padding: 8px 16px;}*/
+#frame input{width: 35%; height: 18px; border: solid 2px #999; padding: 15px 13px;}
+#frame input.phone{width: 17.2%; text-align: center;}
+#frame input.gender{width: 30px; height: 13px;}
+#frame select.schedule{width: 70px; border: solid 2px #999; height: 30px; padding-left: 3px; margin-left: 4px;}
+#frame .addressSearch{display: inline-block; float: right; width: 100%;}
+#frame .addressSearch input{padding: 12px 10px; margin: 3px 0;}
+#frame #btn button{margin: 0 auto;}
+#frame #btn button{display: block; margin: 30px auto; padding: 8px 25px; border: none; background-color: #9DC3E6; cursor: pointer;}

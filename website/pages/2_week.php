@@ -1,3 +1,34 @@
+<?php
+
+include "DBcon.php";
+
+/**
+ * @var PDOStatement $connect
+ */
+
+//쿼리 생성,실행
+$managing_store = $_GET["managing_store"];
+//$query_list = "SELECT count(c.customer_id)*count(ds.delivery_schedule_id) FROM customer c, delivery_schedule ds GROUP BY delivery_id";
+$query_list = "SELECT delivery_id, count(customer_id) FROM customer GROUP BY delivery_id";
+/*$query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, customer_menu, district, specific_address, team_id, team_name
+            FROM delivery d
+            LEFT JOIN customer c ON d.delivery_id=c.delivery_id
+            LEFT JOIN team t ON d.delivery_id=t.delivery_id
+            LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
+            LEFT JOIN managing_district md ON d.district=md.district_name
+            WHERE managing_store='$managing_store'
+            ORDER BY c.customer_id";*/
+$result_list = $connect->query($query_list) or die($connect->errorInfo());
+//$man = $result_list->fetch();
+
+//오늘 요일
+$date = date("Y-m-d");
+//$day = array("일","월","화","수","목","금","토");
+$day = array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+$day_today = ($day[date('w', strtotime($date))]);
+
+?>
+
 <!doctype html>
 <html lang="kor">
 <head>
@@ -17,7 +48,7 @@
     <div id="leftNavWrapper">
         <div id="clockDate"></div>
         <div id="clockTime"></div>
-        <div class="storeBox">0호점</div>
+        <div class="storeBox"><?php echo $managing_store; ?></div>
         <table>
             <colgroup>
                 <col width="30%">
@@ -25,21 +56,21 @@
                 <col width="30%">
             </colgroup>
             <tr>
-                <th class="here"><a href="">전체</a></th>
-                <th><a href="">1호점</a></th>
-                <th><a href="">2호점</a></th>
+                <th><a href="">전체</a></th>
+                <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="2_week.php?managing_store=1호점">1호점</a></th>
+                <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="2_week.php?managing_store=2호점">2호점</a></th>
             </tr>
         </table>
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li><a href="">- DB</a></li>
+                    <li><a href="1_db.php?managing_store=1호점">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li class="now"><a href="">- WEEK</a></li>
-                    <li><a href="">- TODAY</a></li>
+                    <li class="now"><a href="2_week.php?managing_store=1호점">- WEEK</a></li>
+                    <li><a href="3_today.php?managing_store=1호점">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -75,57 +106,56 @@
                     </colgroup>
 
                     <thead>
-                    <tr>
+                    <tr id="day_head">
                         <!--<th class=<?php /*echo $category_num=='1' ? "now" : ""; */?>>월요일</th>-->
-                        <th>월요일</th>
-                        <th class="today">화요일</th>
-                        <th>수요일</th>
-                        <th>목요일</th>
-                        <th>금요일</th>
-                        <th>토요일</th>
-                        <th>일요일</th>
+                        <th class=<?php echo $day_today=='Mon' ? "today" : ""; ?> >월요일</th>
+                        <th class=<?php echo $day_today=='Tue' ? "today" : ""; ?> >화요일</th>
+                        <th class=<?php echo $day_today=='Wed' ? "today" : ""; ?> >수요일</th>
+                        <th class=<?php echo $day_today=='Thur' ? "today" : ""; ?> >목요일</th>
+                        <th class=<?php echo $day_today=='Fri' ? "today" : ""; ?> >금요일</th>
+                        <th class=<?php echo $day_today=='Sat' ? "today" : ""; ?> >토요일</th>
+                        <th class=<?php echo $day_today=='Sun' ? "today" : ""; ?> >일요일</th>
                     </tr>
                     </thead>
 
                     <tbody>
+<!--                    --><?php
+//                    $index=0;
+//                    while(){
+//                    ?>
+
                     <tr>
-                        <td class="tbSum"><!--월-->
-                            총 주문:
-                            <br>
-                            총 배달:
-                        </td>
-                        <td class="tbSum"><!--화-->
-                            총 주문:
-                            <br>
-                            총 배달:
-                        </td>
-                        <td class="tbSum"><!--수-->
-                            총 주문:
-                            <br>
-                            총 배달:
-                        </td>
-                        <td class="tbSum"><!--목-->
-                            총 주문:
-                            <br>
-                            총 배달:
-                        </td>
-                        <td class="tbSum"><!--금-->
-                            총 주문:
-                            <br>
-                            총 배달:
-                        </td>
-                        <td class="tbSum"><!--토-->
-                            총 주문:
-                            <br>
-                            총 배달:
-                        </td>
-                        <td class="tbSum"><!--일-->
-                            총 주문:
-                            <br>
-                            총 배달:
-                        </td>
+                <?php
+                $index=0;
+                while($row = $result_list -> fetch() AND $index<7){
+                    $loop_day = array("Mon","Tue","Wed","Thur","Fri","Sat","Sun");
+                    $query_tbSum = "SELECT count(c.customer_id) AS cIDcnt, count(ds.delivery_schedule_id) AS dsIDcnt
+                                        FROM delivery d
+                                        LEFT JOIN customer c ON d.delivery_id=c.delivery_id
+                                        LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
+                                        WHERE managing_store='$managing_store' AND delivery_day='$loop_day[$index]'
+                                        GROUP BY delivery_id";
+//                    $result_tbSum = $connect->query($query_tbSum) or die($connect->errorInfo());
+//                    print_r($result_tbSum);
+//                    $row_tbSum = $result_tbSum->fetch();
+//                    print_r($row_tbSum);
+                    ?>
+                    <td class="tbSum <?php echo $day_today==$loop_day[$index] ? "today" : ""; ?>" ><!--월~일-->
+                        총 주문: <?php /*echo $row_tbSum["cIDcnt"]; */?>
+                        <br>
+                        총 배달: <?php /*echo $row_tbSum["dsIDcnt"]; */?>
+                    </td>
+                    <?php
+                    ++$index;
+                }
+                ?>
                     </tr>
+
+
                     <tr>
+                        <?php
+                            while($row = $result_list -> fetch()){}
+                        ?>
                         <td class="tbTime"><!--월-->
                             <b>아침</b>
                             <br>
@@ -278,6 +308,10 @@
                             [19:00]
                         </td>
                     </tr>
+<!--                    --><?php
+//                        ++$index;
+//                    }
+//                    ?>
                     </tbody>
 
                 </table>
