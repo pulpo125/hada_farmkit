@@ -45,7 +45,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         <div><span class="type">고객명</span> <input type="text" name="customer_name" required value="<?php echo $man["customer_name"]; ?>"></div>
         <div><span class="type">연락처</span>
             <input type="tel" name="phone0" class="phone" maxlength="3" required value="<?php echo substr($man["customer_contact"],0,3); ?>">
-            - <input type="tel" name="phone1" class="phone" maxlength="3" required value="<?php echo substr($man["customer_contact"],4,3); ?>">
+            - <input type="tel" name="phone1" class="phone" maxlength="4" required value="<?php echo substr($man["customer_contact"],4,3); ?>">
             - <input type="tel" name="phone2" class="phone" maxlength="4" required value="<?php echo substr($man["customer_contact"],8,4); ?>">
         </div>
         <div><span class="type">나이</span> <input type="text" name="customer_age" required value="<?php echo $man["customer_age"]; ?>"></div>
@@ -73,15 +73,8 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         <div><span class="type">배송지</span>
             <!--배송지ID--><input type="hidden" name="delivery_id" value="<?php echo $man["delivery_id"]; ?>">
             ( ID : <?php echo $man["delivery_id"]; ?> )
-            <input type="text" name="customer_name" required value="<?php echo $man["district"] . ' ' . $man["specific_address"]; ?>" disabled>
-            <div class="addressSearch">
-                <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@--><br><br>
-                <input type="text" id="sample6_postcode" placeholder="우편번호">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="deliveryCode"><br>
-                <input type="text" id="sample6_address" placeholder="주소"><br>
-                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                <input type="text" id="sample6_extraAddress" placeholder="참고항목"><br><br>
-            </div>
+            <input type="text" name="customer_name" required value="<?php echo $man["specific_address"]; ?>">
+
 
 
 
@@ -90,23 +83,22 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         while($man_d = $result_d->fetch()){
             ?>
             <div><span class="type">배송 스케줄 <?php echo $index+1; ?></span>
-                ( ID : <?php echo $man_d["delivery_schedule_id"]; ?> )
                 <select name="ds_day" class="schedule">
-                    <option value="mon" <?php echo $man_d["delivery_day"]=='Mon' ? "selected" : ""; ?>>월요일</option>
-                    <option value="tue" <?php echo $man_d["delivery_day"]=='Tue' ? "selected" : ""; ?>>화요일</option>
-                    <option value="wed" <?php echo $man_d["delivery_day"]=='Wed' ? "selected" : ""; ?>>수요일</option>
-                    <option value="thur" <?php echo $man_d["delivery_day"]=='Thur' ? "selected" : ""; ?>>목요일</option>
-                    <option value="fri" <?php echo $man_d["delivery_day"]=='Fri' ? "selected" : ""; ?>>금요일</option>
-                    <option value="sat" <?php echo $man_d["delivery_day"]=='Sat' ? "selected" : ""; ?>>토요일</option>
-                    <option value="sun" <?php echo $man_d["delivery_day"]=='Sun' ? "selected" : ""; ?>>일요일</option>
+                    <option value="Mon" <?php echo $man_d["delivery_day"]=='Mon' ? "selected" : ""; ?>>월요일</option>
+                    <option value="Tue" <?php echo $man_d["delivery_day"]=='Tue' ? "selected" : ""; ?>>화요일</option>
+                    <option value="Wed" <?php echo $man_d["delivery_day"]=='Wed' ? "selected" : ""; ?>>수요일</option>
+                    <option value="Thu" <?php echo $man_d["delivery_day"]=='Thu' ? "selected" : ""; ?>>목요일</option>
+                    <option value="Fri" <?php echo $man_d["delivery_day"]=='Fri' ? "selected" : ""; ?>>금요일</option>
+                    <option value="Sat" <?php echo $man_d["delivery_day"]=='Sat' ? "selected" : ""; ?>>토요일</option>
+                    <option value="Sun" <?php echo $man_d["delivery_day"]=='Sun' ? "selected" : ""; ?>>일요일</option>
                 </select>
                 <select name="ds_time" class="schedule">
-                    <option value="8" <?php echo $man_d["delivery_time"]=='8:00' ? "selected" : ""; ?>>08시</option>
-                    <option value="9" <?php echo $man_d["delivery_time"]=='9:00' ? "selected" : ""; ?>>09시</option>
-                    <option value="11" <?php echo $man_d["delivery_time"]=='11:00' ? "selected" : ""; ?>>11시</option>
-                    <option value="12" <?php echo $man_d["delivery_time"]=='12:00' ? "selected" : ""; ?>>12시</option>
-                    <option value="18" <?php echo $man_d["delivery_time"]=='18:00' ? "selected" : ""; ?>>18시</option>
-                    <option value="19" <?php echo $man_d["delivery_time"]=='19:00' ? "selected" : ""; ?>>19시</option>
+                    <option value="08:00" <?php echo $man_d["delivery_time"]=='08:00' ? "selected" : ""; ?>>08시</option>
+                    <option value="09:00" <?php echo $man_d["delivery_time"]=='09:00' ? "selected" : ""; ?>>09시</option>
+                    <option value="11:00" <?php echo $man_d["delivery_time"]=='11:00' ? "selected" : ""; ?>>11시</option>
+                    <option value="12:00" <?php echo $man_d["delivery_time"]=='12:00' ? "selected" : ""; ?>>12시</option>
+                    <option value="18:00" <?php echo $man_d["delivery_time"]=='18:00' ? "selected" : ""; ?>>18시</option>
+                    <option value="19:00" <?php echo $man_d["delivery_time"]=='19:00' ? "selected" : ""; ?>>19시</option>
                 </select>
             </div>
             <?php
@@ -125,6 +117,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
 
 <!--JS연결-->
 <script src="../js/1_db.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </body>
 </html>

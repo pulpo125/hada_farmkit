@@ -6,12 +6,20 @@ include "DBcon.php";
  */
 
 $cID = $_GET["cID"];
-$query = "SELECT *
+
+//managing_store(1호점/2호점) 구하기
+$query = "SELECT md.managing_store
             FROM delivery d
+            LEFT JOIN customer c ON d.delivery_id=c.delivery_id
             LEFT JOIN managing_district md ON d.district=md.district_name
             WHERE customer_id='$cID'";
 $result = $connect->query($query) or die($connect->errorInfo());
 $man = $result->fetch();
+
+if ( !$result ){ /*참이 아니면 전부*/
+    echo "회원가입 오류입니다. 다시 시도해주세요";
+    exit;
+}
 
 ?>
 

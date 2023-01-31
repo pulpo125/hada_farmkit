@@ -60,7 +60,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
     <div><span class="type">담당 지점</span> <?php echo $man["managing_store"]; ?></div>
     <div><span class="type">배송지</span>
         ( ID : <?php echo $man["delivery_id"]; ?> )
-        <?php echo $man["district"] . ' ' . $man["specific_address"]; ?></div>
+        <?php echo $man["specific_address"]; ?></div>
     <?php
     $index=0;
     while($man_d = $result_d->fetch()){
@@ -70,7 +70,6 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         $day_change = str_replace($dayEng, $dayKor, $day_orgin);
         ?>
         <div><span class="type">배송 스케줄 <?php echo $index+1; ?></span>
-            ( ID : <?php echo $man_d["delivery_schedule_id"]; ?> )
             <?php echo $day_change . ' ' . $man_d['delivery_time']; ?></div>
         <?php
         ++$index;

@@ -7,7 +7,6 @@ include "DBcon.php";
 
 //2. 쿼리 생성 (1호점, 2호점)
 $managing_store = $_GET["managing_store"];
-//$query_list = "SELECT *
 $query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, customer_menu, district, specific_address, team_id, team_name
             FROM delivery d
             LEFT JOIN customer c ON d.delivery_id=c.delivery_id
@@ -41,7 +40,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
     <div id="leftNavWrapper">
         <div id="clockDate"></div>
         <div id="clockTime"></div>
-        <div class="storeBox">0호점</div>
+        <div class="storeBox"><?php echo $managing_store; ?></div>
         <table>
             <colgroup>
                 <col width="30%">
@@ -63,7 +62,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
             <li class="lftSelectSection">배송 관리
                 <ul>
                     <li><a href="2_week.php?managing_store=1호점">- WEEK</a></li>
-                    <li><a href="">- TODAY</a></li>
+                    <li><a href="3_today.php?managing_store=1호점">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -115,10 +114,6 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                         <col width="80px">
                         <col width="120px">
                         <col width="260px">
-<!--                        <col width="80px">-->
-<!--                        <col width="80px">-->
-<!--                        <col width="60px">-->
-<!--                        <col width="60px">-->
                     </colgroup>
 
                     <thead>
@@ -131,10 +126,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                         <th>배송지</th>
                         <th>팀 ID</th>
                         <th>팀명</th>
-<!--                        <th>배송요일</th>-->
-<!--                        <th>배송시간</th>-->
                         <th>상세정보 / 관리</th>
-<!--                        <th colspan="2">관리</th>-->
                     </tr>
                     </thead>
 
@@ -149,14 +141,10 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                             <td><?php echo $row['customer_name']; ?></td>
                             <td><?php echo $row['customer_contact']; ?></td>
                             <td><?php echo $row['customer_menu']; ?></td>
-                            <td><?php echo $row['district'] . ' ' . $row['specific_address']; ?></td>
+                            <td><?php echo $row['specific_address']; ?></td>
                             <td><?php echo $row['team_id']; ?></td>
                             <td><?php echo $row['team_name']; ?></td>
-<!--                            <td>--><?php //echo $row['delivery_day']; ?><!--</td>-->
-<!--                            <td>--><?php //echo $row['delivery_time']; ?><!--</td>-->
                             <td><a href="1_1_detail.php?cID=<?php echo $row["customer_id"]; ?>" class="edit">바로가기</a></td>
-<!--                            <td><a href="1_1_update.php?seq=--><?php //echo $row["delivery_id"]; ?><!--" class="edit">수정</a></td>-->
-<!--                            <td><a href="1_1_update.php?seq=--><?php //echo $row["delivery_id"]; ?><!--" class="edit">삭제</a></td>-->
                         </tr>
                         <?php
                     }

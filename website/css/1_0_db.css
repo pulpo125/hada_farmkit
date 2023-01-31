@@ -18,17 +18,5 @@
 #frame select.schedule{width: 70px; border: solid 2px #999; height: 30px; padding-left: 3px; margin-left: 4px;}
 #frame .addressSearch{display: inline-block; float: right; width: 100%;}
 #frame .addressSearch input{padding: 12px 10px; margin: 3px 0;}
-
-/*div.smallTitle{display: inline-block; width: 20%;}*/
-/*.right{width: 60%; height: 18px; padding: 8px 16px; margin: 5px;}*/
-/*input{width: 60%; height: 18px; border: solid 2px #999; padding: 8px 16px; margin: 5px;}*/
-/*select.phone{width: 18.7%; height: 40px; border: solid 2px #999; padding: 0 16px; margin: 5px;}*/
-/*input.phone{width: 11.6%;}*/
-/*input.email{width: 22.8%;}*/
-/*input.hobby{padding:0px; margin: 0px; width: 30px; height: 13px;}*/
-/*textarea{width: 60%; height: 80px; border: solid 2px #999; padding: 8px 16px; margin: 5px;*/
-/*    vertical-align: top; font-family: inherit; resize: none;}*/
-/*#btn{display: block; margin: 10px 50%;}*/
-/*button{width: 30px; height: 40px;*/
-/*    background-color: #FFC002; border: none; font-size: 16px; font-weight: bold;}*/
-/*button:hover{background-color: #EAA90B;}*/
+#frame #btn button{margin: 0 auto;}
+#frame #btn button{display: block; margin: 30px auto; padding: 8px 25px; border: none; background-color: #9DC3E6; cursor: pointer;}
