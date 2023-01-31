@@ -40,6 +40,14 @@ h3{
     margin-bottom: 10px;
 }
 
+.notice{
+    margin-top: 10px;
+    color: red;
+    font-weight: bolder;
+}
+
+.phone { width: 50px; }
+
 input, select{
     font-family: 'Noto Sans KR', sans-serif;
     margin: 3px 0;
@@ -51,7 +59,8 @@ fieldset{
     margin: 20px 0;
 }
 
-#notice{ text-align: center; }
+
+.notice_menu{ text-align: center; margin-top: 5px; }
 
 hr{
     border : 0px;
@@ -61,8 +70,12 @@ hr{
     margin-top: 10px;
 }
 
+#deliverySchedule li{
+    display: inline-block;
+}
+
 /*Btn*/
-button{
+button{ margin: 0 auto;
     display: block;
     background:  rgb(39, 176, 110);
     color: white;
@@ -77,8 +90,6 @@ button{
 button:hover {
     background: #F4D03F;
 }
-
-.submissionBtn{ margin: 0 auto; }
 
 .register_btn{
     display: inline;

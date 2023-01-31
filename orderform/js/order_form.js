@@ -1,50 +1,90 @@
+function disabledTarget(target) {
+    for (let i = 0; i < 7; i++) {
+        let form = target.getElementsByTagName('input')[i];
+        form.disabled = true;
+    }
+}
+
+function activeTarget(target) {
+    for (let i = 0; i < 7; i++) {
+        let form = target.getElementsByTagName('input')[i];
+        form.disabled = false;
+    }
+}
+
+const teamName = document.getElementById('teamName');
+const addBtn = document.getElementById('addBtn');
+const removeBtn = document.getElementById('removeBtn');
+const target2 = document.getElementById("registerForm2");
+const target3 = document.getElementById("registerForm3");
+const target4 = document.getElementById("registerForm4");
+const target5 = document.getElementById("registerForm5");
+
 /*주문 유형 선택*/
 function customerSelect()  {
     /* 개인 선택 시 팀이름 입력 칸 비활성화*/
-    var target = document.getElementById('teamName');
-    target.disabled = true;
+    teamName.disabled = true;
 
-    /* 개인 선택 시 등록폼 1개만 보이기*/
-    document.getElementById("registerForm2").style.display = "none";
-    document.getElementById("registerForm3").style.display = "none";
+    /* 등록폼 비활성화 */
+    target2.style.display = "none"
+    disabledTarget(target2);
+    target3.style.display = "none"
+    disabledTarget(target3);
 
     /* 개인 선택 시 추가/삭제 버튼 비활성화*/
-    var addBtn = document.getElementById('addBtn');
     addBtn.disabled = true;
-    var removeBtn = document.getElementById('removeBtn');
     removeBtn.disabled = true;
 }
 function teamSelect()  {
     /* 팀 선택 시 팀이름 입력 칸 활성화*/
-    var target = document.getElementById('teamName');
-    target.disabled = false;
+    teamName.disabled = false;
 
-    /* 팀 선택 시 등록폼 3개 보이기*/
-    document.getElementById("registerForm2").style.display = "block";
-    document.getElementById("registerForm3").style.display = "block";
+    /* 등록폼 활성화 */
+    target2.style.display = "block"
+    activeTarget(target2);
+    target3.style.display = "block"
+    activeTarget(target3);
 
-    /* 개인 선택 시 추가/삭제 버튼 활성화*/
-    var addBtn = document.getElementById('addBtn');
+    /*추가/삭제 버튼 활성화*/
     addBtn.disabled = false;
-    var removeBtn = document.getElementById('removeBtn');
     removeBtn.disabled = false;
 }
 
-/*개인 정보 등록*/
+let cnt = 3;
+//버튼 누를때 마다 카운트 추가
+
+
+/*addForm*/
 function addForm() {
-    /*추가하기 버튼 클릭시 개인 정보 등록 칸 추가*/
-    const form = document.getElementById('addFormChild');
-    const plus = document.getElementById('plusSection');
-    const formCopy = form.cloneNode(true);
-    const plus2 = plus.appendChild(formCopy);
-    plus2.id = 'addFormCopy'
-    plus2.style.display = "block";
+    cnt++;
+    if (cnt === 4) {
+        target4.style.display = 'block';
+        activeTarget(target4)
+    } else {
+        //cnt가 5가 되면 버튼 비활성화
+        addBtn.disabled = false;
+        removeBtn.disabled = false;
+        target5.style.display = 'block';
+        activeTarget(target5)
+    }
+    console.log(cnt);
 }
 
 function removeForm()  {
+    cnt = cnt - 1;
     /* 삭제하기 버튼 클릭시 추가된 개인 정보 등록 칸 삭제*/
-    const copyForm = document.getElementById('addFormCopy');
-    copyForm.parentNode.removeChild(copyForm);
+    if (cnt === 4) {
+        target4.style.display = 'none';
+        disabledTarget(target4);
+    } else {
+        target5.style.display = 'none';
+        disabledTarget(target5);
+
+        //cnt가 3이 되면 버튼 비활성화
+        addBtn.disabled = false;
+        removeBtn.disabled = false;
+    }
+    console.log(cnt);
 }
 
 /*주소검색*/
@@ -102,19 +142,19 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
-/*배송 시간*/
-function plusTime1() {
-    document.getElementById("twice").style.display = "none";
-    document.getElementById("third").style.display = "none";
-    document.getElementById("once").style.display = "block";
-}
-function plusTime2() {
-    document.getElementById("once").style.display = "none";
-    document.getElementById("third").style.display = "none";
-    document.getElementById("twice").style.display = "block";
-}
-function plusTime3() {
-    document.getElementById("once").style.display = "none";
-    document.getElementById("twice").style.display = "none";
-    document.getElementById("third").style.display = "block";
+/*배송 정보*/
+const targetFirst = document.querySelectorAll('.click');
+targetFirst.forEach((target) => target.addEventListener("click", function(){
+        jsSearch(target.id);
+    })
+);
+
+function jsSearch(id) {
+    const formList = ["once", "twice", "third"];
+    const n = formList.indexOf(id) + 1;
+    for (let i = 0; i < 3; i++) {
+        const form = document.getElementsByClassName(formList[i]);
+        form[0].disabled = i >= n;
+        form[1].disabled = i >= n;
+    }
 }
