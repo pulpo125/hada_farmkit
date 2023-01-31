@@ -1,83 +1,90 @@
 function disabledTarget(target) {
     for (let i = 0; i < 7; i++) {
-        let form2 = target.getElementsByTagName('input')[i];
-        form2.disabled = true;
+        let form = target.getElementsByTagName('input')[i];
+        form.disabled = true;
     }
 }
 
 function activeTarget(target) {
     for (let i = 0; i < 7; i++) {
-        let form2 = target.getElementsByTagName('input')[i];
-        form2.disabled = false;
+        let form = target.getElementsByTagName('input')[i];
+        form.disabled = false;
     }
 }
+
+const teamName = document.getElementById('teamName');
+const addBtn = document.getElementById('addBtn');
+const removeBtn = document.getElementById('removeBtn');
+const target2 = document.getElementById("registerForm2");
+const target3 = document.getElementById("registerForm3");
+const target4 = document.getElementById("registerForm4");
+const target5 = document.getElementById("registerForm5");
 
 /*주문 유형 선택*/
 function customerSelect()  {
     /* 개인 선택 시 팀이름 입력 칸 비활성화*/
-    let teamName = document.getElementById('teamName');
     teamName.disabled = true;
 
-    /* 개인 선택 시 등록폼 1개만 보이기*/
-    document.getElementById("registerForm2").style.display = "none";
-    document.getElementById("registerForm3").style.display = "none";
-
     /* 등록폼 비활성화 */
-    //2,3,addForm 비활성화
-    let target1 = document.getElementById("registerForm2");
-    disabledTarget(target1);
-    let target2 = document.getElementById("registerForm3");
+    target2.style.display = "none"
     disabledTarget(target2);
-    let target3 = document.getElementById("addForm");
+    target3.style.display = "none"
     disabledTarget(target3);
 
     /* 개인 선택 시 추가/삭제 버튼 비활성화*/
-    let addBtn = document.getElementById('addBtn');
     addBtn.disabled = true;
-    let removeBtn = document.getElementById('removeBtn');
     removeBtn.disabled = true;
 }
 function teamSelect()  {
     /* 팀 선택 시 팀이름 입력 칸 활성화*/
-    let target = document.getElementById('teamName');
-    target.disabled = false;
-
-    /* 팀 선택 시 등록폼 3개 보이기*/
-    document.getElementById("registerForm2").style.display = "block";
-    document.getElementById("registerForm3").style.display = "block";
+    teamName.disabled = false;
 
     /* 등록폼 활성화 */
-    //2,3,addForm 활성화
-    let target1 = document.getElementById("registerForm2");
-    activeTarget(target1);
-    let target2 = document.getElementById("registerForm3");
+    target2.style.display = "block"
     activeTarget(target2);
+    target3.style.display = "block"
+    activeTarget(target3);
 
-    /* 개인 선택 시 추가/삭제 버튼 활성화*/
-    let addBtn = document.getElementById('addBtn');
+    /*추가/삭제 버튼 활성화*/
     addBtn.disabled = false;
-    let removeBtn = document.getElementById('removeBtn');
     removeBtn.disabled = false;
 }
 
-/*개인 정보 등록*/
-function addForm() {
-    /*추가하기 버튼 클릭시 개인 정보 등록 칸 추가*/
-    const form = document.getElementById('addFormChild');
-    const plus = document.getElementById('plusSection');
-    const formCopy = form.cloneNode(true);
-    const plus2 = plus.appendChild(formCopy);
-    plus2.id = 'addFormCopy'
-    plus2.style.display = "block";
+let cnt = 3;
+//버튼 누를때 마다 카운트 추가
 
-    let target3 = document.getElementById("addFormCopy");
-    activeTarget(target3);
+
+/*addForm*/
+function addForm() {
+    cnt++;
+    if (cnt === 4) {
+        target4.style.display = 'block';
+        activeTarget(target4)
+    } else {
+        //cnt가 5가 되면 버튼 비활성화
+        addBtn.disabled = false;
+        removeBtn.disabled = false;
+        target5.style.display = 'block';
+        activeTarget(target5)
+    }
+    console.log(cnt);
 }
 
 function removeForm()  {
+    cnt = cnt - 1;
     /* 삭제하기 버튼 클릭시 추가된 개인 정보 등록 칸 삭제*/
-    const copyForm = document.getElementById('addFormCopy');
-    copyForm.parentNode.removeChild(copyForm);
+    if (cnt === 4) {
+        target4.style.display = 'none';
+        disabledTarget(target4);
+    } else {
+        target5.style.display = 'none';
+        disabledTarget(target5);
+
+        //cnt가 3이 되면 버튼 비활성화
+        addBtn.disabled = false;
+        removeBtn.disabled = false;
+    }
+    console.log(cnt);
 }
 
 /*주소검색*/

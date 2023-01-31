@@ -72,7 +72,7 @@ include "../../website/pages/DBcon.php";
                         - 이름 : &nbsp;<input type="text" name="customer_name[]" required disabled><br>
                         - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required disabled ><br>
                         - 성별 : &nbsp;<label><input type="radio" name="customer_gender2" required value="0" checked disabled> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender2" required value="1" disabled> 여</label> <br>
-                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="">
+                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="" disabled>
                         - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="" disabled>
                         - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
                         <br><hr><br>
@@ -86,18 +86,25 @@ include "../../website/pages/DBcon.php";
                         - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
                         <br><hr><br>
                     </div>
-                    <div id="addForm" style="display: none">
-                        <div id="addFormChild">
-                            - 이름 : &nbsp;<input type="text" name="customer_name[]" required  disabled><br>
-                            - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required  disabled><br>
-                            - 성별 : &nbsp;<label><input type="radio" name="customer_gender4" required value="0" checked disabled> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender4" required value="1" disabled> 여</label> <br>
-                            - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="" disabled>
-                            - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="" disabled>
-                            - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
-                            <br><hr><br>
-                        </div>
+                    <div id="registerForm4" style="display: none">
+                        - 이름 : &nbsp;<input type="text" name="customer_name[]" required  disabled><br>
+                        - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required  disabled><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender4" required value="0" checked disabled> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender4" required value="1" disabled> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="" disabled>
+                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="" disabled>
+                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
+                        <br><hr><br>
                     </div>
-                    <div id="plusSection"></div>
+                    <div id="registerForm5" style="display: none">
+                        - 이름 : &nbsp;<input type="text" name="customer_name[]" required  disabled><br>
+                        - 생년월일 : &nbsp;<input type="date" name="customer_age[]" required  disabled><br>
+                        - 성별 : &nbsp;<label><input type="radio" name="customer_gender5" required value="0" checked disabled> 남&nbsp;&nbsp;&nbsp;&nbsp;</label><label><input type="radio" name="customer_gender5" required value="1" disabled> 여</label> <br>
+                        - 연락처 : &nbsp;<input type="tel" name="phone0[]" class="phone" maxlength="3" required value="" disabled>
+                        - <input type="tel" name="phone1[]" class="phone" maxlength="4" required value="" disabled>
+                        - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
+                        <br><hr><br>
+                    </div>
+                    <input type="text" name="cnt" value="5" style="display: none">
                 </div>
             </fieldset>
 

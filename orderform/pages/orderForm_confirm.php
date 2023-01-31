@@ -8,27 +8,60 @@ include "../../website/pages/DBcon.php";
  */
 
 //값 받아오기
-print_r($_POST);
+$cnt = $_POST["cnt"];
 $order_type = $_POST["order_type"]; //true=personal, false=team
-
-//customer
 $customer_name = $_POST["customer_name"];
-$customer_contact = $_POST["phone0"] . '-' . $_POST["phone1"] . '-' . $_POST["phone2"];
-$customer_gender = $_POST["customer_gender"];
-$customer_menu = $_POST["customer_name"].'의 식단';
-$birth = $_POST["customer_age"];
-$birthday = date("Y", strtotime($birth));
-$now=date('Y');
-$customer_age = $now - $birthday + 1; // 나이 계산
-
-//delivery
 $district = $_POST["district"];
 $specific_address = $_POST["specific_address"];
-
-//delivery_schedule
 $delivery = [];
 for ($i = 0; $i < count($_POST["ds_day"]); $i++) {
     $delivery[$_POST["ds_day"][$i]] = $_POST["ds_time"][$i];
+}
+
+$now=date('Y');
+if ($order_type === 'true') {
+    //개인
+    $customer_contact = $_POST["phone0"][0] . '-' . $_POST["phone1"][0] . '-' . $_POST["phone2"][0];
+    $customer_gender = $_POST['customer_gender1'];
+    $customer_menu = $_POST["customer_name"][0].'의 식단';
+    $customer_age = $now - date("Y", strtotime($_POST['customer_age'][0])) + 1;
+
+} else {
+    //팀
+    $team_name = $_POST["team_name"];
+    $customer = [];
+    $customer_contact = [];
+    for ($i = 0; $i < $cnt; $i++) {
+        $customer_contact[ $i ] = $_POST["phone0"][$i] . '-' . $_POST["phone1"][$i] . '-' . $_POST["phone2"][$i];
+    }
+
+    $customer_gender = [];
+    if ($cnt < 4)  {
+        $customer_gender[0] = $_POST['customer_gender1'];
+        $customer_gender[1] = $_POST['customer_gender2'];
+        $customer_gender[2] = $_POST['customer_gender3'];
+    } elseif ($cnt === 4) {
+        $customer_gender[0] = $_POST['customer_gender1'];
+        $customer_gender[1] = $_POST['customer_gender2'];
+        $customer_gender[2] = $_POST['customer_gender3'];
+        $customer_gender[3] = $_POST['customer_gender4'];
+    } else {
+        $customer_gender[0] = $_POST['customer_gender1'];
+        $customer_gender[1] = $_POST['customer_gender2'];
+        $customer_gender[2] = $_POST['customer_gender3'];
+        $customer_gender[3] = $_POST['customer_gender4'];
+        $customer_gender[4] = $_POST['customer_gender5'];
+    }
+
+    $customer_menu = [];
+    for ($i = 0; $i < $cnt; $i++) {
+        $customer_menu[$i] = $_POST["customer_name"][$i].'의 식단';
+    }
+
+    $customer_age = [];
+    for ($i = 0; $i < $cnt; $i++) {
+        $customer_age[ $i ] = $now - date("Y", strtotime($_POST['customer_age'][$i])) + 1;
+    }
 }
 
 /*delivery Insert*/
@@ -43,48 +76,51 @@ $row = $result -> fetch();
 $delivery_id = $row[0];
 print_r('delivery_id: '.$delivery_id.'  ');
 
-/*customer_id 받아오기*/
-$query = "select customer_id from customer order by customer_id desc limit 1;";
-$result = $connect->query( $query ) or die($connect->errorInfo());
-$row = $result -> fetch();
-$customer_id = $row[0] + 1 ;
-print_r('customer_id: '.$customer_id.'  ');
-
 //Insert Query
 if ($order_type === 'true') {
     //개인
     $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
-            VALUES ($delivery_id, '$customer_name', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
+            VALUES ($delivery_id, '$customer_name[0]', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
     foreach ($delivery as $key => $value){
         $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
             VALUES ($delivery_id, '$key', '$value');  ";
-    };
+    }
     print_r($query);
     $result = $connect->query( $query ) or die($connect->errorInfo());
 } else {
     //팀
-    $team_name = $_POST["team_name"];
-    $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
-            VALUES ($delivery_id, '$customer_name', '$customer_contact', '$customer_age', '$customer_gender', '$customer_menu');";
+    $query = "INSERT INTO team (delivery_id, team_name) VALUES ($delivery_id, '$team_name');";
+    for ($i = 0; $i < $cnt; $i++) {
+        $query .= "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
+            VALUES ($delivery_id, '$customer_name[$i]', '$customer_contact[$i]', '$customer_age[$i]', '$customer_gender[$i]', '$customer_menu[$i]');";
+    }
     foreach ($delivery as $key => $value){
         $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
-            VALUES ($delivery_id, '$key', '$value');  ";
-    };
-    $query .= "INSERT INTO team (delivery_id, team_name)
-            VALUES ($delivery_id, '$team_name');";
+            VALUES ($delivery_id, '$key', '$value');";
+    }
     $result = $connect->query( $query ) or die($connect->errorInfo());
 
-    //team_composition customer_id team_id
+    //team_composition customer_id team_id 추출
     $query = "select team_id from team order by team_id desc limit 1;";
     $result = $connect->query( $query ) or die($connect->errorInfo());
     $row = $result -> fetch();
-    print_r('team_id: '.$row.'  ');
     $team_id = $row[0];
 
-    $query = "select customer_id from customer order by customer_id desc limit 3;";
+    $query = "select customer_id from customer order by customer_id desc limit $cnt;";
     $result = $connect->query( $query ) or die($connect->errorInfo());
-    $row = $result -> fetch();
-    print_r('customer_id: '.$row.'  ');
+    $customer_id = [];
+    while ($row = $result->fetch()){
+        $customer_id[] = $row[0];
+    }
+    $customer_id = array_reverse($customer_id);
+
+    //팀구성테이블 삽입
+    $query = " ";
+    for ($i = 0; $i < count($customer_id); $i++) {
+        $query .= "INSERT INTO team_composition (customer_id, team_id)
+            VALUES ($customer_id[$i], $team_id);";
+    }
+    $result = $connect->query( $query ) or die($connect->errorInfo());
 }
 
 if( !$result ){
@@ -114,7 +150,7 @@ if( !$result ){
 <!--main-->
 <main>
     <div class="wrapper clearfix">
-        <h3><span><?=$customer_name?></span>님 아래의 정보로 회원가입이 완료되었습니다.</h3>
+        <h3><span><?=$customer_name[0]?></span>님 아래의 정보로 회원가입이 완료되었습니다.</h3>
     </div>
 </main>
 
