@@ -17,7 +17,7 @@ include "../../website/pages/DBcon.php";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/order_form.css">
+    <link rel="stylesheet" href="../css/orderForm.css">
 </head>
 <body>
 <!--header-->
@@ -52,7 +52,7 @@ include "../../website/pages/DBcon.php";
             </div>
 
             <!--개인 정보 등록-->
-            <fieldset>
+            <fieldset class="fieldBox">
                 <h3>
                     개인 정보 등록
                     <input id="removeBtn" class="register_btn" type='button' value='삭제하기' onclick='removeForm()' disabled>
@@ -109,7 +109,7 @@ include "../../website/pages/DBcon.php";
             </fieldset>
 
             <!--배송 정보 등록-->
-            <fieldset>
+            <fieldset class="fieldBox">
                 <h3>배송 정보 등록</h3>
                 - 배송지<br>
                 <input type="text" id="sample6_postcode" placeholder="우편번호" required>
@@ -181,7 +181,7 @@ include "../../website/pages/DBcon.php";
 </footer>
 
 <!--javaScript-->
-<script src="../js/order_form.js"></script>
+<script src="../js/orderForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </body>

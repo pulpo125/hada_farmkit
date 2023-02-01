@@ -53,12 +53,14 @@ input, select{
     margin: 3px 0;
 }
 
-fieldset{
+.fieldBox{
+    border: 2px solid rgb(39, 176, 110);
     border-color: rgb(39, 176, 110);
     padding: 10px;
     margin: 20px 0;
 }
 
+.customer_num{font-size: 16px; font-weight: bold; padding-bottom: 5px; color: #27B06E; }
 
 .notice_menu{ text-align: center; margin-top: 5px; }
 
@@ -104,4 +106,8 @@ footer {
     background:  rgb(39, 176, 110);
     padding: 20px 0;
     font-weight: bold;
+}
+
+footer p{
+    color: white;
 }

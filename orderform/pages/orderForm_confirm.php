@@ -11,7 +11,6 @@ include "../../website/pages/DBcon.php";
 $cnt = $_POST["cnt"];
 $now=date('Y');
 $order_type = $_POST["order_type"]; //true=personal, false=team
-$customer_name = $_POST["customer_name"];
 $district = $_POST["district"];
 $specific_address = $_POST["specific_address"];
 $delivery = [];
@@ -19,34 +18,30 @@ for ($i = 0; $i < count($_POST["ds_day"]); $i++) {
     $delivery[$_POST["ds_day"][$i]] = $_POST["ds_time"][$i];
 }
 
-
-/*개인/팀 선택에 따른 값 받아오기*/
-if ($order_type === 'true') {
-    //개인
-    $customer_contact = $_POST["phone0"][0] . '-' . $_POST["phone1"][0] . '-' . $_POST["phone2"][0];
-    $customer_gender = $_POST['customer_gender1'];
-    $customer_menu = $_POST["customer_name"][0].'의 식단';
-    $customer_age = $now - date("Y", strtotime($_POST['customer_age'][0])) + 1;
-
-} else {
-    //팀
+if ($order_type === 'false') {
     $team_name = $_POST["team_name"];
-    $customer = [];
-    $customer_contact = [];
-    for ($i = 0; $i < $cnt; $i++) {
-        $customer_contact[ $i ] = $_POST["phone0"][$i] . '-' . $_POST["phone1"][$i] . '-' . $_POST["phone2"][$i];
-    }
-
-    $customer_menu = [];
-    for ($i = 0; $i < $cnt; $i++) {
-        $customer_menu[$i] = $_POST["customer_name"][$i].'의 식단';
-    }
-
-    $customer_age = [];
-    for ($i = 0; $i < $cnt; $i++) {
-        $customer_age[ $i ] = $now - date("Y", strtotime($_POST['customer_age'][$i])) + 1;
-    }
 }
+
+$customer_name = [];
+for ($i = 0; $i < $cnt; $i++) {
+    $customer_name[$i] = $_POST["customer_name"][$i];
+}
+
+$customer_contact = [];
+for ($i = 0; $i < $cnt; $i++) {
+    $customer_contact[ $i ] = $_POST["phone0"][$i] . '-' . $_POST["phone1"][$i] . '-' . $_POST["phone2"][$i];
+}
+
+$customer_menu = [];
+for ($i = 0; $i < $cnt; $i++) {
+    $customer_menu[$i] = $_POST["customer_name"][$i].'의 식단';
+}
+
+$customer_age = [];
+for ($i = 0; $i < $cnt; $i++) {
+    $customer_age[ $i ] = $now - date("Y", strtotime($_POST['customer_age'][$i])) + 1;
+}
+
 
 $customer_gender = [];
 if ($cnt === '1') {
@@ -71,6 +66,8 @@ if ($cnt === '1') {
     $customer_gender[3] = $_POST['customer_gender4'];
     $customer_gender[4] = $_POST['customer_gender5'];
 }
+
+
 /*delivery Insert*/
 $query = "INSERT INTO delivery (district, specific_address)
             VALUES ('$district', '$specific_address')";
@@ -88,7 +85,7 @@ $delivery_id = $row[0];
 if ($order_type === 'true') {
     //개인
     $query = "INSERT INTO customer (delivery_id, customer_name, customer_contact, customer_age, customer_gender, customer_menu)
-            VALUES ($delivery_id, '$customer_name[0]', '$customer_contact', '$customer_age', '$customer_gender[0]', '$customer_menu');";
+            VALUES ($delivery_id, '$customer_name[0]', '$customer_contact[0]', '$customer_age[0]', '$customer_gender[0]', '$customer_menu[0]');";
     foreach ($delivery as $key => $value){
         $query .= "INSERT INTO delivery_schedule (delivery_id, delivery_day, delivery_time)
             VALUES ($delivery_id, '$key', '$value');  ";
@@ -145,7 +142,7 @@ if( !$result ){
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/order_form.css">
+    <link rel="stylesheet" href="../css/orderForm.css">
 </head>
 <body>
 <!--header-->
@@ -158,7 +155,68 @@ if( !$result ){
 <!--main-->
 <main>
     <div class="wrapper clearfix">
-        <h3><span><?=$customer_name[0]?></span>님 아래의 정보로 회원가입이 완료되었습니다.</h3>
+        <?php
+            if ($order_type === 'false') {
+        ?>
+                <div id="team" class="fieldBox">
+                    <h3>팀 등록 정보</h3>
+                    - 팀 이름 : &nbsp;<span><?=$team_name?></span><br>
+                </div>
+        <?php
+            }
+        ?>
+        <div id="infoBox" class="fieldBox">
+            <h3>고객 등록 정보</h3>
+            <?php
+            $genderPrint = [];
+            for ($i=0; $i < $cnt; $i++){
+                if ($customer_gender[$i] === "0") {
+                    $genderPrint[$i] = '남자';
+                } else {
+                    $genderPrint[$i] = '여자';
+                }
+            }
+
+            for ($i = 0; $i < $cnt; $i++) {
+            ?>
+                <div>
+                    <p class="customer_num">고객<?=$i+1?></p>
+                    - 이름 : &nbsp;<span><?=$customer_name[$i]?></span><br>
+                    - 생년월일 : &nbsp;<span><?=$_POST['customer_age'][$i]?></span><br>
+                    - 성별 : &nbsp;<span><?=$genderPrint[$i]?></span><br>
+                    - 연락처 : &nbsp;<span><?=$customer_contact[$i]?></span><br>
+                    <hr><br>
+                </div>
+            <?php
+            }
+            ?>
+
+        </div>
+        <div id="delivery" class="fieldBox">
+            <h3>배송 정보</h3>
+            - 배송지 : &nbsp;<span><?=$district." ".$specific_address?></span><br>
+            - 배송 시간
+            <?php
+            foreach ($delivery as $key => $value){
+                if ($key === "Mon"){$key="월요일";}
+                if ($key === "Tue"){$key="화요일";}
+                if ($key === "Wed"){$key="수요일";}
+                if ($key === "Thu"){$key="목요일";}
+                if ($key === "Fri"){$key="금요일";}
+                if ($key === "Sat"){$key="토요일";}
+                if ($key === "Sun"){$key="일요일";}
+                echo "<br>";
+                print_r("* ".$key." ".$value);
+
+            }
+            ?>
+        </div>
+
+        <!--공지사항 -->
+        <div class="wrapper_box">
+            <p class="notice notice_menu">※안내사항</p>
+            <p class="notice_menu">등록된 정보에 오류가 있을 시 '팜킷샐러드'로 연락주시길 바랍니다.</p>
+        </div>
     </div>
 </main>
 
@@ -170,7 +228,7 @@ if( !$result ){
 </footer>
 
 <!--javaScript-->
-<script src="../js/order_form.js"></script>
+<script src="../js/orderForm.js"></script>
 
 </body>
 </html>
