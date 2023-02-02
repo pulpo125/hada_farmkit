@@ -114,9 +114,9 @@ include "../../website/pages/DBcon.php";
                 - 배송지<br>
                 <input type="text" id="sample6_postcode" placeholder="우편번호" required>
                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="deliveryCode" required><br>
-                <input type="text" id="sample6_address" placeholder="주소" name="district" required><br>
-                <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="specific_address" required>
-                <input type="text" id="sample6_extraAddress" placeholder="참고항목" required><br>
+                <input type="text" id="sample6_address" placeholder="주소" name="address1" required><br>
+                <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="address2" required>
+                <input type="text" id="sample6_extraAddress" placeholder="참고항목" name="address3" required><br>
                 <hr><br>
                 - 배송 시간<br>
                 <div id="deliveryTimes">

@@ -7,16 +7,10 @@ include "../../website/pages/DBcon.php";
  * @var PDOStatement $connect
  */
 
-//값 받아오기
+/*값 받아오기*/
 $cnt = $_POST["cnt"];
 $now=date('Y');
 $order_type = $_POST["order_type"]; //true=personal, false=team
-$district = $_POST["district"];
-$specific_address = $_POST["specific_address"];
-$delivery = [];
-for ($i = 0; $i < count($_POST["ds_day"]); $i++) {
-    $delivery[$_POST["ds_day"][$i]] = $_POST["ds_time"][$i];
-}
 
 if ($order_type === 'false') {
     $team_name = $_POST["team_name"];
@@ -65,6 +59,22 @@ if ($cnt === '1') {
     $customer_gender[2] = $_POST['customer_gender3'];
     $customer_gender[3] = $_POST['customer_gender4'];
     $customer_gender[4] = $_POST['customer_gender5'];
+}
+
+$specific_address = $_POST["address1"]." ".$_POST["address2"]." ".$_POST["address3"];
+//district 추출하기
+$districtArray = ['새롬동', '다정동', '어진동', '나성동', '한솔동', '종촌동', '고운동', '아름동', '도담동'];
+$index = [];
+for ($i=0; $i < count($districtArray); $i++) {
+    $index[$i] = mb_strpos($specific_address, "$districtArray[$i]", 0, "utf8");
+    $index = array_filter($index);
+    $index = array_values($index);
+}
+$district = mb_substr($specific_address, $index[0], 3, "utf8");
+
+$delivery = [];
+for ($i = 0; $i < count($_POST["ds_day"]); $i++) {
+    $delivery[$_POST["ds_day"][$i]] = $_POST["ds_time"][$i];
 }
 
 
@@ -194,7 +204,7 @@ if( !$result ){
         </div>
         <div id="delivery" class="fieldBox">
             <h3>배송 정보</h3>
-            - 배송지 : &nbsp;<span><?=$district." ".$specific_address?></span><br>
+            - 배송지 : &nbsp;<span><?=$specific_address?></span><br>
             - 배송 시간
             <?php
             foreach ($delivery as $key => $value){
