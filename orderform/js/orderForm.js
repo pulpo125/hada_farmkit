@@ -1,10 +1,10 @@
+/*활성화 및 비활성화 함수*/
 function disabledTarget(target) {
     for (let i = 0; i < 7; i++) {
         let form = target.getElementsByTagName('input')[i];
         form.disabled = true;
     }
 }
-
 function activeTarget(target) {
     for (let i = 0; i < 7; i++) {
         let form = target.getElementsByTagName('input')[i];
@@ -12,6 +12,10 @@ function activeTarget(target) {
     }
 }
 
+
+/*전역변수*/
+const count = document.getElementById("cntInput");
+let cnt = 1;
 const teamName = document.getElementById('teamName');
 const addBtn = document.getElementById('addBtn');
 const removeBtn = document.getElementById('removeBtn');
@@ -19,6 +23,7 @@ const target2 = document.getElementById("registerForm2");
 const target3 = document.getElementById("registerForm3");
 const target4 = document.getElementById("registerForm4");
 const target5 = document.getElementById("registerForm5");
+
 
 /*주문 유형 선택*/
 function customerSelect()  {
@@ -34,6 +39,10 @@ function customerSelect()  {
     /* 개인 선택 시 추가/삭제 버튼 비활성화*/
     addBtn.disabled = true;
     removeBtn.disabled = true;
+
+    /* 카운트 1 */
+    cnt = 1;
+    count.setAttribute("value", cnt);
 }
 function teamSelect()  {
     /* 팀 선택 시 팀이름 입력 칸 활성화*/
@@ -47,44 +56,57 @@ function teamSelect()  {
 
     /*추가/삭제 버튼 활성화*/
     addBtn.disabled = false;
-    removeBtn.disabled = false;
+
+    /* 카운트 3 */
+    cnt = 3;
+    count.setAttribute("value", cnt);
 }
 
-let cnt = 3;
-//버튼 누를때 마다 카운트 추가
 
-
-/*addForm*/
+/*추가, 삭제 Btn*/
 function addForm() {
     cnt++;
     if (cnt === 4) {
         target4.style.display = 'block';
         activeTarget(target4)
-    } else {
-        //cnt가 5가 되면 버튼 비활성화
-        addBtn.disabled = false;
         removeBtn.disabled = false;
+    } else if (cnt === 5) {
         target5.style.display = 'block';
         activeTarget(target5)
+        addBtn.disabled = true;
     }
-    console.log(cnt);
+    count.setAttribute("value", cnt);
 }
-
 function removeForm()  {
-    cnt = cnt - 1;
-    /* 삭제하기 버튼 클릭시 추가된 개인 정보 등록 칸 삭제*/
     if (cnt === 4) {
+        /*addBtn.disabled = false;*/
+        removeBtn.disabled = true;
         target4.style.display = 'none';
         disabledTarget(target4);
-    } else {
+    }   else if (cnt === 5) {
         target5.style.display = 'none';
         disabledTarget(target5);
-
-        //cnt가 3이 되면 버튼 비활성화
         addBtn.disabled = false;
-        removeBtn.disabled = false;
     }
-    console.log(cnt);
+    cnt = cnt - 1;
+    count.setAttribute("value", cnt);
+}
+
+
+/*배송 횟수에 따른 변화 함수*/
+const targetFirst = document.querySelectorAll('.click');
+targetFirst.forEach((target) => target.addEventListener("click", function(){
+        jsSearch(target.id);
+    })
+);
+function jsSearch(id) {
+    const formList = ["once", "twice", "third"];
+    const n = formList.indexOf(id) + 1;
+    for (let i = 0; i < 3; i++) {
+        const form = document.getElementsByClassName(formList[i]);
+        form[0].disabled = i >= n;
+        form[1].disabled = i >= n;
+    }
 }
 
 /*주소검색*/
@@ -140,21 +162,4 @@ function sample6_execDaumPostcode() {
             document.getElementById("sample6_detailAddress").focus();
         }
     }).open();
-}
-
-/*배송 정보*/
-const targetFirst = document.querySelectorAll('.click');
-targetFirst.forEach((target) => target.addEventListener("click", function(){
-        jsSearch(target.id);
-    })
-);
-
-function jsSearch(id) {
-    const formList = ["once", "twice", "third"];
-    const n = formList.indexOf(id) + 1;
-    for (let i = 0; i < 3; i++) {
-        const form = document.getElementsByClassName(formList[i]);
-        form[0].disabled = i >= n;
-        form[1].disabled = i >= n;
-    }
 }

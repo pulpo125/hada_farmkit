@@ -17,13 +17,13 @@ include "../../website/pages/DBcon.php";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/order_form.css">
+    <link rel="stylesheet" href="../css/orderForm.css">
 </head>
 <body>
 <!--header-->
 <header>
     <div class="wrapper clearfix">
-        <h2>팜킷샐러드 정기배송 주문 완료</h2>
+        <h2>팜킷샐러드 정기배송 주문폼</h2>
     </div>
 </header>
 
@@ -37,7 +37,7 @@ include "../../website/pages/DBcon.php";
             <p class="notice">개인 주문/팀 주문</p>
             <p>
                 제한 지역(새롬동, 종촌동)에서만 개인 주문이 가능하며, 그 외 세종시 지역에서는 팀 주문만 가능합니다.
-                <br>팀은 최소 3인으로 구성되며, 개별 맞춤 식단을 제공하지만 하나의 배송지에 배송된다는 점 유의해주시길 바랍니다.
+                <br>팀은 3~5인으로 구성되며, 개별 맞춤 식단을 제공하지만 하나의 배송지에 배송된다는 점 유의해주시길 바랍니다.
                 <br>※제한 지역 내 팀 주문은 10% 할인입니다.
             </p>
         </div>
@@ -52,7 +52,7 @@ include "../../website/pages/DBcon.php";
             </div>
 
             <!--개인 정보 등록-->
-            <fieldset>
+            <fieldset class="fieldBox">
                 <h3>
                     개인 정보 등록
                     <input id="removeBtn" class="register_btn" type='button' value='삭제하기' onclick='removeForm()' disabled>
@@ -104,19 +104,19 @@ include "../../website/pages/DBcon.php";
                         - <input type="tel" name="phone2[]" class="phone" maxlength="4" required value="" disabled>
                         <br><hr><br>
                     </div>
-                    <input type="text" name="cnt" value="5" style="display: none">
+                    <input id="cntInput" type="text" name="cnt" value="1" style="display: none">
                 </div>
             </fieldset>
 
             <!--배송 정보 등록-->
-            <fieldset>
+            <fieldset class="fieldBox">
                 <h3>배송 정보 등록</h3>
                 - 배송지<br>
                 <input type="text" id="sample6_postcode" placeholder="우편번호" required>
                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="deliveryCode" required><br>
-                <input type="text" id="sample6_address" placeholder="주소" name="district" required><br>
-                <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="specific_address" required>
-                <input type="text" id="sample6_extraAddress" placeholder="참고항목" required><br>
+                <input type="text" id="sample6_address" placeholder="주소" name="address1" required><br>
+                <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="address2" required>
+                <input type="text" id="sample6_extraAddress" placeholder="참고항목" name="address3" required><br>
                 <hr><br>
                 - 배송 시간<br>
                 <div id="deliveryTimes">
@@ -181,7 +181,7 @@ include "../../website/pages/DBcon.php";
 </footer>
 
 <!--javaScript-->
-<script src="../js/order_form.js"></script>
+<script src="../js/orderForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </body>
