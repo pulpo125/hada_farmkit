@@ -23,7 +23,7 @@ include "../../website/pages/DBcon.php";
 <!--header-->
 <header>
     <div class="wrapper clearfix">
-        <h2>팜킷샐러드 정기배송 주문 완료</h2>
+        <h2>팜킷샐러드 정기배송 주문폼</h2>
     </div>
 </header>
 
