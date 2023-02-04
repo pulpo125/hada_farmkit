@@ -56,7 +56,7 @@ $day_today = ($day[date('w', strtotime($date))]);
                 <col width="30%">
             </colgroup>
             <tr>
-                <th><a href="">전체</a></th>
+                <th><a href="../pages/4_dashboard.php">전체</a></th>
                 <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="2_week.php?managing_store=1호점">1호점</a></th>
                 <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="2_week.php?managing_store=2호점">2호점</a></th>
             </tr>
