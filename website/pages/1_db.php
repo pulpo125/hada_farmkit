@@ -56,13 +56,13 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li class="now"><a href="1_db.php?managing_store=1호점">- DB</a></li>
+                    <li class="now"><a href="1_db.php?managing_store=<?=$managing_store?>">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="2_week.php?managing_store=1호점">- WEEK</a></li>
-                    <li><a href="3_today.php?managing_store=1호점">- TODAY</a></li>
+                    <li><a href="2_week.php?managing_store=<?=$managing_store?>">- WEEK</a></li>
+                    <li><a href="3_today.php?managing_store=<?=$managing_store?>">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -78,7 +78,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                 <h1>DataBase</h1>
             </div>
             <div>
-                <h3>고객 데이터베이스</h3>
+                <h3>고객 정보를 수정/관리 하세요</h3>
             </div>
         </header>
 

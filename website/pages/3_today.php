@@ -94,13 +94,13 @@ while($row = $result->fetch())
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li><a href="1_db.php">- DB</a></li>
+                    <li><a href="1_db.php?managing_store=<?=$managing_store?>">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="2_week.php">- WEEK</a></li>
-                    <li class="now"><a href="3_today.html">- TODAY</a></li>
+                    <li><a href="2_week.php?managing_store=<?=$managing_store?>">- WEEK</a></li>
+                    <li class="now"><a href="3_today.php?managing_store=<?=$managing_store?>">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -116,7 +116,7 @@ while($row = $result->fetch())
                 <h1>TODAY</h1>
             </div>
             <div>
-                <h3>오늘의 주문을 확인하세요.</h3>
+                <h3>오늘의 주문을 확인하세요</h3>
             </div>
         </header>
 

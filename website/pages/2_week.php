@@ -64,13 +64,13 @@ $day_today = ($day[date('w', strtotime($date))]);
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li><a href="1_db.php?managing_store=1호점">- DB</a></li>
+                    <li><a href="1_db.php?managing_store=<?=$managing_store?>">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li class="now"><a href="2_week.php?managing_store=1호점">- WEEK</a></li>
-                    <li><a href="3_today.php?managing_store=1호점">- TODAY</a></li>
+                    <li class="now"><a href="2_week.php?managing_store=<?=$managing_store?>">- WEEK</a></li>
+                    <li><a href="3_today.php?managing_store=<?=$managing_store?>">- TODAY</a></li>
                 </ul>
             </li>
         </div>
