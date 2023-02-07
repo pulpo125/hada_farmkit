@@ -1,4 +1,4 @@
-/*1_1_detail, 1_2_update 모두 해당*/
+/*1_1_detail, 1_2_update 공통*/
 #frame{width: 400px; height: 100%; margin: 30px auto; display: block; font-size: 15px;}
 #frame div{padding: 12px 0;}
 .title{font-size: 18px; margin-top: 10px;}
@@ -10,11 +10,14 @@
 #btnDetail .btnRight{float: right;}
 #btnDetail .btnMiddle{display: inline-block; margin: 0 auto;}
 
+/*1_1_detail*/
+#frame p.address{margin: 7px 0 0 31.5%;}
+
 /*1_2_update*/
-/*#frame input{width: 35%; height: 18px; border: solid 2px #999; padding: 8px 16px;}*/
-#frame input{width: 35%; height: 18px; border: solid 2px #999; padding: 15px 13px;}
+#frame input{width: 60%; height: 18px; border: solid 2px #999; padding: 15px 13px;}
 #frame input.phone{width: 17.2%; text-align: center;}
 #frame input.gender{width: 30px; height: 13px;}
+#frame input.address{margin: 7px 0 0 31.5%;}
 #frame select.schedule{width: 70px; border: solid 2px #999; height: 30px; padding-left: 3px; margin-left: 4px;}
 #frame .addressSearch{display: inline-block; float: right; width: 100%;}
 #frame .addressSearch input{padding: 12px 10px; margin: 3px 0;}

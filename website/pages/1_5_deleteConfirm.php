@@ -16,7 +16,7 @@ $query_ms = "SELECT md.managing_store
 $result_ms = $connect->query($query_ms) or die($connect->errorInfo());
 $man = $result_ms->fetch();
 
-
+/**/
 //쿼리 생성,실행 (delete)
 $query_d = "DELETE d/* */, c, ds, md/*, t, tc*/
             FROM delivery d

@@ -59,13 +59,15 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
     <div class="title">| 배송 정보</div>
     <div><span class="type">담당 지점</span> <?php echo $man["managing_store"]; ?></div>
     <div><span class="type">배송지</span>
-        ( ID : <?php echo $man["delivery_id"]; ?> )
-        <?php echo $man["specific_address"]; ?></div>
+        ( delivery ID : <?php echo $man["delivery_id"]; ?> )
+        <br>
+        <p class="address"><?php echo $man["specific_address"]; ?></p>
+    </div>
     <?php
     $index=0;
     while($man_d = $result_d->fetch()){
         $day_orgin = $man_d['delivery_day'];
-        $dayEng = array("Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun");
+        $dayEng = array("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun");
         $dayKor = array("월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일");
         $day_change = str_replace($dayEng, $dayKor, $day_orgin);
         ?>

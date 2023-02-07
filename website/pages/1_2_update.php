@@ -36,7 +36,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
 </head>
 <body>
 
-<form name="memberEdit" action="1_3_updateConfirm.php" method="post">
+<form name="memberEdit" action="1_3_updateConfirm.php" method="post" onsubmit="return test()">
 
     <div id="frame">
         <div class="title">| 회원 정보</div>
@@ -72,8 +72,10 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         <div><span class="type">담당 지점</span> <?php echo $man["managing_store"]; ?></div>
         <div><span class="type">배송지</span>
             <!--배송지ID--><input type="hidden" name="delivery_id" value="<?php echo $man["delivery_id"]; ?>">
-            ( ID : <?php echo $man["delivery_id"]; ?> )
-            <input type="text" name="customer_name" required value="<?php echo $man["specific_address"]; ?>">
+            ( delivery ID : <?php echo $man["delivery_id"]; ?> )
+            <br>
+            <input type="text" name="specific_address" class="address" required value="<?php echo $man["specific_address"]; ?>">
+        </div>
 
 
 
@@ -117,7 +119,6 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
 
 <!--JS연결-->
 <script src="../js/1_db.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </body>
 </html>
