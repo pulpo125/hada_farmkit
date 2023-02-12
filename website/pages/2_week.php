@@ -159,7 +159,6 @@ $day_today = ($day[date('w', strtotime($date))]);
                                     //개수
                                     $cID_cnt = $row_tbDetail["COUNT(DISTINCT c.customer_id)"];
                                     ?>
-<!--                                    <p class="--><?php //echo $i_time===0 or $i_time===2 or $i_time===4 ? "tbSub" : ""; ?><!--">-->
                                     <p class="<?php echo $i_time===0 ? "tbSub" : ( $i_time===2 ? "tbSub": ($i_time===4 ? "tbSub":"") ); ?>">
                                         <?php
                                             echo $i_time===0 ? "아침" : ( $i_time===2 ? "점심": ($i_time===4 ? "저녁":"") );
