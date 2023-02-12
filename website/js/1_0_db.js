@@ -1,3 +1,33 @@
+/*1_1_detail*/
+/*
+function popOpen() {
+    var modalPop = $('.modal-wrap');
+    var modalBg = $('.modal-bg');
+    $(modalPop).show();
+    $(modalBg).show();
+}
+
+function popClose() {
+    var modalPop = $('.modal-wrap');
+    var modalBg = $('.modal-bg');
+    $(modalPop).hide();
+    $(modalBg).hide();
+}
+*/
+
+
+function show() {
+    document.querySelector(".background").className = "background show";
+}
+
+function close() {
+    document.querySelector(".background").className = "background";
+}
+
+document.querySelector("#show").addEventListener("click", show);
+document.querySelector("#close").addEventListener("click", close);
+
+
 /*1_2_update*/
 /*상세주소에 동이름 기입했는지 확인*/
 function test(){

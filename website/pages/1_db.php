@@ -5,8 +5,9 @@ include "DBcon.php";
  * @var PDOStatement $connect
  */
 
-//2. 쿼리 생성 (1호점, 2호점)
 $managing_store = $_GET["managing_store"];
+
+//2. 쿼리 생성 (1호점, 2호점)
 $query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, customer_menu, district, specific_address, team_id, team_name
             FROM delivery d
             LEFT JOIN customer c ON d.delivery_id=c.delivery_id
@@ -56,13 +57,13 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li class="now"><a href="1_db.php?managing_store=1호점">- DB</a></li>
+                    <li class="now"><a href="1_db.php?managing_store=<?php echo $managing_store; ?>">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="2_week.php?managing_store=1호점">- WEEK</a></li>
-                    <li><a href="3_today.php?managing_store=1호점">- TODAY</a></li>
+                    <li><a href="2_week.php?managing_store=<?php echo $managing_store; ?>">- WEEK</a></li>
+                    <li><a href="3_today.php?managing_store=<?php echo $managing_store; ?>">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -112,8 +113,8 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                         <col width="190px">
                         <col width="260px">
                         <col width="80px">
-                        <col width="120px">
-                        <col width="260px">
+                        <col width="160px">
+                        <col width="220px">
                     </colgroup>
 
                     <thead>

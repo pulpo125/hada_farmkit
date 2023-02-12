@@ -6,6 +6,7 @@ include "DBcon.php";
  */
 
 $cID = $_GET["cID"];
+$delete = $_GET["delete"];
 
 //managing_store(1호점/2호점) 구하기
 $query = "SELECT md.managing_store
@@ -26,10 +27,36 @@ if ( !$result ){ /*참이 아니면 전부*/
 <title>회원정보 삭제</title>
 
 <!--삭제 예/아니오 창 띄우기-->
+
 <script>
     if ( confirm("정말 삭제하시겠습니까?")==true ){ /*예*/
-        location.href="1_5_deleteConfirm.php?cID=<?php echo $cID; ?>";
+        location.href="1_5_deleteConfirm.php?cID=<?php echo $cID; ?>&delete=<?php echo $delete; ?>";
     } else { /*아니오*/
         location.href="1_db.php?managing_store=<?php echo $man['managing_store']; ?>";
     }
 </script>
+
+
+<!--삭제 예/아니오 창 띄우기-->
+<!--
+<script>
+    if(<?php /*is_null($man["team_id"]); */?>){ /*그룹X 고객*/
+        var firstPopup = confirm("정말 삭제하시겠습니까?")
+        if ( firstPopup==true ){ /*예*/
+            location.href="1_5_deleteConfirm.php?cID=<?php /*echo $cID; */?>&delete=ONE";
+        } else { /*아니오*/
+            location.href="1_db.php?managing_store=<?php /*echo $man["managing_store"]; */?>";
+        }
+    } else{ /*그룹O 고객*/
+        if ( confirm("정말 삭제하시겠습니까?")==true ){ /*popup1-예*/
+            if( confirm("선택한 고객을 삭제하려면 '예', 선택한 고객이 속한 그룹 전체를 삭제하려면 '아니오'를 눌러주세요")==true ){ /*popup2-예*/
+                location.href="1_5_deleteConfirm.php?cID=<?php /*echo $cID; */?>&delete=ONE";
+            } else { /*popup2-아니오*/
+                location.href="1_5_deleteConfirm.php?cID=<?php /*echo $cID; */?>&delete=GROUP";
+            }
+        } else { /*popup1-아니오*/
+            location.href="1_db.php?managing_store=<?php /*echo $man["managing_store"]; */?>";
+        }
+    }
+</script>
+-->

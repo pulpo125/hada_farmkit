@@ -17,6 +17,14 @@ $query = "SELECT *
 $result = $connect->query($query) or die($connect->errorInfo());
 $man = $result->fetch();
 
+//팀 구성원 수
+$tID = $man["team_id"];
+$query_t = "SELECT COUNT(customer_id)
+            FROM team_composition
+            WHERE team_id='$tID'";
+$result_t = $connect->query($query_t) or die($connect->errorInfo());
+$row_t = $result_t->fetch();
+
 //쿼리 생성,실행 (delivery 요일시간 가져오기)
 $dID = $man["delivery_id"];
 $query_d = "SELECT *
@@ -46,11 +54,11 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
     <div><span class="type">메뉴</span> <?php echo $man["customer_menu"]; ?></div>
 
     <?php
-        if (is_null($man["team_id"])){
+        if (is_null($tID)){
         }else{
     ?>
     <div class="title">| 팀 정보</div>
-    <div><span class="type">팀 ID</span> <?php echo $man["team_id"]; ?></div>
+    <div><span class="type">팀 ID</span> <?php echo $tID; ?></div>
     <div><span class="type last">팀명</span> <?php echo $man["team_name"]; ?></div>
     <?php
         }
@@ -85,11 +93,56 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         </ul>
         <ul class="btnRight">
             <a href="1_2_update.php?cID=<?php echo $cID; ?>"><li>수정</li></a>
-            <a href="1_4_delete.php?cID=<?php echo $cID; ?>"><li>삭제</li></a>
+            <?php
+            if (is_null($tID)){
+                ?>
+                <a href="1_4_delete.php?cID=<?php echo $cID; ?>&delete=ONE"><li>삭제</li></a>
+                <?php
+            }else{
+                ?>
+                <a id="show"><li>삭제</li></a>
+                <?php
+            }
+            ?>
         </ul>
     </div>
-
 </div>
+
+<!--모달 창-->
+<div class="background">
+    <div class="popup">
+        <div class="title">팀 삭제 옵션</div>
+        <div class="content">
+            <p class="main"><span class="green"><?php echo $man["customer_name"]; ?></span> 고객님은 팀에 속해 있습니다.</p>
+            <p>
+                <b>선택고객 한 명만 삭제</b>하려면 <span class="green">'개인 삭제'</span> 버튼을,<br>
+                고객이 속한 <b>팀 전체를 일괄 삭제</b>하려면 <span class="green">'팀 전체 삭제'</span> 버튼을 눌러주세요.
+            </p>
+            <p>(선택고객이 속한 팀의 구성원이 <b>3명 이하</b>일 경우,
+               <span class="green">'팀 전체 삭제'</span><b>만 가능</b>합니다.)
+            </p>
+        </div>
+        <div class="popupBtn">
+            <?php
+            if ($row_t[0]>3){
+                ?>
+                <a href="1_4_delete.php?cID=<?php echo $cID; ?>&delete=G_one"><li>개인 삭제</li></a>
+                <?php
+            }else{
+            }
+            ?>
+            <a href="1_4_delete.php?cID=<?php echo $cID; ?>&delete=G_all"><li>팀 전체 삭제</li></a>
+            <a id="close"><li>취소</li></a>
+        </div>
+        <div class="footer"></div>
+    </div>
+<!--    <div class="window">-->
+<!--        -->
+<!--    </div>-->
+</div>
+
+<!--JS연결-->
+<script src="../js/1_0_db.js"></script>
 
 </body>
 </html>
