@@ -136,9 +136,6 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         </div>
         <div class="footer"></div>
     </div>
-<!--    <div class="window">-->
-<!--        -->
-<!--    </div>-->
 </div>
 
 <!--JS연결-->
