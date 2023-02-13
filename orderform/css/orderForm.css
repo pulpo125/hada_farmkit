@@ -40,18 +40,29 @@ h3{
     margin-bottom: 10px;
 }
 
+.notice{
+    margin-top: 10px;
+    color: red;
+    font-weight: bolder;
+}
+
+.phone { width: 50px; }
+
 input, select{
     font-family: 'Noto Sans KR', sans-serif;
     margin: 3px 0;
 }
 
-fieldset{
+.fieldBox{
+    border: 2px solid rgb(39, 176, 110);
     border-color: rgb(39, 176, 110);
     padding: 10px;
     margin: 20px 0;
 }
 
-#notice{ text-align: center; }
+.customer_num{font-size: 16px; font-weight: bold; padding-bottom: 5px; color: #27B06E; }
+
+.notice_menu{ text-align: center; margin-top: 5px; }
 
 hr{
     border : 0px;
@@ -61,8 +72,12 @@ hr{
     margin-top: 10px;
 }
 
+#deliverySchedule li{
+    display: inline-block;
+}
+
 /*Btn*/
-button{
+button{ margin: 0 auto;
     display: block;
     background:  rgb(39, 176, 110);
     color: white;
@@ -78,8 +93,6 @@ button:hover {
     background: #F4D03F;
 }
 
-.submissionBtn{ margin: 0 auto; }
-
 .register_btn{
     display: inline;
     float: right;
@@ -93,4 +106,8 @@ footer {
     background:  rgb(39, 176, 110);
     padding: 20px 0;
     font-weight: bold;
+}
+
+footer p{
+    color: white;
 }

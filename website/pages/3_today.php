@@ -13,7 +13,7 @@ $query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_t
 FROM delivery_schedule ds
     left join delivery d on ds.delivery_id = d.delivery_id
     left join managing_district md on d.district = md.district_name
-    WHERE delivery_day = 'Thur' and managing_store = '$managing_store'
+    WHERE delivery_day = '$weekday' and managing_store = '$managing_store'
 GROUP BY delivery_time
 ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
@@ -29,7 +29,7 @@ FROM delivery d
     LEFT JOIN delivery_schedule ds ON d.delivery_id = ds.delivery_id
     Left JOIN team t ON d.delivery_id = t.delivery_id
     left join managing_district md on d.district = md.district_name
-where delivery_day = 'Thur' and managing_store = '$managing_store'
+where delivery_day = '$weekday' and managing_store = '$managing_store'
 ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
 $deliveryInfo = array();
@@ -44,7 +44,7 @@ FROM customer c
 LEFT JOIN delivery d on c.delivery_id = d.delivery_id
 LEFT JOIN delivery_schedule ds on d.delivery_id = ds.delivery_id
 left join managing_district md on d.district = md.district_name
-WHERE ds.delivery_day = 'Thur' and managing_store = '$managing_store'
+WHERE ds.delivery_day = '$weekday' and managing_store = '$managing_store'
 ORDER BY delivery_time";
 $result = $connect->query($query) or die($connect->errorInfo());
 $customerInfo = array();
@@ -72,14 +72,13 @@ while($row = $result->fetch())
     </script>
 </head>
 <body>
-
 <!--페이지 시작-->
 <div id="pageWrapper">
     <!--좌측 네비게이션 시작-->
     <div id="leftNavWrapper">
         <div id="clockDate"></div>
         <div id="clockTime"></div>
-        <div class="storeBox">0호점</div>
+        <div class="storeBox"><?php echo $managing_store; ?></div>
         <table>
             <colgroup>
                 <col width="30%">
@@ -87,7 +86,7 @@ while($row = $result->fetch())
                 <col width="30%">
             </colgroup>
             <tr>
-                <th><a href="">전체</a></th>
+                <th><a href="../pages/4_dashboard.php">전체</a></th>
                 <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="3_today.php?managing_store=1호점">1호점</a></th>
                 <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="3_today.php?managing_store=2호점">2호점</a></th
             </tr>
@@ -95,13 +94,13 @@ while($row = $result->fetch())
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li><a href="1_db.php">- DB</a></li>
+                    <li><a href="1_db.php?managing_store=<?=$managing_store?>">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="2_week.php">- WEEK</a></li>
-                    <li class="now"><a href="3_today.html">- TODAY</a></li>
+                    <li><a href="2_week.php?managing_store=<?=$managing_store?>">- WEEK</a></li>
+                    <li class="now"><a href="3_today.php?managing_store=<?=$managing_store?>">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -117,7 +116,7 @@ while($row = $result->fetch())
                 <h1>TODAY</h1>
             </div>
             <div>
-                <h3>오늘의 주문을 확인하세요.</h3>
+                <h3>오늘의 주문을 확인하세요</h3>
             </div>
         </header>
 
