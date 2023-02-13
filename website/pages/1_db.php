@@ -14,8 +14,24 @@ $query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, cus
             LEFT JOIN team t ON d.delivery_id=t.delivery_id
             LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
             LEFT JOIN managing_district md ON d.district=md.district_name
-            WHERE managing_store='$managing_store'
-            ORDER BY c.customer_id";
+            WHERE managing_store='$managing_store'";
+
+//검색바 쿼리
+$searchKey = isset($_REQUEST['search_key']) ? $_REQUEST['search_key'] : "";
+$search_field = isset($_REQUEST['search_field']) ? $_REQUEST['search_field'] : "";
+if( $searchKey ) {
+    if ($search_field === 'all') {
+        $query_list = $query_list . " AND (c.customer_name LIKE '%$searchKey%' OR t.team_name LIKE '%$searchKey%')";
+    } elseif ($search_field === 'team') {
+        $query_list = $query_list . " AND t.team_name LIKE '%$searchKey%'";
+    } elseif ($search_field === 'customer') {
+        $query_list = $query_list . " AND c.customer_name LIKE '%$searchKey%'";
+    } elseif ($search_field='team'){
+        $query_list = $query_list . " AND t.team_name LIKE '%$searchKey%'";
+    }
+}
+
+$query_list = $query_list . " ORDER BY c.customer_id";
 
 //3. 쿼리 실행
 $result_list = $connect->query($query_list) or die($connect->errorInfo());
@@ -87,14 +103,15 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
         <main>
             <!--검색바 시작-->
             <div id="searchBox">
-                <form id="search_form" action="#" method="get" name="search_form">
+                <form id="search_form" action="" method="get" name="search_form">
+                    <input type="hidden" name="managing_store" value="<?php echo $managing_store; ?>">
                     <select name="search_field" id="searchSelect">
-                        <option value="all" id="searchAll">전체</option>
-                        <option value="customer" id="searchCustomer">고객명</option>
-                        <option value="team" id="searchTeam">팀명</option>
+                        <option value="all" id="searchAll" <?php echo $search_field=='all' ? "selected" : ""; ?>>전체</option>
+                        <option value="customer" id="searchCustomer" <?php echo $search_field=='customer' ? "selected" : ""; ?>>고객명</option>
+                        <option value="team" id="searchTeam" <?php echo $search_field=='team' ? "selected" : ""; ?>>팀명</option>
                     </select>
                     <div id="searchBlank">
-                        <input type="text" name="search_key" id="searchKey" value="<?php /*echo $searchKey; */?>">
+                        <input type="text" name="search_key" id="searchKey" value="<?php echo $searchKey; ?>">
                         <button id="searchBtn">🔍︎</button>
                     </div>
 
