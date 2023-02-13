@@ -5,16 +5,33 @@ include "DBcon.php";
  * @var PDOStatement $connect
  */
 
-//2. 쿼리 생성 (1호점, 2호점)
 $managing_store = $_GET["managing_store"];
+
+//2. 쿼리 생성 (1호점, 2호점)
 $query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, customer_menu, district, specific_address, team_id, team_name
             FROM delivery d
             LEFT JOIN customer c ON d.delivery_id=c.delivery_id
             LEFT JOIN team t ON d.delivery_id=t.delivery_id
             LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
             LEFT JOIN managing_district md ON d.district=md.district_name
-            WHERE managing_store='$managing_store'
-            ORDER BY c.customer_id";
+            WHERE managing_store='$managing_store'";
+
+//검색바 쿼리
+$searchKey = isset($_REQUEST['search_key']) ? $_REQUEST['search_key'] : "";
+$search_field = isset($_REQUEST['search_field']) ? $_REQUEST['search_field'] : "";
+if( $searchKey ) {
+    if ($search_field === 'all') {
+        $query_list = $query_list . " AND (c.customer_name LIKE '%$searchKey%' OR t.team_name LIKE '%$searchKey%')";
+    } elseif ($search_field === 'team') {
+        $query_list = $query_list . " AND t.team_name LIKE '%$searchKey%'";
+    } elseif ($search_field === 'customer') {
+        $query_list = $query_list . " AND c.customer_name LIKE '%$searchKey%'";
+    } elseif ($search_field='team'){
+        $query_list = $query_list . " AND t.team_name LIKE '%$searchKey%'";
+    }
+}
+
+$query_list = $query_list . " ORDER BY c.customer_id";
 
 //3. 쿼리 실행
 $result_list = $connect->query($query_list) or die($connect->errorInfo());
@@ -48,7 +65,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                 <col width="30%">
             </colgroup>
             <tr>
-                <th><a href="../pages/4_dashboard.php">전체</a></th>
+                <th><a href="">전체</a></th>
                 <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="1_db.php?managing_store=1호점">1호점</a></th>
                 <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="1_db.php?managing_store=2호점">2호점</a></th>
             </tr>
@@ -56,13 +73,13 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li class="now"><a href="1_db.php?managing_store=<?=$managing_store?>">- DB</a></li>
+                    <li class="now"><a href="1_db.php?managing_store=<?php echo $managing_store; ?>">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li><a href="2_week.php?managing_store=<?=$managing_store?>">- WEEK</a></li>
-                    <li><a href="3_today.php?managing_store=<?=$managing_store?>">- TODAY</a></li>
+                    <li><a href="2_week.php?managing_store=<?php echo $managing_store; ?>">- WEEK</a></li>
+                    <li><a href="3_today.php?managing_store=<?php echo $managing_store; ?>">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -78,7 +95,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                 <h1>DataBase</h1>
             </div>
             <div>
-                <h3>고객 정보를 수정/관리 하세요</h3>
+                <h3>고객 데이터베이스</h3>
             </div>
         </header>
 
@@ -86,14 +103,15 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
         <main>
             <!--검색바 시작-->
             <div id="searchBox">
-                <form id="search_form" action="#" method="get" name="search_form">
+                <form id="search_form" action="" method="get" name="search_form">
+                    <input type="hidden" name="managing_store" value="<?php echo $managing_store; ?>">
                     <select name="search_field" id="searchSelect">
-                        <option value="all" id="searchAll">전체</option>
-                        <option value="customer" id="searchCustomer">고객명</option>
-                        <option value="team" id="searchTeam">팀명</option>
+                        <option value="all" id="searchAll" <?php echo $search_field=='all' ? "selected" : ""; ?>>전체</option>
+                        <option value="customer" id="searchCustomer" <?php echo $search_field=='customer' ? "selected" : ""; ?>>고객명</option>
+                        <option value="team" id="searchTeam" <?php echo $search_field=='team' ? "selected" : ""; ?>>팀명</option>
                     </select>
                     <div id="searchBlank">
-                        <input type="text" name="search_key" id="searchKey" value="<?php /*echo $searchKey; */?>">
+                        <input type="text" name="search_key" id="searchKey" value="<?php echo $searchKey; ?>">
                         <button id="searchBtn">🔍︎</button>
                     </div>
 
@@ -112,8 +130,8 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                         <col width="190px">
                         <col width="260px">
                         <col width="80px">
-                        <col width="120px">
-                        <col width="260px">
+                        <col width="160px">
+                        <col width="220px">
                     </colgroup>
 
                     <thead>

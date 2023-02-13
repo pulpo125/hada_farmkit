@@ -6,6 +6,7 @@ include "DBcon.php";
  */
 
 $cID = $_GET["cID"];
+$delete = $_GET["delete"];
 
 //managing_store(1호점/2호점) 구하기
 $query = "SELECT md.managing_store
@@ -28,7 +29,7 @@ if ( !$result ){ /*참이 아니면 전부*/
 <!--삭제 예/아니오 창 띄우기-->
 <script>
     if ( confirm("정말 삭제하시겠습니까?")==true ){ /*예*/
-        location.href="1_5_deleteConfirm.php?cID=<?php echo $cID; ?>";
+        location.href="1_5_deleteConfirm.php?cID=<?php echo $cID; ?>&delete=<?php echo $delete; ?>";
     } else { /*아니오*/
         location.href="1_db.php?managing_store=<?php echo $man['managing_store']; ?>";
     }

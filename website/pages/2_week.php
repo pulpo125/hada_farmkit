@@ -6,24 +6,18 @@ include "DBcon.php";
  * @var PDOStatement $connect
  */
 
-//쿼리 생성,실행
 $managing_store = $_GET["managing_store"];
-//$query_list = "SELECT count(c.customer_id)*count(ds.delivery_schedule_id) FROM customer c, delivery_schedule ds GROUP BY delivery_id";
-$query_list = "SELECT delivery_id, count(customer_id) FROM customer GROUP BY delivery_id";
-/*$query_list = "SELECT DISTINCT customer_id, customer_name, customer_contact, customer_menu, district, specific_address, team_id, team_name
-            FROM delivery d
-            LEFT JOIN customer c ON d.delivery_id=c.delivery_id
-            LEFT JOIN team t ON d.delivery_id=t.delivery_id
-            LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
-            LEFT JOIN managing_district md ON d.district=md.district_name
-            WHERE managing_store='$managing_store'
-            ORDER BY c.customer_id";*/
-$result_list = $connect->query($query_list) or die($connect->errorInfo());
-//$man = $result_list->fetch();
+
+//common쿼리 생성 (루프 실행하며 WHERE 뒷부분 덧붙여서 사용)
+$query_common = "SELECT COUNT(DISTINCT c.customer_id), /*COUNT(DISTINCT d.delivery_id), */COUNT(DISTINCT ds.delivery_schedule_id)
+                                        FROM delivery d
+                                        LEFT JOIN customer c ON d.delivery_id=c.delivery_id
+                                        LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
+                                        LEFT JOIN managing_district md ON d.district=md.district_name
+                                        WHERE managing_store='$managing_store'";
 
 //오늘 요일
 $date = date("Y-m-d");
-//$day = array("일","월","화","수","목","금","토");
 $day = array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
 $day_today = ($day[date('w', strtotime($date))]);
 
@@ -56,7 +50,7 @@ $day_today = ($day[date('w', strtotime($date))]);
                 <col width="30%">
             </colgroup>
             <tr>
-                <th><a href="../pages/4_dashboard.php">전체</a></th>
+                <th><a href="">전체</a></th>
                 <th class=<?php echo $managing_store=='1호점' ? "here" : ""; ?>><a href="2_week.php?managing_store=1호점">1호점</a></th>
                 <th class=<?php echo $managing_store=='2호점' ? "here" : ""; ?>><a href="2_week.php?managing_store=2호점">2호점</a></th>
             </tr>
@@ -64,13 +58,13 @@ $day_today = ($day[date('w', strtotime($date))]);
         <div class="lftSelect">
             <li class="lftSelectSection">고객 관리
                 <ul>
-                    <li><a href="1_db.php?managing_store=<?=$managing_store?>">- DB</a></li>
+                    <li><a href="1_db.php?managing_store=<?php echo $managing_store; ?>">- DB</a></li>
                 </ul>
             </li>
             <li class="lftSelectSection">배송 관리
                 <ul>
-                    <li class="now"><a href="2_week.php?managing_store=<?=$managing_store?>">- WEEK</a></li>
-                    <li><a href="3_today.php?managing_store=<?=$managing_store?>">- TODAY</a></li>
+                    <li class="now"><a href="2_week.php?managing_store=<?php echo $managing_store; ?>">- WEEK</a></li>
+                    <li><a href="3_today.php?managing_store=<?php echo $managing_store; ?>">- TODAY</a></li>
                 </ul>
             </li>
         </div>
@@ -86,7 +80,7 @@ $day_today = ($day[date('w', strtotime($date))]);
                 <h1>Week</h1>
             </div>
             <div>
-                <h3>이번 주 주문을 확인하세요</h3>
+                <h3>이번 주 주문 개수를 확인하세요</h3>
             </div>
         </header>
 
@@ -107,11 +101,10 @@ $day_today = ($day[date('w', strtotime($date))]);
 
                     <thead>
                     <tr id="day_head">
-                        <!--<th class=<?php /*echo $category_num=='1' ? "now" : ""; */?>>월요일</th>-->
                         <th class=<?php echo $day_today=='Mon' ? "today" : ""; ?> >월요일</th>
                         <th class=<?php echo $day_today=='Tue' ? "today" : ""; ?> >화요일</th>
                         <th class=<?php echo $day_today=='Wed' ? "today" : ""; ?> >수요일</th>
-                        <th class=<?php echo $day_today=='Thur' ? "today" : ""; ?> >목요일</th>
+                        <th class=<?php echo $day_today=='Thu' ? "today" : ""; ?> >목요일</th>
                         <th class=<?php echo $day_today=='Fri' ? "today" : ""; ?> >금요일</th>
                         <th class=<?php echo $day_today=='Sat' ? "today" : ""; ?> >토요일</th>
                         <th class=<?php echo $day_today=='Sun' ? "today" : ""; ?> >일요일</th>
@@ -119,199 +112,73 @@ $day_today = ($day[date('w', strtotime($date))]);
                     </thead>
 
                     <tbody>
-<!--                    --><?php
-//                    $index=0;
-//                    while(){
-//                    ?>
-
+                    <!--총 배달, 총 주문-->
                     <tr>
-                <?php
-                $index=0;
-                while($row = $result_list -> fetch() AND $index<7){
-                    $loop_day = array("Mon","Tue","Wed","Thur","Fri","Sat","Sun");
-                    $query_tbSum = "SELECT count(c.customer_id) AS cIDcnt, count(ds.delivery_schedule_id) AS dsIDcnt
-                                        FROM delivery d
-                                        LEFT JOIN customer c ON d.delivery_id=c.delivery_id
-                                        LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id
-                                        WHERE managing_store='$managing_store' AND delivery_day='$loop_day[$index]'
-                                        GROUP BY delivery_id";
-//                    $result_tbSum = $connect->query($query_tbSum) or die($connect->errorInfo());
-//                    print_r($result_tbSum);
-//                    $row_tbSum = $result_tbSum->fetch();
-//                    print_r($row_tbSum);
-                    ?>
-                    <td class="tbSum <?php echo $day_today==$loop_day[$index] ? "today" : ""; ?>" ><!--월~일-->
-                        총 주문: <?php /*echo $row_tbSum["cIDcnt"]; */?>
-                        <br>
-                        총 배달: <?php /*echo $row_tbSum["dsIDcnt"]; */?>
-                    </td>
                     <?php
-                    ++$index;
-                }
-                ?>
+                    $index=0;
+                    while($index<7){
+                        $loop_day = array("Mon","Tue","Wed","Thu","Fri","Sat","Sun");
+                        //쿼리 생성,실행
+                        $query_tbSum = $query_common . " AND delivery_day='$loop_day[$index]'";
+                        $result_tbSum = $connect->query($query_tbSum) or die($connect->errorInfo());
+                        $row_tbSum = $result_tbSum->fetch();
+                        //개수
+                        $cID_cnt = $row_tbSum["COUNT(DISTINCT c.customer_id)"];
+                        $dsID_cnt = $row_tbSum["COUNT(DISTINCT ds.delivery_schedule_id)"];
+                        ?>
+                        <td class="tbSum <?php echo $day_today==$loop_day[$index] ? "today" : ""; ?>" ><!--월~일-->
+                            총 배달: <?php echo $dsID_cnt; ?>
+                            <br>
+                            <u>총 주문: <span class="<?php echo $cID_cnt!=0 ? "highlight" : ""; ?>"><?php echo $cID_cnt; ?></span></u>
+                        </td>
+                        <?php
+                        ++$index;
+                    }
+                    ?>
                     </tr>
 
-
+                    <!--아침, 점심, 저녁-->
                     <tr>
                         <?php
-                            while($row = $result_list -> fetch()){}
+                        $i_day=0;
+
+                        while($i_day<7){
+                            $loop_day = array("Mon","Tue","Wed","Thu","Fri","Sat","Sun");
+                            $loop_time = array("08:00","09:00","11:00","12:00","18:00","19:00");
+                            ?>
+                            <td class="tbTime <?php echo $day_today==$loop_day[$i_day] ? "today" : ""; ?>" ><!--월~일-->
+                                <p class="tbTitle">주문 개수</p>
+                                <?php
+                                $i_time=0;
+
+                                while ($i_time<6){
+                                    //쿼리 생성,실행
+                                    $query_tbDetail = $query_common . " AND delivery_day='$loop_day[$i_day]' AND delivery_time='$loop_time[$i_time]'";
+                                    $result_tbDetail = $connect->query($query_tbDetail) or die($connect->errorInfo());
+                                    $row_tbDetail = $result_tbDetail->fetch();
+                                    //개수
+                                    $cID_cnt = $row_tbDetail["COUNT(DISTINCT c.customer_id)"];
+                                    ?>
+                                    <p class="<?php echo $i_time===0 ? "tbSub" : ( $i_time===2 ? "tbSub": ($i_time===4 ? "tbSub":"") ); ?>">
+                                        <?php
+                                            echo $i_time===0 ? "아침" : ( $i_time===2 ? "점심": ($i_time===4 ? "저녁":"") );
+                                        ?>
+                                    </p>
+                                    <span class="<?php echo $cID_cnt!=0 ? "highlight" : ""; ?>">
+                                        [<?php echo $loop_time[$i_time]; ?>] <?php echo $cID_cnt; ?>
+                                    </span>
+                                    <br>
+                                    <?php
+                                    ++$i_time;
+                                }
+                                ?>
+                            </td>
+                            <?php
+                            ++$i_day;
+                        }
                         ?>
-                        <td class="tbTime"><!--월-->
-                            <b>아침</b>
-                            <br>
-                            [8:00]
-                            <br>
-                            [9:00]
-                        </td>
-                        <td class="tbTime"><!--화-->
-                            <b>아침</b>
-                            <br>
-                            [8:00]
-                            <br>
-                            [9:00]
-                        </td>
-                        <td class="tbTime"><!--수-->
-                            <b>아침</b>
-                            <br>
-                            [8:00]
-                            <br>
-                            [9:00]
-                        </td>
-                        <td class="tbTime"><!--목-->
-                            <b>아침</b>
-                            <br>
-                            [8:00]
-                            <br>
-                            [9:00]
-                        </td>
-                        <td class="tbTime"><!--금-->
-                            <b>아침</b>
-                            <br>
-                            [8:00]
-                            <br>
-                            [9:00]
-                        </td>
-                        <td class="tbTime"><!--토-->
-                            <b>아침</b>
-                            <br>
-                            [8:00]
-                            <br>
-                            [9:00]
-                        </td>
-                        <td class="tbTime"><!--일-->
-                            <b>아침</b>
-                            <br>
-                            [8:00]
-                            <br>
-                            [9:00]
-                        </td>
                     </tr>
-                    <tr>
-                        <td class="tbTime"><!--월-->
-                            <b>점심</b>
-                            <br>
-                            [11:00]
-                            <br>
-                            [12:00]
-                        </td>
-                        <td class="tbTime"><!--화-->
-                            <b>점심</b>
-                            <br>
-                            [11:00]
-                            <br>
-                            [12:00]
-                        </td>
-                        <td class="tbTime"><!--수-->
-                            <b>점심</b>
-                            <br>
-                            [11:00]
-                            <br>
-                            [12:00]
-                        </td>
-                        <td class="tbTime"><!--목-->
-                            <b>점심</b>
-                            <br>
-                            [11:00]
-                            <br>
-                            [12:00]
-                        </td>
-                        <td class="tbTime"><!--금-->
-                            <b>점심</b>
-                            <br>
-                            [11:00]
-                            <br>
-                            [12:00]
-                        </td>
-                        <td class="tbTime"><!--토-->
-                            <b>점심</b>
-                            <br>
-                            [11:00]
-                            <br>
-                            [12:00]
-                        </td>
-                        <td class="tbTime"><!--일-->
-                            <b>점심</b>
-                            <br>
-                            [11:00]
-                            <br>
-                            [12:00]
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tbTime last"><!--월-->
-                            <b>저녁</b>
-                            <br>
-                            [18:00]
-                            <br>
-                            [19:00]
-                        </td>
-                        <td class="tbTime last"><!--화-->
-                            <b>저녁</b>
-                            <br>
-                            [18:00]
-                            <br>
-                            [19:00]
-                        </td>
-                        <td class="tbTime last"><!--수-->
-                            <b>저녁</b>
-                            <br>
-                            [18:00]
-                            <br>
-                            [19:00]
-                        </td>
-                        <td class="tbTime last"><!--목-->
-                            <b>저녁</b>
-                            <br>
-                            [18:00]
-                            <br>
-                            [19:00]
-                        </td>
-                        <td class="tbTime last"><!--금-->
-                            <b>저녁</b>
-                            <br>
-                            [18:00]
-                            <br>
-                            [19:00]
-                        </td>
-                        <td class="tbTime last"><!--토-->
-                            <b>저녁</b>
-                            <br>
-                            [18:00]
-                            <br>
-                            [19:00]
-                        </td>
-                        <td class="tbTime last"><!--일-->
-                            <b>저녁</b>
-                            <br>
-                            [18:00]
-                            <br>
-                            [19:00]
-                        </td>
-                    </tr>
-<!--                    --><?php
-//                        ++$index;
-//                    }
-//                    ?>
+
                     </tbody>
 
                 </table>

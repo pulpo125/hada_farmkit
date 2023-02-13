@@ -36,17 +36,20 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
 </head>
 <body>
 
-<form name="memberEdit" action="1_3_updateConfirm.php" method="post">
+<form name="memberEdit" action="1_3_updateConfirm.php" method="post" onsubmit="return test()">
 
     <div id="frame">
         <div class="title">| 회원 정보</div>
         <!--고객ID--><input type="hidden" name="customer_id" value="<?php echo $man["customer_id"]; ?>">
         <div><span class="type">고객 ID</span> <?php echo $man["customer_id"]; ?></div>
         <div><span class="type">고객명</span> <input type="text" name="customer_name" required value="<?php echo $man["customer_name"]; ?>"></div>
+        <?php
+            $contact_slice = explode('-', $man["customer_contact"])
+        ?>
         <div><span class="type">연락처</span>
-            <input type="tel" name="phone0" class="phone" maxlength="3" required value="<?php echo substr($man["customer_contact"],0,3); ?>">
-            - <input type="tel" name="phone1" class="phone" maxlength="4" required value="<?php echo substr($man["customer_contact"],4,3); ?>">
-            - <input type="tel" name="phone2" class="phone" maxlength="4" required value="<?php echo substr($man["customer_contact"],8,4); ?>">
+            <input type="tel" name="phone0" class="phone" maxlength="3" required value="<?php echo $contact_slice[0]; ?>">
+            - <input type="tel" name="phone1" class="phone" maxlength="4" required value="<?php echo  $contact_slice[1]; ?>">
+            - <input type="tel" name="phone2" class="phone" maxlength="4" required value="<?php echo  $contact_slice[2]; ?>">
         </div>
         <div><span class="type">나이</span> <input type="text" name="customer_age" required value="<?php echo $man["customer_age"]; ?>"></div>
         <div><span class="type last">성별</span>
@@ -68,12 +71,14 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         ?>
 
         <div class="title">| 배송 정보</div>
-        <!--배송지ID--><input type="hidden" name="managing_store" value="<?php echo $man["managing_store"]; ?>">
+        <!--담당지점--><input type="hidden" name="managing_store" value="<?php echo $man["managing_store"]; ?>">
         <div><span class="type">담당 지점</span> <?php echo $man["managing_store"]; ?></div>
         <div><span class="type">배송지</span>
             <!--배송지ID--><input type="hidden" name="delivery_id" value="<?php echo $man["delivery_id"]; ?>">
-            ( ID : <?php echo $man["delivery_id"]; ?> )
-            <input type="text" name="customer_name" required value="<?php echo $man["specific_address"]; ?>">
+            ( delivery ID : <?php echo $man["delivery_id"]; ?> )
+            <br>
+            <input type="text" name="specific_address" class="address" required value="<?php echo $man["specific_address"]; ?>">
+        </div>
 
 
 
@@ -83,7 +88,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
         while($man_d = $result_d->fetch()){
             ?>
             <div><span class="type">배송 스케줄 <?php echo $index+1; ?></span>
-                <select name="ds_day" class="schedule">
+                <select name="ds_day_<?php echo $index+1; ?>" class="schedule">
                     <option value="Mon" <?php echo $man_d["delivery_day"]=='Mon' ? "selected" : ""; ?>>월요일</option>
                     <option value="Tue" <?php echo $man_d["delivery_day"]=='Tue' ? "selected" : ""; ?>>화요일</option>
                     <option value="Wed" <?php echo $man_d["delivery_day"]=='Wed' ? "selected" : ""; ?>>수요일</option>
@@ -92,7 +97,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
                     <option value="Sat" <?php echo $man_d["delivery_day"]=='Sat' ? "selected" : ""; ?>>토요일</option>
                     <option value="Sun" <?php echo $man_d["delivery_day"]=='Sun' ? "selected" : ""; ?>>일요일</option>
                 </select>
-                <select name="ds_time" class="schedule">
+                <select name="ds_time_<?php echo $index+1; ?>" class="schedule">
                     <option value="08:00" <?php echo $man_d["delivery_time"]=='08:00' ? "selected" : ""; ?>>08시</option>
                     <option value="09:00" <?php echo $man_d["delivery_time"]=='09:00' ? "selected" : ""; ?>>09시</option>
                     <option value="11:00" <?php echo $man_d["delivery_time"]=='11:00' ? "selected" : ""; ?>>11시</option>
@@ -105,6 +110,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
             ++$index;
         }
         ?>
+        <!--index--><input type="hidden" name="index" value="<?php echo $index; ?>">
 
         <!--버튼-->
         <div id="btn">
@@ -116,8 +122,7 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
 </form>
 
 <!--JS연결-->
-<script src="../js/1_db.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="../js/1_0_db.js"></script>
 
 </body>
 </html>
