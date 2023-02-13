@@ -40,18 +40,18 @@ if ( strpos($district_1_str, $district_str) !== FALSE ){
 }
 /*배송스케줄*/
 $index = $_POST["index"];
-
-for ($i=0; $i<=$index; ++$i){
-    ${"delivery_day".$i} = $_POST["ds_day"."_".$i];
-    ${"delivery_time".$i} = $_POST["ds_time"."_".$i];
+for ($i=1; $i<=$index; ++$i){
+    ${"delivery_day_".$i} = $_POST["ds_day_".$i];
+    ${"delivery_time_".$i} = $_POST["ds_time_".$i];
 }
 
-/*
-ds_day_1
-ds_day_2
 
-ds_time_1
-ds_time_2
+/*
+delivery_day_1
+delivery_day_2
+
+delivery_time_1
+delivery_time_2
 */
 
 /*
@@ -89,7 +89,7 @@ $query3 = "d.specific_address='$specific_address',
             d.district='$district',
             ds.delivery_day='$delivery_day', 
             ds.delivery_time='$delivery_time'
-            WHERE c.customer_id='$customer_id'";
+            WHERE c.customer_id='$customer_id' AND d.delivery_id='$delivery_id' AND ds.delivery_id='$delivery_id'";
 
 if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
     $query4 = "";
@@ -97,9 +97,24 @@ if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
     $query4 = " AND t.team_id='$team_id'";
 }
 
-$query5 = " AND d.delivery_id='$delivery_id' AND ds.delivery_id='$delivery_id'";
 
-$query = $query1 . $query2 . $query3 . $query4 . $query5;
+/*
+UPDATE customer AS c, team AS t, delivery AS d, delivery_schedule AS ds
+SET c.customer_name='서도현', c.customer_contact='062-689-7948', c.customer_age='40', c.customer_gender='1', c.customer_menu='서도현의 식단',
+    d.specific_address='세종특별자치시 나성동 73', d.district='나성동',
+    ds.delivery_day = case
+    when ds.delivery_schedule_id = 12 then 'Mon'
+        when ds.delivery_schedule_id = 13 then 'Wed'
+        else ds.delivery_day end,
+    ds.delivery_time = case
+    when ds.delivery_schedule_id = 12 then '08:00'
+        when ds.delivery_schedule_id = 13 then '09:00'
+        else ds.delivery_time end
+WHERE c.customer_id='17' AND d.delivery_id='7' AND ds.delivery_id='7'*/
+
+
+
+$query = $query1 . $query2 . $query3 . $query4;
 print_r($query);
 //$result = $connect->query($query) or die($connect->errorInfo());
 
