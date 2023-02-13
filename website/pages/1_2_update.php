@@ -21,7 +21,8 @@ $man = $result->fetch();
 $dID = $man["delivery_id"];
 $query_d = "SELECT *
             FROM delivery_schedule
-            WHERE delivery_id='$dID'";
+            WHERE delivery_id='$dID'
+            ORDER BY delivery_schedule_id ASC";
 $result_d = $connect->query($query_d) or die($connect->errorInfo());
 
 ?>
@@ -80,13 +81,11 @@ $result_d = $connect->query($query_d) or die($connect->errorInfo());
             <input type="text" name="specific_address" class="address" required value="<?php echo $man["specific_address"]; ?>">
         </div>
 
-
-
-
         <?php
         $index=0;
         while($man_d = $result_d->fetch()){
             ?>
+            <!--배송스케줄ID--><input type="hidden" name="delivery_schedule_id_<?php echo $index+1; ?>" value="<?php echo $man_d["delivery_schedule_id"]; ?>">
             <div><span class="type">배송 스케줄 <?php echo $index+1; ?></span>
                 <select name="ds_day_<?php echo $index+1; ?>" class="schedule">
                     <option value="Mon" <?php echo $man_d["delivery_day"]=='Mon' ? "selected" : ""; ?>>월요일</option>
