@@ -23,14 +23,6 @@ if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
 $delivery_id = $_POST["delivery_id"];
 /*배송지*/
 $specific_address = $_POST["specific_address"];
-/*담당지점*/
-$district_1_ary = array("새롬동", "다정동", "어진동", "나성동", "한솔동");
-$district_2_ary = array("종촌동", "고운동", "아름동", "도담동");
-/*if (in_array($specific_address,$district_1_ary)){
-    $managing_store = "1호점";
-} elseif(in_array($specific_address,$district_2_ary)){
-    $managing_store = "2호점";
-}*/
 /*district*/
 $district_ary = array("새롬동", "다정동", "어진동", "나성동", "한솔동", "종촌동", "고운동", "아름동", "도담동");
 $district_index=0;
@@ -47,9 +39,22 @@ if ( strpos($district_1_str, $district_str) !== FALSE ){
     $managing_store = "2호점";
 }
 /*배송스케줄*/
-$delivery_day = $_POST["ds_day"];
-$delivery_time = $_POST["ds_time"];
+$index = $_POST["index"];
 
+for ($i=0; $i<=$index; ++$i){
+    ${"delivery_day".$i} = $_POST["ds_day"."_".$i];
+    ${"delivery_time".$i} = $_POST["ds_time"."_".$i];
+}
+
+/*
+ds_day_1
+ds_day_2
+
+ds_time_1
+ds_time_2
+*/
+
+/*
 echo $customer_name .
 $customer_contact.
 $customer_age.
@@ -62,6 +67,7 @@ $district.
 $managing_store;
 if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
 } else{echo $team_id . $team_name ;}
+*/
 
 //쿼리 (값 추가)
 $query1 = "UPDATE customer AS c, team AS t, delivery AS d, delivery_schedule AS ds 
@@ -78,9 +84,10 @@ if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
                 t.team_name='$team_name',";
 }
 
+//@@@@@@@@@@delivery_day, time@@@@@@@@@@@@@@
 $query3 = "d.specific_address='$specific_address',
             d.district='$district',
-            ds.delivery_day='$delivery_day',
+            ds.delivery_day='$delivery_day', 
             ds.delivery_time='$delivery_time'
             WHERE c.customer_id='$customer_id'";
 
@@ -93,7 +100,7 @@ if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
 $query5 = " AND d.delivery_id='$delivery_id' AND ds.delivery_id='$delivery_id'";
 
 $query = $query1 . $query2 . $query3 . $query4 . $query5;
-
+print_r($query);
 //$result = $connect->query($query) or die($connect->errorInfo());
 
 if ( !$result ){ /*참이 아니면 전부*/
