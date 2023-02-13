@@ -29,7 +29,8 @@ $row_t = $result_t->fetch();
 $dID = $man["delivery_id"];
 $query_d = "SELECT *
             FROM delivery_schedule
-            WHERE delivery_id='$dID'";
+            WHERE delivery_id='$dID'
+            ORDER BY delivery_schedule_id ASC";
 $result_d = $connect->query($query_d) or die($connect->errorInfo());
 
 ?>

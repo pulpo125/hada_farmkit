@@ -41,6 +41,7 @@ if ( strpos($district_1_str, $district_str) !== FALSE ){
 /*배송스케줄*/
 $index = $_POST["index"];
 for ($i=1; $i<=$index; ++$i){
+    ${"dsID_".$i} = $_POST["delivery_schedule_id_".$i];
     ${"delivery_day_".$i} = $_POST["ds_day_".$i];
     ${"delivery_time_".$i} = $_POST["ds_time_".$i];
 }
@@ -84,39 +85,52 @@ if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
                 t.team_name='$team_name',";
 }
 
-//@@@@@@@@@@delivery_day, time@@@@@@@@@@@@@@
 $query3 = "d.specific_address='$specific_address',
-            d.district='$district',
-            ds.delivery_day='$delivery_day', 
-            ds.delivery_time='$delivery_time'
-            WHERE c.customer_id='$customer_id' AND d.delivery_id='$delivery_id' AND ds.delivery_id='$delivery_id'";
+            d.district='$district', ";
 
-if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
-    $query4 = "";
-} else{
-    $query4 = " AND t.team_id='$team_id'";
+$index = $_POST["index"];
+for ($i=1; $i<=$index; $i++){
+    ${"dsID_".$i} = $_POST["delivery_schedule_id_".$i];
+    ${"delivery_day_".$i} = $_POST["ds_day_".$i];
+    ${"delivery_time_".$i} = $_POST["ds_time_".$i];
 }
 
+if($i===2){ /*ds day,time 값이 1개*/
+    $query4 = "ds.delivery_day='$delivery_day_1', 
+            ds.delivery_time='$delivery_time_1' ";
+} elseif ($i===3){ /*ds day,time 값이 2개*/
+    $query4 = "ds.delivery_day = CASE
+                WHEN ds.delivery_schedule_id = '$dsID_1' THEN '$delivery_day_1'
+                WHEN ds.delivery_schedule_id = '$dsID_2' THEN '$delivery_day_2'
+                ELSE ds.delivery_day END,
+             ds.delivery_time = CASE
+                WHEN ds.delivery_schedule_id = '$dsID_1' THEN '$delivery_time_1'
+                WHEN ds.delivery_schedule_id = '$dsID_2' THEN '$delivery_time_2'
+                ELSE ds.delivery_time END ";
+} elseif ($i===4){ /*ds day,time 값이 3개*/
+    $query4 = "ds.delivery_day = CASE
+                WHEN ds.delivery_schedule_id = '$dsID_1' THEN '$delivery_day_1'
+                WHEN ds.delivery_schedule_id = '$dsID_2' THEN '$delivery_day_2'
+                WHEN ds.delivery_schedule_id = '$dsID_3' THEN '$delivery_day_3'
+                ELSE ds.delivery_day END,
+             ds.delivery_time = CASE
+                WHEN ds.delivery_schedule_id = '$dsID_1' THEN '$delivery_time_1'
+                WHEN ds.delivery_schedule_id = '$dsID_2' THEN '$delivery_time_2'
+                WHEN ds.delivery_schedule_id = '$dsID_3' THEN '$delivery_time_3'
+                ELSE ds.delivery_time END ";
+}
 
-/*
-UPDATE customer AS c, team AS t, delivery AS d, delivery_schedule AS ds
-SET c.customer_name='서도현', c.customer_contact='062-689-7948', c.customer_age='40', c.customer_gender='1', c.customer_menu='서도현의 식단',
-    d.specific_address='세종특별자치시 나성동 73', d.district='나성동',
-    ds.delivery_day = case
-    when ds.delivery_schedule_id = 12 then 'Mon'
-        when ds.delivery_schedule_id = 13 then 'Wed'
-        else ds.delivery_day end,
-    ds.delivery_time = case
-    when ds.delivery_schedule_id = 12 then '08:00'
-        when ds.delivery_schedule_id = 13 then '09:00'
-        else ds.delivery_time end
-WHERE c.customer_id='17' AND d.delivery_id='7' AND ds.delivery_id='7'*/
+$query5 = "WHERE c.customer_id='$customer_id' AND d.delivery_id='$delivery_id' AND ds.delivery_id='$delivery_id'";
 
+if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
+    $query6 = "";
+} else{
+    $query6 = " AND t.team_id='$team_id'";
+}
 
-
-$query = $query1 . $query2 . $query3 . $query4;
-print_r($query);
-//$result = $connect->query($query) or die($connect->errorInfo());
+$query = $query1 . $query2 . $query3 . $query4 . $query5 . $query6;
+//print_r($query);
+$result = $connect->query($query) or die($connect->errorInfo());
 
 if ( !$result ){ /*참이 아니면 전부*/
     echo "회원가입 오류입니다. 다시 시도해주세요";

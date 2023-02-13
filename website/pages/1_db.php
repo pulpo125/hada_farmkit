@@ -123,14 +123,14 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                 <table>
 
                     <colgroup>
-                        <col width="50px">
-                        <col width="70px">
-                        <col width="100px">
-                        <col width="150px">
-                        <col width="190px">
-                        <col width="260px">
-                        <col width="80px">
-                        <col width="160px">
+                        <col width="4%">
+                        <col width="5%">
+                        <col width="8%">
+                        <col width="12%">
+                        <col width="15%">
+                        <col width="26%">
+                        <col width="5%">
+                        <col width="10%">
                         <col width="220px">
                     </colgroup>
 
