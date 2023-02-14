@@ -95,7 +95,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
                 <h1>DATABASE</h1>
             </div>
             <div>
-                <h3>고객 데이터베이스</h3>
+                <h3>고객 정보를 확인하고, 상세보기를 눌러 수정 및 삭제를 하세요</h3>
             </div>
         </header>
 
