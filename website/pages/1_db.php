@@ -92,7 +92,7 @@ $result_list = $connect->query($query_list) or die($connect->errorInfo());
         <!--header-->
         <header>
             <div>
-                <h1>DataBase</h1>
+                <h1>DATABASE</h1>
             </div>
             <div>
                 <h3>고객 데이터베이스</h3>

@@ -138,6 +138,8 @@ if ( !$result ){ /*참이 아니면 전부*/
 }
 ?>
 
+<title>회원정보 수정 완료</title>
+
 <script>
     alert("회원정보 수정이 정상적으로 처리되었습니다");
     location.href = "1_db.php?managing_store=<?php echo $managing_store; ?>";

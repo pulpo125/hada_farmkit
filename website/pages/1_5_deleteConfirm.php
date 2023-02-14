@@ -50,7 +50,7 @@ if ( !$result_d ){ /*참이 아니면 전부*/
 }
 ?>
 
-<title>회원정보 삭제확인</title>
+<title>회원정보 삭제 완료</title>
 
 <script>
     alert("회원정보가 삭제되었습니다");

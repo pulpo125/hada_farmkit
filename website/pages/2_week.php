@@ -30,7 +30,7 @@ $day_today = ($day[date('w', strtotime($date))]);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Week</title>
+    <title>WEEK</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/2_week.css">
 </head>
@@ -77,7 +77,7 @@ $day_today = ($day[date('w', strtotime($date))]);
         <!--header-->
         <header>
             <div>
-                <h1>Week</h1>
+                <h1>WEEK</h1>
             </div>
             <div>
                 <h3>이번 주 주문 개수를 확인하세요</h3>
