@@ -65,9 +65,10 @@
 
 2-3. 통계  
 * Dashboard
-<img width="80%" src="https://user-images.githubusercontent.com/118874524/219835090-89baa0ea-763c-4eb2-8d2f-a75d9f765490.PNG"/>   
-<br/><br/><br/>
+<img width="80%" src="https://user-images.githubusercontent.com/118874524/219835090-89baa0ea-763c-4eb2-8d2f-a75d9f765490.PNG"/>  
+  
+  
 ---  
-
+  
 ### :hammer:Tools
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat &logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat &logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/Tableau-E97627?style=flat&logo=Tableau&logoColor=white"/> <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"/>
