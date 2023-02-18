@@ -51,22 +51,23 @@
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835034-7ca62d55-769b-4fb3-8773-e01893c8bebf.PNG"/>
 
 **2. 관리사이트**  
-2-1. 고객 관리(DB)  
+2-1. 고객 관리  
+* DB  
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835055-fa36425b-c55f-4da1-9ff2-884396a76f7c.png"/>
 
-2-2. 배송 관리
-- 주별(week)  
+2-2. 배송 관리  
+* Week  
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835069-98ac268a-1585-4b79-b78a-85c1ee227266.PNG"/>  
   
-
-- 일별(today)  
+* Today  
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835077-24ce914e-08d8-4018-9fbd-7e10ccc6e3b4.PNG"/>
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835083-fc8e5df3-0678-45fa-83a9-8e5c7a8822da.PNG"/>  
 
-2-3. 통계(dashboard) 
+2-3. 통계  
+* Dashboard
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835090-89baa0ea-763c-4eb2-8d2f-a75d9f765490.PNG"/>   
 <br/><br/><br/>
 ---  
-<br/><br/>
+
 ### :hammer:Tools
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat &logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat &logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/Tableau-E97627?style=flat&logo=Tableau&logoColor=white"/> <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"/>
