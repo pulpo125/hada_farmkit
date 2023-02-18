@@ -66,8 +66,13 @@
 2-3. 통계  
 * Dashboard
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835090-89baa0ea-763c-4eb2-8d2f-a75d9f765490.PNG"/>  
-  
-  
+
+<br/><br/>
+## fake data 만들기  
+
+:arrow_lower_right: [farmkit_fake_data](https://colab.research.google.com/drive/1s3bbl2-cJ88MTB1bBbMP2M0V7emZCB5d?usp=sharing)  
+<br/><br/>  
+
 ---  
   
 ### :hammer:Tools
