@@ -3,14 +3,16 @@
 
 **Salad Delivery Management System**
 
+
 ## 기획 의도
 
 
 𝙍𝙚𝙖𝙡 𝙛𝙧𝙚𝙨𝙝, 𝙀𝙫𝙚𝙧𝙮𝙙𝙖𝙮 𝙛𝙖𝙧𝙢𝙠𝙞𝙩
 
-   세종시에 위치한 **‘팜킷샐러드’**는 **샐러드 개별맞춤식단 정기 배송 서비스**를 제공하는 기업으로, 서비스 초기에 수요가 많았지만 세종시 특성상 공무원들이 많아 고객 별, 시간대 별로 주문이 집중되는 현상 때문에 배송 루트상의 문제가 발생하여 정기 배송 서비스를 중단했다. 서비스 중단 이후 제한지역 내에서만 배송하는 방법을 통해 배송문제를 해결하려 했지만, 제한지역 밖에서는 배송이 불가하다는 문제점이 남게 되었다. 
+   세종시에 위치한 **팜킷샐러드**는 **샐러드 개별맞춤식단 정기 배송 서비스**를 제공하는 기업으로, 서비스 초기에 수요가 많았지만 세종시 특성상 공무원들이 많아 고객 별, 시간대 별로 주문이 집중되는 현상 때문에 배송 루트상의 문제가 발생하여 정기 배송 서비스를 중단했다. 서비스 중단 이후 제한지역 내에서만 배송하는 방법을 통해 배송문제를 해결하려 했지만, 제한지역 밖에서는 배송이 불가하다는 문제점이 남게 되었다. 
 
    이를 해결하기 위해, **팀별 배송 제도**를 도입하고 이를 관리할 수 있는 **배송 관리 시스템**을 구축하여 해당 기업이 **세종시 전체에 배송 서비스를 제공**할 수 있도록 하고자 한다.  
+
 
 ## 세부 사항
 
@@ -29,3 +31,41 @@
 - 1 호점 관리 구역 : 새롬동 , 다정동 , 어진동 , 나성동 , 한솔동
 - 2 호점 관리 구역 : 종촌동 , 고운동 , 아름동 , 도담동
 (관리 구역은 각 팜킷 샐러드 지점과의 거리로 나눔)
+
+
+## ERD
+<img width="80%" src="https://user-images.githubusercontent.com/118874524/219833067-6ec1f382-d0c3-4e41-9289-383222203c31.PNG"/>
+
+
+## Menu Structure
+<img width="80%" src="https://user-images.githubusercontent.com/118874524/219832803-72479b60-e616-4706-b614-d6642a0c7eb9.png"/>
+
+
+## 레이아웃 시안
+
+**1. 주문폼**
+
+<img width="80%" src="https://user-images.githubusercontent.com/118874524/219835034-7ca62d55-769b-4fb3-8773-e01893c8bebf.PNG"/>
+
+**2. 관리사이트**
+
+2-1. 고객 관리(DB)
+
+<img width="80%" src="https://user-images.githubusercontent.com/118874524/219835055-fa36425b-c55f-4da1-9ff2-884396a76f7c.png"/>
+
+2-2. 배송 관리
+
+- 주별(week)
+
+  <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835069-98ac268a-1585-4b79-b78a-85c1ee227266.PNG"/>
+
+
+- 일별(today)
+
+  <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835077-24ce914e-08d8-4018-9fbd-7e10ccc6e3b4.PNG"/>
+  <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835083-fc8e5df3-0678-45fa-83a9-8e5c7a8822da.PNG"/>
+
+
+2-3. 통계 - 대시보드
+
+<img width="80%" src="https://user-images.githubusercontent.com/118874524/219835090-89baa0ea-763c-4eb2-8d2f-a75d9f765490.PNG"/>
