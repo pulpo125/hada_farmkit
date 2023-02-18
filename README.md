@@ -63,15 +63,10 @@
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835077-24ce914e-08d8-4018-9fbd-7e10ccc6e3b4.PNG"/>
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835083-fc8e5df3-0678-45fa-83a9-8e5c7a8822da.PNG"/>  
 
-
-2-3. 통계 - 대시보드  
+2-3. 통계(dashboard) 
 <img width="80%" src="https://user-images.githubusercontent.com/118874524/219835090-89baa0ea-763c-4eb2-8d2f-a75d9f765490.PNG"/>   
 <br/><br/><br/>
 ---  
 <br/><br/>
-### :hammer:Tools:hammer:
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat &logo=CSS3&logoColor=white"/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat &logo=JavaScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/Tableau-E97627?style=flat&logo=Tableau&logoColor=white"/>
-<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"/>
+### :hammer:Tools
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat &logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat &logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/Tableau-E97627?style=flat&logo=Tableau&logoColor=white"/> <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"/>
