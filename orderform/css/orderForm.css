@@ -1,0 +1,113 @@
+/* common */
+* {padding: 0; margin: 0; box-sizing: border-box;}
+html,body {width: 100%; height: 100%; padding: 0; margin: 0; font-size: 15px;}
+table {border-collapse: collapse;}
+ul,li {list-style-type: none;}
+a {text-decoration: none; color: inherit;}
+h1, h2, h3, p { margin: 0; }
+.clearfix:after { clear: both; content: " "; display: table; }
+.wrapper { max-width: 1024px; width: 90%; margin: 0 auto; }
+.wrapper_box{ margin: 20px 0; }
+
+/*font*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+body { font-family: 'Noto Sans KR', sans-serif; }
+
+/* Header */
+header {
+    color: white;
+    background: rgb(39, 176, 110);
+    padding: 20px 0;
+}
+
+@media only screen and (min-width: 768px) {
+    header h2 {
+        float: left;
+        font-size: 2rem;
+    }
+}
+
+
+/* Main */
+main {
+    padding: 20px 0;
+}
+
+h3{
+    color: rgb(39, 176, 110);
+    padding-bottom: 7px;
+    border-bottom: solid;
+    margin-bottom: 10px;
+}
+
+.notice{
+    margin-top: 10px;
+    color: red;
+    font-weight: bolder;
+}
+
+.phone { width: 50px; }
+
+input, select{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 3px 0;
+}
+
+.fieldBox{
+    border: 2px solid rgb(39, 176, 110);
+    border-color: rgb(39, 176, 110);
+    padding: 10px;
+    margin: 20px 0;
+}
+
+.customer_num{font-size: 16px; font-weight: bold; padding-bottom: 5px; color: #27B06E; }
+
+.notice_menu{ text-align: center; margin-top: 5px; }
+
+hr{
+    border : 0px;
+    border-top: 2px dashed gray;
+    width: 41%;
+    float: left;
+    margin-top: 10px;
+}
+
+#deliverySchedule li{
+    display: inline-block;
+}
+
+/*Btn*/
+button{ margin: 0 auto;
+    display: block;
+    background:  rgb(39, 176, 110);
+    color: white;
+    border: none;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+button:hover {
+    background: #F4D03F;
+}
+
+.register_btn{
+    display: inline;
+    float: right;
+    margin-right: 5px;
+    padding: 2px;
+}
+
+/* Footer */
+footer {
+    color: white;
+    background:  rgb(39, 176, 110);
+    padding: 20px 0;
+    font-weight: bold;
+}
+
+footer p{
+    color: white;
+}
