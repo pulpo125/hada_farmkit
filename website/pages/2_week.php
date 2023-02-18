@@ -9,7 +9,7 @@ include "DBcon.php";
 $managing_store = $_GET["managing_store"];
 
 //common쿼리 생성 (루프 실행하며 WHERE 뒷부분 덧붙여서 사용)
-$query_common = "SELECT COUNT(DISTINCT c.customer_id), /*COUNT(DISTINCT d.delivery_id), */COUNT(DISTINCT ds.delivery_schedule_id)
+$query_common = "SELECT COUNT(DISTINCT c.customer_id), COUNT(DISTINCT ds.delivery_schedule_id)
                                         FROM delivery d
                                         LEFT JOIN customer c ON d.delivery_id=c.delivery_id
                                         LEFT JOIN delivery_schedule ds ON d.delivery_id=ds.delivery_id

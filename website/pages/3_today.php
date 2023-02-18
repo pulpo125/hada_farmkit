@@ -9,7 +9,7 @@ $managing_store = $_GET["managing_store"];
 
 /* timeInfo */
 $weekday = date('D');
-$query  = "SELECT ds.delivery_id as delivery_id, delivery_time, COUNT(delivery_time) AS count_time
+$query  = "SELECT ANY_VALUE(ds.delivery_id) as delivery_id, delivery_time, COUNT(delivery_time) AS count_time
 FROM delivery_schedule ds
     left join delivery d on ds.delivery_id = d.delivery_id
     left join managing_district md on d.district = md.district_name

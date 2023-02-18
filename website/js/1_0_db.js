@@ -1,21 +1,4 @@
 /*1_1_detail*/
-/*
-function popOpen() {
-    var modalPop = $('.modal-wrap');
-    var modalBg = $('.modal-bg');
-    $(modalPop).show();
-    $(modalBg).show();
-}
-
-function popClose() {
-    var modalPop = $('.modal-wrap');
-    var modalBg = $('.modal-bg');
-    $(modalPop).hide();
-    $(modalBg).hide();
-}
-*/
-
-
 function show() {
     document.querySelector(".background").className = "background show";
 }

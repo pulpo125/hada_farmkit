@@ -1,13 +1,10 @@
-<!--PDO를 이용한 mysql과 php의 연결-->
-<!--https://e2xist.tistory.com/570-->
-
 <?php
 //0. 설정
 $servername="localhost";
-$dbname="hada_farmkit"; /*DB이름*/
-$user="root";
-$password="";
-$port = '3306';
+$dbname="hada"; /*DB이름*/
+$user="hada";
+$password="hayoungdaeun1!";
+$port = '21';
 $charset = 'utf8';
 
 //1. DB 연결

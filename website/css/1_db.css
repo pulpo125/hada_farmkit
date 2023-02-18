@@ -1,6 +1,3 @@
-/*상단 header 고정 ????*/
-/*#mainPgWrapper header{position: fixed;}*/
-
 /*검색바*/
 #searchBox{text-align: right; margin-bottom: 15px;}
 #searchSelect{display: inline-block; width: 80px; height: 40px; padding: 2px 4px; border: solid 2px #27B06E; border-radius: 3px; color: #27B06E; font-size: 16px;}
@@ -8,7 +5,6 @@
 #searchBlank{display: inline-block; width: 240px; height: 40px; margin-left: 5px; border: solid 2px #27B06E; border-radius: 3px;}
 #searchKey{display: inline-block; width: 200px; height: 30px; padding: 3px 5px; border: none; font-size: 16px;}
 #searchKey:focus{outline: none;}
-/*#searchKey{display: inline-block; width: 200px; height: 30px; padding: 3px 10px; margin-left: 5px; border: solid 2px #27B06E; border-radius: 3px;}*/
 #searchBtn{display: inline-block; padding: 2px 5px 0 0; border: none; color: #27B06E; background-color: #FFFFFF; font-size: 20px; cursor: pointer;}
 
 /*테이블*/

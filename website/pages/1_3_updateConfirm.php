@@ -46,30 +46,6 @@ for ($i=1; $i<=$index; ++$i){
     ${"delivery_time_".$i} = $_POST["ds_time_".$i];
 }
 
-
-/*
-delivery_day_1
-delivery_day_2
-
-delivery_time_1
-delivery_time_2
-*/
-
-/*
-echo $customer_name .
-$customer_contact.
-$customer_age.
-$customer_gender.
-$customer_menu.
-$specific_address.
-$delivery_day.
-$delivery_time.
-$district.
-$managing_store;
-if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
-} else{echo $team_id . $team_name ;}
-*/
-
 //쿼리 (값 추가)
 $query1 = "UPDATE customer AS c, team AS t, delivery AS d, delivery_schedule AS ds 
             SET c.customer_name='$customer_name',
@@ -129,7 +105,6 @@ if ( empty($_POST["team_id"]) AND empty($_POST["team_name"])){
 }
 
 $query = $query1 . $query2 . $query3 . $query4 . $query5 . $query6;
-//print_r($query);
 $result = $connect->query($query) or die($connect->errorInfo());
 
 if ( !$result ){ /*참이 아니면 전부*/

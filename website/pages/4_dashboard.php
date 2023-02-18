@@ -5,7 +5,6 @@ include "DBcon.php";
  * @var PDOStatement $connect
  */
 
-//$managing_store = $_GET["managing_store"];
 $managing_store = '전체';
 
 ?>
