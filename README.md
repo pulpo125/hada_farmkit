@@ -1,4 +1,6 @@
 # 🚚 Salad Delivery Management System
+### 🧑‍🤝‍🧑 Go to Team Notion
+[<img src="https://img.shields.io/badge/notion_HADA-000000?style=flat-square&logo=github&logoColor=white"/>](https://habang125.notion.site/HADA-b71603cb7efd4524a1d971e83dd5ba19?pvs=4) ▶️ 상세한 프로젝트 내용이 궁금하다면 방문해주세요.
 
 ## 📂 프로젝트 개요
 ```
