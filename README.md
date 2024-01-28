@@ -1,6 +1,3 @@
-### :arrow_lower_right: [HADA 사이트 바로가기](http://hada.dothome.co.kr)  
-<br/>
-
 # Project Title  
 **Salad Delivery Management System**  
 <br/><br/>
@@ -15,8 +12,6 @@
 
 
 ## 세부 사항
-
-
 **팀(Team) 배송 제도**
 - 팀은 3명 이상의 개인으로 구성된 팀으로, 개별 맞춤 식단이지만 **하나의 배송지에 배송** 되는 것이 가장 큰 특징이다.
 - 팀으로 신청을 하면 제한 지역 밖의 배송지라도 배송이 가능하다.
@@ -70,7 +65,7 @@
 <br/><br/>
 ## fake data 만들기  
 
-:arrow_lower_right: [farmkit_fake_data](https://colab.research.google.com/drive/1s3bbl2-cJ88MTB1bBbMP2M0V7emZCB5d?usp=sharing)  
+:arrow_lower_right: [farmkit_fake_data](https://colab.research.google.com/drive/1UyEHKpZDlHQ91Gvv09-sgnDMF4xz1JwS?usp=sharing)  
 <br/><br/>  
 
 ---  
